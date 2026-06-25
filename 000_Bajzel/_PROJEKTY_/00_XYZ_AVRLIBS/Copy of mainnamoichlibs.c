@@ -1,0 +1,374 @@
+/*
+ * 01_ARRAY_PINS main.c
+ *
+ *	    Autor: Dπbrowski Tomasz
+ *  Stworzono: 2016-08-01
+ *     Edycja: 08:28:46
+ */
+
+
+
+#include <avr/io.h>
+#include <avr/pgmspace.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+#include <util/delay.h>
+
+#include "ADDS/pins.h"
+#include "ADDS/tools.h"
+#include "HD44780/hd44780.h"
+#include "PCD8544/pcd8544.h"
+#include "DS18xxx/ds18xxx.h"
+
+//#include "T6963/t6963c.h"
+//#include "T6963/graphic.h"
+
+//#include "T6963/t6963.h"
+//#include <util/twi.h>
+//#include "I2C/i2c.h"
+//#include "I2C/TWI_routines.h"
+
+
+//
+//
+////************************** PROGRAM W£AåCIWY - WYKORZYSTANIE ******************
+//
+//
+//
+//
+THD44780 wyswT[]=
+{
+//			{16,2,G2O(PA,7)},
+//			{16,2,G2O(PA,6)},
+//			{16,4,G2O(PA,5)},
+//			{20,4,G2O(PA,4)},
+			{16,2,G2O(PA,7)}
+};
+
+TPCD8544 wyswG[]=
+{
+
+			{84,48,G2O(PB, 4)}
+
+};
+
+
+uint8_t nrLed;
+uint16_t memo;
+char buf[10];
+
+#define blinkLED G2O(PC,0)
+#define T_LEDON 300
+#define T_BLINK 500  // czas pomiÍdzy przejúciami pÍtli g≥Ûwnej/miganiem diody
+#define T_INTRO 4500 // czas pomiÍdzy ekranami intro
+#define INTRO 1
+
+//
+//#define debug
+//
+const PROGMEM uint8_t HD44780_CHARSPLW[64]   =
+{
+	0x0E, 0x11, 0x11, 0x11, 0x1F, 0x11, 0x11, 0x02, /* \0 = • */
+	0x02, 0x0E, 0x15, 0x10, 0x10, 0x11, 0x0E, 0x00, /* \1 = ∆ */
+	0x1F, 0x10, 0x10, 0x1E, 0x10, 0x10, 0x1F, 0x02, /* \2 =   */
+	0x10, 0x12, 0x14, 0x18, 0x10, 0x10, 0x1F, 0x00, /* \3 = £ */
+	0x02, 0x15, 0x19, 0x15, 0x13, 0x11, 0x11, 0x00, /* \4 = — */
+	0x02, 0x0E, 0x15, 0x11, 0x11, 0x11, 0x0E, 0x00, /* \5 = ” */
+	0x04, 0x0E, 0x10, 0x0E, 0x01, 0x11, 0x0E, 0x00, /* \6 = å */
+	0x04, 0x1F, 0x09, 0x02, 0x04, 0x08, 0x1F, 0x00  /* \7 =èØ */
+/*	0x1F, 0x01, 0x02, 0x1F, 0x08, 0x10, 0x1F, 0x00    \7 = Ø */
+/*	0x04, 0x1F, 0x09, 0x02, 0x04, 0x08, 0x1F, 0x00,        è */
+};
+
+
+
+
+uint8_t znak[]  =
+		  {
+				  0b00100,
+				  0b01010,
+				  0b01010,
+				  0b01110,
+				  0b01110,
+				  0b11111,
+				  0b11111,
+				  0b01110
+		  };
+
+
+uint8_t ids_count=0;
+uint8_t ID[8];
+uint8_t notePad[2];
+
+//uint8_t  a, b, tt;
+
+
+//
+//int8_t readtemp(uint8_t *ID, uint8_t PARASITE)
+//{
+//	DS18xxx_CONVERT(ID, PARASITE);
+//
+//uint16_t tconv=25;
+//while (tconv--)
+//{
+//	uint8_t tmp=0; //zmienna tymczasowa do rolowania pionowego
+//	tmp=znak[0];
+//	for(uint8_t i=0;i<8;i++)
+//	{
+////		znak[i]=(znak[i]>>1)|(znak[i]<<4); //scroll poziomy z lewa na prawo
+//		znak[i]=znak[i+1]; //scroll pionowy
+//	}
+//	znak[7]=tmp;
+//		HD44780_CUSTOMCHAR(0,znak);
+//	_delay_ms(30);
+//}
+////   _delay_ms(750);
+// 	return DS18xxx_READSCRATCH(ID, EXT_POWER);
+// }
+
+
+
+
+uint8_t lcd,x,y;
+
+void movecursor(uint8_t LEN)
+{
+	y++;
+	if (y>=wyswT[lcd].LIN)
+		{
+		y=0;
+		if (((LEN+LEN-1)+x)<(wyswT[lcd].KOL))
+		{
+		x+=LEN;
+		}
+		else
+		{
+		lcd++;
+		if (lcd>=SIZE(wyswT)) lcd=0;
+		HD44780_NR(lcd,wyswT);
+			HD44780_CUSTOMCHAR(0,znak);
+		x=0;
+		}
+
+		}
+HD44780_XY(x,y);
+}
+
+int main(void)  //rozpoczynamy
+{
+//
+//	T6963_INIT();
+//	T6963_CLR();
+//	T6963_CLRGEN();
+//	T6963_GFXCLR();
+//	T6963_XY8(0,0);
+//
+//	T6963_TEXT("I mamy obraz");
+//	T6963_TEXT("I mamy obraz");
+//	T6963_TEXT("I mamy obraz");
+//	T6963_TEXT("I mamy obraz");
+
+	OUTPUT(blinkLED);
+	LOW(blinkLED);
+//
+//	DDRD=0xff;
+//	PORTD=0xff;
+
+	HD44780_START(wyswT,SIZE(wyswT));
+	HD44780_NR(0,wyswT);
+	HD44780_CUSTOMCHARSET(HD44780_CHARSPLW);
+
+	PCD8544_START(wyswG,SIZE(wyswG));
+
+
+//	PCD8544_INIT();
+//	PCD8544_TEXT("JESTEM",normal);
+    _delay_ms(500);
+	for(uint8_t nrLcd=0;nrLcd<SIZE(wyswG);nrLcd++) //ustawiamy nÛønki AVR na wyjúcia
+		{
+			PCD8544_NR(nrLcd,wyswG);
+//			PCD8544_HOME();
+			PCD8544_TEXT("DUPA_",bold);
+			PCD8544_CHAR(nrLcd+48, normal);
+		}
+
+	for(uint8_t nrLcd=0;nrLcd<SIZE(wyswG);nrLcd++) //ustawiamy nÛønki AVR na wyjúcia
+			{
+				PCD8544_NR(nrLcd,wyswG);
+	//			PCD8544_HOME();
+				PCD8544_TEXT("ALA_",bold);
+				PCD8544_CHAR(nrLcd+48, normal);
+			}
+_delay_ms(2000);
+PCD8544_CLR();
+PCD8544_HOME();
+
+//	HD44780_XY(0,0);
+//	HD44780_TEXT("01234567890123456789");
+//  HD44780_XY(0,1);
+//	HD44780_TEXT("01234567890123456789");
+//	HD44780_XY(0,2);
+//	HD44780_TEXT("01234567890123456789");
+//	HD44780_XY(0,3);
+//	HD44780_TEXT("01234567890123456789");
+//	while(1);
+//
+
+
+#if INTRO == 1
+	HD44780_XY(2,0);
+	HD44780_TEXT("uC-");
+    HD44780_TEXT(strupr(STRING(MCU))); //HD44780_CHAR('0'+strlen(STRING(MCU)));
+    HD44780_XY(2,1);
+    HD44780_TEXT("@ ");
+	HD44780_TEXT(STRING(F_CPU));
+	HD44780_TEXT(" Hz");
+	_delay_ms(T_INTRO);
+	HD44780_XY(0,2);
+	HD44780_TEXT("RAM:");
+	itoa(RAMEND-RAMSTART,buf,10);
+	HD44780_TEXT(buf);
+	HD44780_TEXT(" bytes");
+	HD44780_XY(0,3);
+	HD44780_CHAR('0'+SIZE(wyswT));
+	HD44780_TEXT(strupr(" wy\x06wietlacz|ey"));
+//	itoa(get_mem_unused(),buf,10);
+//	itoa(RAMEND-RAMSTART,buf,10);
+//	HD44780_TEXT(buf);
+	_delay_ms(T_INTRO);
+	HD44780_CLR();
+	HD44780_CHAR('v');
+	HD44780_TEXT(STRING(__DATE__));
+	HD44780_XY(0,1);
+	HD44780_TEXT(STRING(__TIME__));
+	_delay_ms(T_INTRO);
+	HD44780_NR(0,wyswT);
+	HD44780_CLR();
+#endif
+#if INTRO == 2
+#
+	uint8_t  address, nDevices=0;
+	twi_init(20);
+	for(address = 1; address <= 0x7F; address++ )
+	{
+//		HD44780_CHAR(NIBBLE2HEX(address>>4));
+//		HD44780_CHAR(NIBBLE2HEX(address&0x0F));
+
+		twistart();
+					twiwrite(SLA_W(address));
+
+					if(TW_STATUS == TW_MT_SLA_ACK )
+					{
+						movecursor(4);
+						nDevices++;
+						HD44780_TEXT("0x");
+						HD44780_CHAR(NIBBLE2HEX(address>>4));
+						HD44780_CHAR(NIBBLE2HEX(address&0x0F));
+					}
+					twistop();
+//
+//		I2C_START();
+//		HD44780_CHAR(NIBBLE2HEX(address>>4));
+//					HD44780_CHAR(NIBBLE2HEX(address&0x0F));
+//
+//		I2C_WRITE(SLA_W(address));
+//		if(TW_STATUS == TW_MT_SLA_ACK )
+//		{
+//         nDevices++;
+//         HD44780_CHAR('0'+nDevices);
+//         HD44780_TEXT(":");
+//		 HD44780_CHAR(NIBBLE2HEX(address>>4));
+//		 HD44780_CHAR(NIBBLE2HEX(address&0x0F));
+//		}
+//		I2C_STOP();
+	_delay_ms(50);
+	}
+	HD44780_CHAR('0'+nDevices);
+	_delay_ms(T_INTRO);
+#endif
+
+
+
+	while(1) //pÍtla nieskoÒczona
+	{
+
+		ids_count=0;
+		OW_RESETSEARCH();
+			 while(OW_SEARCH(ID) == OW_OK)
+			  {
+				 uint16_t temp = DS18xxx_CONVERT(ID, DS18xxx_PARASITE(ID));
+				 //symulacja
+//				 notePad[1]=0xFE;
+//				 notePad[0]=0x6F;
+				 //uint16_t temp =DS18xxx_CONVERT(ID, notePad, DS18xxx_PARASITE(ID));
+
+
+				 ids_count++;
+			   for (uint8_t i=0;i<8;i++)
+			   		 {
+				   	   	 HD44780_CHAR(NIBBLE2HEX(ID[i]>>4));
+			   			 HD44780_CHAR(NIBBLE2HEX(ID[i]&0x0F));
+			   			if (i)
+			   			{
+			   			PCD8544_CHAR(NIBBLE2HEX(ID[i]>>4),lead1);
+			   			PCD8544_CHAR(NIBBLE2HEX(ID[i]&0x0F),lead1);
+			   			}
+			   		 }
+
+			   uint8_t crc=OW_CRC8(ID,7);
+			   movecursor(16);
+			   HD44780_CHAR(NIBBLE2HEX(crc>>4));
+			   HD44780_CHAR(NIBBLE2HEX(crc&0x0F));
+			   HD44780_CHAR(0);
+			   HD44780_TEXT("T");
+			   HD44780_CHAR('0'+ids_count);
+			   HD44780_TEXT(":");
+			   HD44780_CHAR(' '+13*DS_TMPMINUS(temp));
+			   itoa(DS_TMPINT(temp),buf,10);
+			   HD44780_TEXT(buf);
+			   HD44780_TEXT(".");
+			   itoa(DS_TMPFRAC(temp),buf,10);
+			   HD44780_TEXT(buf);
+			   HD44780_TEXT("P");
+			   HD44780_CHAR('0'+DS18xxx_PARASITE(ID));
+			   movecursor(16);
+
+			  }
+
+
+//		 HD44780_TEXT("A");
+	_delay_ms(T_BLINK);
+//PORTD^=0xff;
+					   TOGGLE(blinkLED);
+
+
+
+
+
+//		for(nrLed=0;nrLed<SIZE(wysw);nrLed++)
+//			{
+//			HD44780_NR(nrLed,wysw);
+//			HD44780_XY(3,0);
+//			HD44780_TEXT(("WY\x06WIETLACZ NR "));
+//			HD44780_CHAR('0'+nrLed);
+//			HD44780_XY(0,1);
+//			HD44780_CHAR('0'+nrLed);
+//			HD44780_XY(0,2);
+//			HD44780_CHAR('0'+nrLed);
+//			HD44780_XY(0,3);
+//			HD44780_CHAR('0'+ids_count);
+//			HD44780_HOME();
+//			int8_t temp=readtemp();
+//			//uint8_t temp= OW_RESETPULSE();
+//			itoa(temp,buf,10);
+//			HD44780_TEXT(buf);
+////			HD44780_CHAR('0'+OW_RESETPULSE());
+//			_delay_ms(500);
+//			}
+
+
+	}
+}
+
+

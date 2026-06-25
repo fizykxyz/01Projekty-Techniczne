@@ -1,0 +1,830 @@
+
+002_XYZ_AVRLIBS.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000690  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000022  00800060  00000690  00000724  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000003  00800082  00800082  00000746  2**0
+                  ALLOC
+  3 .stab         000006cc  00000000  00000000  00000748  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      00000097  00000000  00000000  00000e14  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .comment      0000002f  00000000  00000000  00000eab  2**0
+                  CONTENTS, READONLY
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+   8:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+   c:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+  10:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+  14:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+  18:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+  1c:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+  20:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+  24:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+  28:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+  2c:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+  30:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+  34:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+  38:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+  3c:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+  40:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+  44:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+  48:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+  4c:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+  50:	0c 94 4f 00 	jmp	0x9e	; 0x9e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <init_mem>:
+  60:	e5 e8       	ldi	r30, 0x85	; 133
+  62:	f0 e0       	ldi	r31, 0x00	; 0
+  64:	8a ea       	ldi	r24, 0xAA	; 170
+  66:	98 e0       	ldi	r25, 0x08	; 8
+  68:	81 93       	st	Z+, r24
+  6a:	ef 35       	cpi	r30, 0x5F	; 95
+  6c:	f9 07       	cpc	r31, r25
+  6e:	e1 f7       	brne	.-8      	; 0x68 <init_mem+0x8>
+
+00000070 <__do_copy_data>:
+  70:	10 e0       	ldi	r17, 0x00	; 0
+  72:	a0 e6       	ldi	r26, 0x60	; 96
+  74:	b0 e0       	ldi	r27, 0x00	; 0
+  76:	e0 e9       	ldi	r30, 0x90	; 144
+  78:	f6 e0       	ldi	r31, 0x06	; 6
+  7a:	02 c0       	rjmp	.+4      	; 0x80 <__do_copy_data+0x10>
+  7c:	05 90       	lpm	r0, Z+
+  7e:	0d 92       	st	X+, r0
+  80:	a2 38       	cpi	r26, 0x82	; 130
+  82:	b1 07       	cpc	r27, r17
+  84:	d9 f7       	brne	.-10     	; 0x7c <__do_copy_data+0xc>
+
+00000086 <__do_clear_bss>:
+  86:	20 e0       	ldi	r18, 0x00	; 0
+  88:	a2 e8       	ldi	r26, 0x82	; 130
+  8a:	b0 e0       	ldi	r27, 0x00	; 0
+  8c:	01 c0       	rjmp	.+2      	; 0x90 <.do_clear_bss_start>
+
+0000008e <.do_clear_bss_loop>:
+  8e:	1d 92       	st	X+, r1
+
+00000090 <.do_clear_bss_start>:
+  90:	a5 38       	cpi	r26, 0x85	; 133
+  92:	b2 07       	cpc	r27, r18
+  94:	e1 f7       	brne	.-8      	; 0x8e <.do_clear_bss_loop>
+  96:	0e 94 04 03 	call	0x608	; 0x608 <main>
+  9a:	0c 94 46 03 	jmp	0x68c	; 0x68c <_exit>
+
+0000009e <__bad_interrupt>:
+  9e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000a2 <HD44780_NR>:
+  a2:	fb 01       	movw	r30, r22
+  a4:	93 e0       	ldi	r25, 0x03	; 3
+  a6:	89 9f       	mul	r24, r25
+  a8:	e0 0d       	add	r30, r0
+  aa:	f1 1d       	adc	r31, r1
+  ac:	11 24       	eor	r1, r1
+  ae:	80 81       	ld	r24, Z
+  b0:	80 93 60 00 	sts	0x0060, r24
+  b4:	81 81       	ldd	r24, Z+1	; 0x01
+  b6:	80 93 61 00 	sts	0x0061, r24
+  ba:	82 81       	ldd	r24, Z+2	; 0x02
+  bc:	80 93 62 00 	sts	0x0062, r24
+  c0:	08 95       	ret
+
+000000c2 <_HD44780_PULSE>:
+  c2:	a2 e6       	ldi	r26, 0x62	; 98
+  c4:	b0 e0       	ldi	r27, 0x00	; 0
+  c6:	2c 91       	ld	r18, X
+  c8:	e2 2f       	mov	r30, r18
+  ca:	e6 95       	lsr	r30
+  cc:	e6 95       	lsr	r30
+  ce:	e6 95       	lsr	r30
+  d0:	f0 e0       	ldi	r31, 0x00	; 0
+  d2:	ee 0f       	add	r30, r30
+  d4:	ff 1f       	adc	r31, r31
+  d6:	ed 59       	subi	r30, 0x9D	; 157
+  d8:	ff 4f       	sbci	r31, 0xFF	; 255
+  da:	01 90       	ld	r0, Z+
+  dc:	f0 81       	ld	r31, Z
+  de:	e0 2d       	mov	r30, r0
+  e0:	40 81       	ld	r20, Z
+  e2:	27 70       	andi	r18, 0x07	; 7
+  e4:	81 e0       	ldi	r24, 0x01	; 1
+  e6:	90 e0       	ldi	r25, 0x00	; 0
+  e8:	bc 01       	movw	r22, r24
+  ea:	02 c0       	rjmp	.+4      	; 0xf0 <_HD44780_PULSE+0x2e>
+  ec:	66 0f       	add	r22, r22
+  ee:	77 1f       	adc	r23, r23
+  f0:	2a 95       	dec	r18
+  f2:	e2 f7       	brpl	.-8      	; 0xec <_HD44780_PULSE+0x2a>
+  f4:	46 2b       	or	r20, r22
+  f6:	40 83       	st	Z, r20
+  f8:	7a e1       	ldi	r23, 0x1A	; 26
+  fa:	7a 95       	dec	r23
+  fc:	f1 f7       	brne	.-4      	; 0xfa <_HD44780_PULSE+0x38>
+  fe:	00 c0       	rjmp	.+0      	; 0x100 <_HD44780_PULSE+0x3e>
+ 100:	2c 91       	ld	r18, X
+ 102:	e2 2f       	mov	r30, r18
+ 104:	e6 95       	lsr	r30
+ 106:	e6 95       	lsr	r30
+ 108:	e6 95       	lsr	r30
+ 10a:	f0 e0       	ldi	r31, 0x00	; 0
+ 10c:	ee 0f       	add	r30, r30
+ 10e:	ff 1f       	adc	r31, r31
+ 110:	ed 59       	subi	r30, 0x9D	; 157
+ 112:	ff 4f       	sbci	r31, 0xFF	; 255
+ 114:	01 90       	ld	r0, Z+
+ 116:	f0 81       	ld	r31, Z
+ 118:	e0 2d       	mov	r30, r0
+ 11a:	30 81       	ld	r19, Z
+ 11c:	27 70       	andi	r18, 0x07	; 7
+ 11e:	02 2e       	mov	r0, r18
+ 120:	01 c0       	rjmp	.+2      	; 0x124 <_HD44780_PULSE+0x62>
+ 122:	88 0f       	add	r24, r24
+ 124:	0a 94       	dec	r0
+ 126:	ea f7       	brpl	.-6      	; 0x122 <_HD44780_PULSE+0x60>
+ 128:	80 95       	com	r24
+ 12a:	83 23       	and	r24, r19
+ 12c:	80 83       	st	Z, r24
+ 12e:	08 95       	ret
+
+00000130 <_HD44780_W4BIT>:
+ 130:	e0 91 69 00 	lds	r30, 0x0069
+ 134:	f0 91 6a 00 	lds	r31, 0x006A
+ 138:	90 81       	ld	r25, Z
+ 13a:	80 ff       	sbrs	r24, 0
+ 13c:	02 c0       	rjmp	.+4      	; 0x142 <_HD44780_W4BIT+0x12>
+ 13e:	90 61       	ori	r25, 0x10	; 16
+ 140:	01 c0       	rjmp	.+2      	; 0x144 <_HD44780_W4BIT+0x14>
+ 142:	9f 7e       	andi	r25, 0xEF	; 239
+ 144:	90 83       	st	Z, r25
+ 146:	e0 91 69 00 	lds	r30, 0x0069
+ 14a:	f0 91 6a 00 	lds	r31, 0x006A
+ 14e:	90 81       	ld	r25, Z
+ 150:	81 ff       	sbrs	r24, 1
+ 152:	02 c0       	rjmp	.+4      	; 0x158 <_HD44780_W4BIT+0x28>
+ 154:	90 62       	ori	r25, 0x20	; 32
+ 156:	01 c0       	rjmp	.+2      	; 0x15a <_HD44780_W4BIT+0x2a>
+ 158:	9f 7d       	andi	r25, 0xDF	; 223
+ 15a:	90 83       	st	Z, r25
+ 15c:	e0 91 69 00 	lds	r30, 0x0069
+ 160:	f0 91 6a 00 	lds	r31, 0x006A
+ 164:	90 81       	ld	r25, Z
+ 166:	82 ff       	sbrs	r24, 2
+ 168:	02 c0       	rjmp	.+4      	; 0x16e <_HD44780_W4BIT+0x3e>
+ 16a:	90 64       	ori	r25, 0x40	; 64
+ 16c:	01 c0       	rjmp	.+2      	; 0x170 <_HD44780_W4BIT+0x40>
+ 16e:	9f 7b       	andi	r25, 0xBF	; 191
+ 170:	90 83       	st	Z, r25
+ 172:	e0 91 69 00 	lds	r30, 0x0069
+ 176:	f0 91 6a 00 	lds	r31, 0x006A
+ 17a:	83 ff       	sbrs	r24, 3
+ 17c:	03 c0       	rjmp	.+6      	; 0x184 <_HD44780_W4BIT+0x54>
+ 17e:	80 81       	ld	r24, Z
+ 180:	80 68       	ori	r24, 0x80	; 128
+ 182:	02 c0       	rjmp	.+4      	; 0x188 <_HD44780_W4BIT+0x58>
+ 184:	80 81       	ld	r24, Z
+ 186:	8f 77       	andi	r24, 0x7F	; 127
+ 188:	80 83       	st	Z, r24
+ 18a:	08 95       	ret
+
+0000018c <_HD44780_W8BIT>:
+ 18c:	ef 92       	push	r14
+ 18e:	ff 92       	push	r15
+ 190:	0f 93       	push	r16
+ 192:	1f 93       	push	r17
+ 194:	cf 93       	push	r28
+ 196:	df 93       	push	r29
+ 198:	1f 92       	push	r1
+ 19a:	cd b7       	in	r28, 0x3d	; 61
+ 19c:	de b7       	in	r29, 0x3e	; 62
+ 19e:	e0 91 67 00 	lds	r30, 0x0067
+ 1a2:	f0 91 68 00 	lds	r31, 0x0068
+ 1a6:	90 81       	ld	r25, Z
+ 1a8:	88 23       	and	r24, r24
+ 1aa:	11 f0       	breq	.+4      	; 0x1b0 <_HD44780_W8BIT+0x24>
+ 1ac:	90 64       	ori	r25, 0x40	; 64
+ 1ae:	01 c0       	rjmp	.+2      	; 0x1b2 <_HD44780_W8BIT+0x26>
+ 1b0:	9f 7b       	andi	r25, 0xBF	; 191
+ 1b2:	90 83       	st	Z, r25
+ 1b4:	80 91 62 00 	lds	r24, 0x0062
+ 1b8:	e8 2e       	mov	r14, r24
+ 1ba:	e6 94       	lsr	r14
+ 1bc:	e6 94       	lsr	r14
+ 1be:	e6 94       	lsr	r14
+ 1c0:	f1 2c       	mov	r15, r1
+ 1c2:	ee 0c       	add	r14, r14
+ 1c4:	ff 1c       	adc	r15, r15
+ 1c6:	23 e6       	ldi	r18, 0x63	; 99
+ 1c8:	30 e0       	ldi	r19, 0x00	; 0
+ 1ca:	e2 0e       	add	r14, r18
+ 1cc:	f3 1e       	adc	r15, r19
+ 1ce:	d7 01       	movw	r26, r14
+ 1d0:	ed 91       	ld	r30, X+
+ 1d2:	fc 91       	ld	r31, X
+ 1d4:	90 81       	ld	r25, Z
+ 1d6:	87 70       	andi	r24, 0x07	; 7
+ 1d8:	01 e0       	ldi	r16, 0x01	; 1
+ 1da:	10 e0       	ldi	r17, 0x00	; 0
+ 1dc:	01 c0       	rjmp	.+2      	; 0x1e0 <_HD44780_W8BIT+0x54>
+ 1de:	00 0f       	add	r16, r16
+ 1e0:	8a 95       	dec	r24
+ 1e2:	ea f7       	brpl	.-6      	; 0x1de <_HD44780_W8BIT+0x52>
+ 1e4:	10 2f       	mov	r17, r16
+ 1e6:	90 2b       	or	r25, r16
+ 1e8:	90 83       	st	Z, r25
+ 1ea:	86 2f       	mov	r24, r22
+ 1ec:	82 95       	swap	r24
+ 1ee:	8f 70       	andi	r24, 0x0F	; 15
+ 1f0:	69 83       	std	Y+1, r22	; 0x01
+ 1f2:	0e 94 98 00 	call	0x130	; 0x130 <_HD44780_W4BIT>
+ 1f6:	d7 01       	movw	r26, r14
+ 1f8:	ed 91       	ld	r30, X+
+ 1fa:	fc 91       	ld	r31, X
+ 1fc:	11 97       	sbiw	r26, 0x01	; 1
+ 1fe:	90 81       	ld	r25, Z
+ 200:	00 95       	com	r16
+ 202:	90 23       	and	r25, r16
+ 204:	90 83       	st	Z, r25
+ 206:	ed 91       	ld	r30, X+
+ 208:	fc 91       	ld	r31, X
+ 20a:	90 81       	ld	r25, Z
+ 20c:	91 2b       	or	r25, r17
+ 20e:	90 83       	st	Z, r25
+ 210:	69 81       	ldd	r22, Y+1	; 0x01
+ 212:	86 2f       	mov	r24, r22
+ 214:	0e 94 98 00 	call	0x130	; 0x130 <_HD44780_W4BIT>
+ 218:	d7 01       	movw	r26, r14
+ 21a:	ed 91       	ld	r30, X+
+ 21c:	fc 91       	ld	r31, X
+ 21e:	80 81       	ld	r24, Z
+ 220:	80 23       	and	r24, r16
+ 222:	80 83       	st	Z, r24
+ 224:	ef e9       	ldi	r30, 0x9F	; 159
+ 226:	ff e0       	ldi	r31, 0x0F	; 15
+ 228:	31 97       	sbiw	r30, 0x01	; 1
+ 22a:	f1 f7       	brne	.-4      	; 0x228 <_HD44780_W8BIT+0x9c>
+ 22c:	00 c0       	rjmp	.+0      	; 0x22e <_HD44780_W8BIT+0xa2>
+ 22e:	00 00       	nop
+ 230:	0f 90       	pop	r0
+ 232:	df 91       	pop	r29
+ 234:	cf 91       	pop	r28
+ 236:	1f 91       	pop	r17
+ 238:	0f 91       	pop	r16
+ 23a:	ff 90       	pop	r15
+ 23c:	ef 90       	pop	r14
+ 23e:	08 95       	ret
+
+00000240 <HD44780_INIT>:
+ 240:	0f 93       	push	r16
+ 242:	1f 93       	push	r17
+ 244:	cf 93       	push	r28
+ 246:	df 93       	push	r29
+ 248:	e0 91 69 00 	lds	r30, 0x0069
+ 24c:	f0 91 6a 00 	lds	r31, 0x006A
+ 250:	82 91       	ld	r24, -Z
+ 252:	80 61       	ori	r24, 0x10	; 16
+ 254:	80 83       	st	Z, r24
+ 256:	e0 91 69 00 	lds	r30, 0x0069
+ 25a:	f0 91 6a 00 	lds	r31, 0x006A
+ 25e:	82 91       	ld	r24, -Z
+ 260:	80 62       	ori	r24, 0x20	; 32
+ 262:	80 83       	st	Z, r24
+ 264:	e0 91 69 00 	lds	r30, 0x0069
+ 268:	f0 91 6a 00 	lds	r31, 0x006A
+ 26c:	82 91       	ld	r24, -Z
+ 26e:	80 64       	ori	r24, 0x40	; 64
+ 270:	80 83       	st	Z, r24
+ 272:	e0 91 69 00 	lds	r30, 0x0069
+ 276:	f0 91 6a 00 	lds	r31, 0x006A
+ 27a:	82 91       	ld	r24, -Z
+ 27c:	80 68       	ori	r24, 0x80	; 128
+ 27e:	80 83       	st	Z, r24
+ 280:	e0 91 67 00 	lds	r30, 0x0067
+ 284:	f0 91 68 00 	lds	r31, 0x0068
+ 288:	82 91       	ld	r24, -Z
+ 28a:	80 64       	ori	r24, 0x40	; 64
+ 28c:	80 83       	st	Z, r24
+ 28e:	20 91 62 00 	lds	r18, 0x0062
+ 292:	e2 2f       	mov	r30, r18
+ 294:	e6 95       	lsr	r30
+ 296:	e6 95       	lsr	r30
+ 298:	e6 95       	lsr	r30
+ 29a:	f0 e0       	ldi	r31, 0x00	; 0
+ 29c:	ee 0f       	add	r30, r30
+ 29e:	ff 1f       	adc	r31, r31
+ 2a0:	ed 59       	subi	r30, 0x9D	; 157
+ 2a2:	ff 4f       	sbci	r31, 0xFF	; 255
+ 2a4:	01 90       	ld	r0, Z+
+ 2a6:	f0 81       	ld	r31, Z
+ 2a8:	e0 2d       	mov	r30, r0
+ 2aa:	42 91       	ld	r20, -Z
+ 2ac:	27 70       	andi	r18, 0x07	; 7
+ 2ae:	81 e0       	ldi	r24, 0x01	; 1
+ 2b0:	90 e0       	ldi	r25, 0x00	; 0
+ 2b2:	bc 01       	movw	r22, r24
+ 2b4:	02 c0       	rjmp	.+4      	; 0x2ba <HD44780_INIT+0x7a>
+ 2b6:	66 0f       	add	r22, r22
+ 2b8:	77 1f       	adc	r23, r23
+ 2ba:	2a 95       	dec	r18
+ 2bc:	e2 f7       	brpl	.-8      	; 0x2b6 <HD44780_INIT+0x76>
+ 2be:	46 2b       	or	r20, r22
+ 2c0:	40 83       	st	Z, r20
+ 2c2:	7f ef       	ldi	r23, 0xFF	; 255
+ 2c4:	29 ef       	ldi	r18, 0xF9	; 249
+ 2c6:	30 e0       	ldi	r19, 0x00	; 0
+ 2c8:	71 50       	subi	r23, 0x01	; 1
+ 2ca:	20 40       	sbci	r18, 0x00	; 0
+ 2cc:	30 40       	sbci	r19, 0x00	; 0
+ 2ce:	e1 f7       	brne	.-8      	; 0x2c8 <HD44780_INIT+0x88>
+ 2d0:	00 c0       	rjmp	.+0      	; 0x2d2 <HD44780_INIT+0x92>
+ 2d2:	00 00       	nop
+ 2d4:	e0 91 67 00 	lds	r30, 0x0067
+ 2d8:	f0 91 68 00 	lds	r31, 0x0068
+ 2dc:	20 81       	ld	r18, Z
+ 2de:	2f 7b       	andi	r18, 0xBF	; 191
+ 2e0:	20 83       	st	Z, r18
+ 2e2:	20 91 62 00 	lds	r18, 0x0062
+ 2e6:	e2 2f       	mov	r30, r18
+ 2e8:	e6 95       	lsr	r30
+ 2ea:	e6 95       	lsr	r30
+ 2ec:	e6 95       	lsr	r30
+ 2ee:	f0 e0       	ldi	r31, 0x00	; 0
+ 2f0:	ee 0f       	add	r30, r30
+ 2f2:	ff 1f       	adc	r31, r31
+ 2f4:	ed 59       	subi	r30, 0x9D	; 157
+ 2f6:	ff 4f       	sbci	r31, 0xFF	; 255
+ 2f8:	01 90       	ld	r0, Z+
+ 2fa:	f0 81       	ld	r31, Z
+ 2fc:	e0 2d       	mov	r30, r0
+ 2fe:	30 81       	ld	r19, Z
+ 300:	27 70       	andi	r18, 0x07	; 7
+ 302:	01 c0       	rjmp	.+2      	; 0x306 <HD44780_INIT+0xc6>
+ 304:	88 0f       	add	r24, r24
+ 306:	2a 95       	dec	r18
+ 308:	ea f7       	brpl	.-6      	; 0x304 <HD44780_INIT+0xc4>
+ 30a:	80 95       	com	r24
+ 30c:	83 23       	and	r24, r19
+ 30e:	80 83       	st	Z, r24
+ 310:	13 e0       	ldi	r17, 0x03	; 3
+ 312:	c1 e0       	ldi	r28, 0x01	; 1
+ 314:	d0 e0       	ldi	r29, 0x00	; 0
+ 316:	80 91 62 00 	lds	r24, 0x0062
+ 31a:	e8 2f       	mov	r30, r24
+ 31c:	e6 95       	lsr	r30
+ 31e:	e6 95       	lsr	r30
+ 320:	e6 95       	lsr	r30
+ 322:	f0 e0       	ldi	r31, 0x00	; 0
+ 324:	ee 0f       	add	r30, r30
+ 326:	ff 1f       	adc	r31, r31
+ 328:	ed 59       	subi	r30, 0x9D	; 157
+ 32a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 32c:	01 90       	ld	r0, Z+
+ 32e:	f0 81       	ld	r31, Z
+ 330:	e0 2d       	mov	r30, r0
+ 332:	20 81       	ld	r18, Z
+ 334:	87 70       	andi	r24, 0x07	; 7
+ 336:	ae 01       	movw	r20, r28
+ 338:	02 c0       	rjmp	.+4      	; 0x33e <HD44780_INIT+0xfe>
+ 33a:	44 0f       	add	r20, r20
+ 33c:	55 1f       	adc	r21, r21
+ 33e:	8a 95       	dec	r24
+ 340:	e2 f7       	brpl	.-8      	; 0x33a <HD44780_INIT+0xfa>
+ 342:	24 2b       	or	r18, r20
+ 344:	20 83       	st	Z, r18
+ 346:	83 e0       	ldi	r24, 0x03	; 3
+ 348:	0e 94 98 00 	call	0x130	; 0x130 <_HD44780_W4BIT>
+ 34c:	80 91 62 00 	lds	r24, 0x0062
+ 350:	e8 2f       	mov	r30, r24
+ 352:	e6 95       	lsr	r30
+ 354:	e6 95       	lsr	r30
+ 356:	e6 95       	lsr	r30
+ 358:	f0 e0       	ldi	r31, 0x00	; 0
+ 35a:	ee 0f       	add	r30, r30
+ 35c:	ff 1f       	adc	r31, r31
+ 35e:	ed 59       	subi	r30, 0x9D	; 157
+ 360:	ff 4f       	sbci	r31, 0xFF	; 255
+ 362:	01 90       	ld	r0, Z+
+ 364:	f0 81       	ld	r31, Z
+ 366:	e0 2d       	mov	r30, r0
+ 368:	20 81       	ld	r18, Z
+ 36a:	87 70       	andi	r24, 0x07	; 7
+ 36c:	be 01       	movw	r22, r28
+ 36e:	02 c0       	rjmp	.+4      	; 0x374 <HD44780_INIT+0x134>
+ 370:	66 0f       	add	r22, r22
+ 372:	77 1f       	adc	r23, r23
+ 374:	8a 95       	dec	r24
+ 376:	e2 f7       	brpl	.-8      	; 0x370 <HD44780_INIT+0x130>
+ 378:	cb 01       	movw	r24, r22
+ 37a:	80 95       	com	r24
+ 37c:	82 23       	and	r24, r18
+ 37e:	80 83       	st	Z, r24
+ 380:	8f e1       	ldi	r24, 0x1F	; 31
+ 382:	9e e4       	ldi	r25, 0x4E	; 78
+ 384:	01 97       	sbiw	r24, 0x01	; 1
+ 386:	f1 f7       	brne	.-4      	; 0x384 <HD44780_INIT+0x144>
+ 388:	00 c0       	rjmp	.+0      	; 0x38a <HD44780_INIT+0x14a>
+ 38a:	00 00       	nop
+ 38c:	11 50       	subi	r17, 0x01	; 1
+ 38e:	19 f6       	brne	.-122    	; 0x316 <HD44780_INIT+0xd6>
+ 390:	00 91 62 00 	lds	r16, 0x0062
+ 394:	c0 2f       	mov	r28, r16
+ 396:	c6 95       	lsr	r28
+ 398:	c6 95       	lsr	r28
+ 39a:	c6 95       	lsr	r28
+ 39c:	d0 e0       	ldi	r29, 0x00	; 0
+ 39e:	cc 0f       	add	r28, r28
+ 3a0:	dd 1f       	adc	r29, r29
+ 3a2:	cd 59       	subi	r28, 0x9D	; 157
+ 3a4:	df 4f       	sbci	r29, 0xFF	; 255
+ 3a6:	e8 81       	ld	r30, Y
+ 3a8:	f9 81       	ldd	r31, Y+1	; 0x01
+ 3aa:	20 81       	ld	r18, Z
+ 3ac:	07 70       	andi	r16, 0x07	; 7
+ 3ae:	81 e0       	ldi	r24, 0x01	; 1
+ 3b0:	90 e0       	ldi	r25, 0x00	; 0
+ 3b2:	ac 01       	movw	r20, r24
+ 3b4:	02 c0       	rjmp	.+4      	; 0x3ba <HD44780_INIT+0x17a>
+ 3b6:	44 0f       	add	r20, r20
+ 3b8:	55 1f       	adc	r21, r21
+ 3ba:	0a 95       	dec	r16
+ 3bc:	e2 f7       	brpl	.-8      	; 0x3b6 <HD44780_INIT+0x176>
+ 3be:	8a 01       	movw	r16, r20
+ 3c0:	24 2b       	or	r18, r20
+ 3c2:	20 83       	st	Z, r18
+ 3c4:	82 e0       	ldi	r24, 0x02	; 2
+ 3c6:	0e 94 98 00 	call	0x130	; 0x130 <_HD44780_W4BIT>
+ 3ca:	e8 81       	ld	r30, Y
+ 3cc:	f9 81       	ldd	r31, Y+1	; 0x01
+ 3ce:	80 81       	ld	r24, Z
+ 3d0:	00 95       	com	r16
+ 3d2:	08 23       	and	r16, r24
+ 3d4:	00 83       	st	Z, r16
+ 3d6:	8f e9       	ldi	r24, 0x9F	; 159
+ 3d8:	9f e0       	ldi	r25, 0x0F	; 15
+ 3da:	01 97       	sbiw	r24, 0x01	; 1
+ 3dc:	f1 f7       	brne	.-4      	; 0x3da <HD44780_INIT+0x19a>
+ 3de:	00 c0       	rjmp	.+0      	; 0x3e0 <HD44780_INIT+0x1a0>
+ 3e0:	00 00       	nop
+ 3e2:	68 e2       	ldi	r22, 0x28	; 40
+ 3e4:	80 e0       	ldi	r24, 0x00	; 0
+ 3e6:	0e 94 c6 00 	call	0x18c	; 0x18c <_HD44780_W8BIT>
+ 3ea:	68 e0       	ldi	r22, 0x08	; 8
+ 3ec:	80 e0       	ldi	r24, 0x00	; 0
+ 3ee:	0e 94 c6 00 	call	0x18c	; 0x18c <_HD44780_W8BIT>
+ 3f2:	66 e0       	ldi	r22, 0x06	; 6
+ 3f4:	80 e0       	ldi	r24, 0x00	; 0
+ 3f6:	0e 94 c6 00 	call	0x18c	; 0x18c <_HD44780_W8BIT>
+ 3fa:	6c e0       	ldi	r22, 0x0C	; 12
+ 3fc:	80 e0       	ldi	r24, 0x00	; 0
+ 3fe:	0e 94 c6 00 	call	0x18c	; 0x18c <_HD44780_W8BIT>
+ 402:	61 e0       	ldi	r22, 0x01	; 1
+ 404:	80 e0       	ldi	r24, 0x00	; 0
+ 406:	df 91       	pop	r29
+ 408:	cf 91       	pop	r28
+ 40a:	1f 91       	pop	r17
+ 40c:	0f 91       	pop	r16
+ 40e:	0c 94 c6 00 	jmp	0x18c	; 0x18c <_HD44780_W8BIT>
+
+00000412 <HD44780_START>:
+ 412:	0f 93       	push	r16
+ 414:	1f 93       	push	r17
+ 416:	cf 93       	push	r28
+ 418:	df 93       	push	r29
+ 41a:	ec 01       	movw	r28, r24
+ 41c:	06 2f       	mov	r16, r22
+ 41e:	10 e0       	ldi	r17, 0x00	; 0
+ 420:	10 c0       	rjmp	.+32     	; 0x442 <HD44780_START+0x30>
+ 422:	be 01       	movw	r22, r28
+ 424:	81 2f       	mov	r24, r17
+ 426:	0e 94 51 00 	call	0xa2	; 0xa2 <HD44780_NR>
+ 42a:	0e 94 20 01 	call	0x240	; 0x240 <HD44780_INIT>
+ 42e:	2f ef       	ldi	r18, 0xFF	; 255
+ 430:	89 ef       	ldi	r24, 0xF9	; 249
+ 432:	90 e0       	ldi	r25, 0x00	; 0
+ 434:	21 50       	subi	r18, 0x01	; 1
+ 436:	80 40       	sbci	r24, 0x00	; 0
+ 438:	90 40       	sbci	r25, 0x00	; 0
+ 43a:	e1 f7       	brne	.-8      	; 0x434 <HD44780_START+0x22>
+ 43c:	00 c0       	rjmp	.+0      	; 0x43e <HD44780_START+0x2c>
+ 43e:	00 00       	nop
+ 440:	1f 5f       	subi	r17, 0xFF	; 255
+ 442:	10 13       	cpse	r17, r16
+ 444:	ee cf       	rjmp	.-36     	; 0x422 <HD44780_START+0x10>
+ 446:	df 91       	pop	r29
+ 448:	cf 91       	pop	r28
+ 44a:	1f 91       	pop	r17
+ 44c:	0f 91       	pop	r16
+ 44e:	08 95       	ret
+
+00000450 <HD44780_CUSTOMCHAR>:
+ 450:	0f 93       	push	r16
+ 452:	1f 93       	push	r17
+ 454:	cf 93       	push	r28
+ 456:	df 93       	push	r29
+ 458:	08 2f       	mov	r16, r24
+ 45a:	00 0f       	add	r16, r16
+ 45c:	00 0f       	add	r16, r16
+ 45e:	00 0f       	add	r16, r16
+ 460:	00 5c       	subi	r16, 0xC0	; 192
+ 462:	eb 01       	movw	r28, r22
+ 464:	10 e0       	ldi	r17, 0x00	; 0
+ 466:	61 2f       	mov	r22, r17
+ 468:	60 0f       	add	r22, r16
+ 46a:	80 e0       	ldi	r24, 0x00	; 0
+ 46c:	0e 94 c6 00 	call	0x18c	; 0x18c <_HD44780_W8BIT>
+ 470:	69 91       	ld	r22, Y+
+ 472:	81 e0       	ldi	r24, 0x01	; 1
+ 474:	0e 94 c6 00 	call	0x18c	; 0x18c <_HD44780_W8BIT>
+ 478:	1f 5f       	subi	r17, 0xFF	; 255
+ 47a:	18 30       	cpi	r17, 0x08	; 8
+ 47c:	a1 f7       	brne	.-24     	; 0x466 <HD44780_CUSTOMCHAR+0x16>
+ 47e:	60 e8       	ldi	r22, 0x80	; 128
+ 480:	80 e0       	ldi	r24, 0x00	; 0
+ 482:	df 91       	pop	r29
+ 484:	cf 91       	pop	r28
+ 486:	1f 91       	pop	r17
+ 488:	0f 91       	pop	r16
+ 48a:	0c 94 c6 00 	jmp	0x18c	; 0x18c <_HD44780_W8BIT>
+
+0000048e <HD44780_CUSTOMCHARSET>:
+ 48e:	1f 93       	push	r17
+ 490:	cf 93       	push	r28
+ 492:	df 93       	push	r29
+ 494:	ec 01       	movw	r28, r24
+ 496:	10 e4       	ldi	r17, 0x40	; 64
+ 498:	61 2f       	mov	r22, r17
+ 49a:	80 e0       	ldi	r24, 0x00	; 0
+ 49c:	0e 94 c6 00 	call	0x18c	; 0x18c <_HD44780_W8BIT>
+ 4a0:	fe 01       	movw	r30, r28
+ 4a2:	64 91       	lpm	r22, Z
+ 4a4:	81 e0       	ldi	r24, 0x01	; 1
+ 4a6:	0e 94 c6 00 	call	0x18c	; 0x18c <_HD44780_W8BIT>
+ 4aa:	1f 5f       	subi	r17, 0xFF	; 255
+ 4ac:	21 96       	adiw	r28, 0x01	; 1
+ 4ae:	10 38       	cpi	r17, 0x80	; 128
+ 4b0:	99 f7       	brne	.-26     	; 0x498 <HD44780_CUSTOMCHARSET+0xa>
+ 4b2:	60 e8       	ldi	r22, 0x80	; 128
+ 4b4:	80 e0       	ldi	r24, 0x00	; 0
+ 4b6:	df 91       	pop	r29
+ 4b8:	cf 91       	pop	r28
+ 4ba:	1f 91       	pop	r17
+ 4bc:	0c 94 c6 00 	jmp	0x18c	; 0x18c <_HD44780_W8BIT>
+
+000004c0 <HD44780_CLR>:
+ 4c0:	61 e0       	ldi	r22, 0x01	; 1
+ 4c2:	80 e0       	ldi	r24, 0x00	; 0
+ 4c4:	0e 94 c6 00 	call	0x18c	; 0x18c <_HD44780_W8BIT>
+ 4c8:	8f e9       	ldi	r24, 0x9F	; 159
+ 4ca:	9f e0       	ldi	r25, 0x0F	; 15
+ 4cc:	01 97       	sbiw	r24, 0x01	; 1
+ 4ce:	f1 f7       	brne	.-4      	; 0x4cc <HD44780_CLR+0xc>
+ 4d0:	00 c0       	rjmp	.+0      	; 0x4d2 <HD44780_CLR+0x12>
+ 4d2:	00 00       	nop
+ 4d4:	08 95       	ret
+
+000004d6 <HD44780_HOME>:
+ 4d6:	62 e0       	ldi	r22, 0x02	; 2
+ 4d8:	80 e0       	ldi	r24, 0x00	; 0
+ 4da:	0c 94 c6 00 	jmp	0x18c	; 0x18c <_HD44780_W8BIT>
+
+000004de <HD44780_CHAR>:
+ 4de:	68 2f       	mov	r22, r24
+ 4e0:	81 e0       	ldi	r24, 0x01	; 1
+ 4e2:	0c 94 c6 00 	jmp	0x18c	; 0x18c <_HD44780_W8BIT>
+
+000004e6 <HD44780_TEXT>:
+ 4e6:	cf 93       	push	r28
+ 4e8:	df 93       	push	r29
+ 4ea:	ec 01       	movw	r28, r24
+ 4ec:	02 c0       	rjmp	.+4      	; 0x4f2 <HD44780_TEXT+0xc>
+ 4ee:	0e 94 6f 02 	call	0x4de	; 0x4de <HD44780_CHAR>
+ 4f2:	89 91       	ld	r24, Y+
+ 4f4:	81 11       	cpse	r24, r1
+ 4f6:	fb cf       	rjmp	.-10     	; 0x4ee <HD44780_TEXT+0x8>
+ 4f8:	df 91       	pop	r29
+ 4fa:	cf 91       	pop	r28
+ 4fc:	08 95       	ret
+
+000004fe <HD44780_XY>:
+ 4fe:	e8 2f       	mov	r30, r24
+ 500:	86 2f       	mov	r24, r22
+ 502:	99 27       	eor	r25, r25
+ 504:	87 fd       	sbrc	r24, 7
+ 506:	90 95       	com	r25
+ 508:	60 91 61 00 	lds	r22, 0x0061
+ 50c:	70 e0       	ldi	r23, 0x00	; 0
+ 50e:	0e 94 1e 03 	call	0x63c	; 0x63c <__divmodhi4>
+ 512:	98 2f       	mov	r25, r24
+ 514:	81 30       	cpi	r24, 0x01	; 1
+ 516:	11 f4       	brne	.+4      	; 0x51c <HD44780_XY+0x1e>
+ 518:	30 e4       	ldi	r19, 0x40	; 64
+ 51a:	01 c0       	rjmp	.+2      	; 0x51e <HD44780_XY+0x20>
+ 51c:	30 e0       	ldi	r19, 0x00	; 0
+ 51e:	21 e0       	ldi	r18, 0x01	; 1
+ 520:	93 30       	cpi	r25, 0x03	; 3
+ 522:	09 f0       	breq	.+2      	; 0x526 <HD44780_XY+0x28>
+ 524:	20 e0       	ldi	r18, 0x00	; 0
+ 526:	40 91 60 00 	lds	r20, 0x0060
+ 52a:	40 31       	cpi	r20, 0x10	; 16
+ 52c:	11 f4       	brne	.+4      	; 0x532 <HD44780_XY+0x34>
+ 52e:	50 e5       	ldi	r21, 0x50	; 80
+ 530:	01 c0       	rjmp	.+2      	; 0x534 <HD44780_XY+0x36>
+ 532:	54 e5       	ldi	r21, 0x54	; 84
+ 534:	52 9f       	mul	r21, r18
+ 536:	50 2d       	mov	r21, r0
+ 538:	11 24       	eor	r1, r1
+ 53a:	21 e0       	ldi	r18, 0x01	; 1
+ 53c:	92 30       	cpi	r25, 0x02	; 2
+ 53e:	09 f0       	breq	.+2      	; 0x542 <HD44780_XY+0x44>
+ 540:	20 e0       	ldi	r18, 0x00	; 0
+ 542:	40 31       	cpi	r20, 0x10	; 16
+ 544:	11 f4       	brne	.+4      	; 0x54a <HD44780_XY+0x4c>
+ 546:	90 e1       	ldi	r25, 0x10	; 16
+ 548:	01 c0       	rjmp	.+2      	; 0x54c <HD44780_XY+0x4e>
+ 54a:	94 e1       	ldi	r25, 0x14	; 20
+ 54c:	6e 2f       	mov	r22, r30
+ 54e:	60 58       	subi	r22, 0x80	; 128
+ 550:	63 0f       	add	r22, r19
+ 552:	65 0f       	add	r22, r21
+ 554:	92 9f       	mul	r25, r18
+ 556:	60 0d       	add	r22, r0
+ 558:	11 24       	eor	r1, r1
+ 55a:	80 e0       	ldi	r24, 0x00	; 0
+ 55c:	0c 94 c6 00 	jmp	0x18c	; 0x18c <_HD44780_W8BIT>
+
+00000560 <get_mem_unused>:
+ 560:	e5 e8       	ldi	r30, 0x85	; 133
+ 562:	f0 e0       	ldi	r31, 0x00	; 0
+ 564:	20 e0       	ldi	r18, 0x00	; 0
+ 566:	30 e0       	ldi	r19, 0x00	; 0
+ 568:	81 91       	ld	r24, Z+
+ 56a:	8a 3a       	cpi	r24, 0xAA	; 170
+ 56c:	31 f4       	brne	.+12     	; 0x57a <get_mem_unused+0x1a>
+ 56e:	2f 5f       	subi	r18, 0xFF	; 255
+ 570:	3f 4f       	sbci	r19, 0xFF	; 255
+ 572:	e0 36       	cpi	r30, 0x60	; 96
+ 574:	88 e0       	ldi	r24, 0x08	; 8
+ 576:	f8 07       	cpc	r31, r24
+ 578:	b8 f3       	brcs	.-18     	; 0x568 <get_mem_unused+0x8>
+ 57a:	c9 01       	movw	r24, r18
+ 57c:	08 95       	ret
+
+0000057e <delayms>:
+ 57e:	07 c0       	rjmp	.+14     	; 0x58e <delayms+0x10>
+ 580:	ef e9       	ldi	r30, 0x9F	; 159
+ 582:	ff e0       	ldi	r31, 0x0F	; 15
+ 584:	31 97       	sbiw	r30, 0x01	; 1
+ 586:	f1 f7       	brne	.-4      	; 0x584 <delayms+0x6>
+ 588:	00 c0       	rjmp	.+0      	; 0x58a <delayms+0xc>
+ 58a:	00 00       	nop
+ 58c:	01 97       	sbiw	r24, 0x01	; 1
+ 58e:	00 97       	sbiw	r24, 0x00	; 0
+ 590:	b9 f7       	brne	.-18     	; 0x580 <delayms+0x2>
+ 592:	08 95       	ret
+
+00000594 <movecursor>:
+ 594:	90 91 84 00 	lds	r25, 0x0084
+ 598:	9f 5f       	subi	r25, 0xFF	; 255
+ 59a:	90 93 84 00 	sts	0x0084, r25
+ 59e:	20 91 82 00 	lds	r18, 0x0082
+ 5a2:	30 e0       	ldi	r19, 0x00	; 0
+ 5a4:	a9 01       	movw	r20, r18
+ 5a6:	44 0f       	add	r20, r20
+ 5a8:	55 1f       	adc	r21, r21
+ 5aa:	42 0f       	add	r20, r18
+ 5ac:	53 1f       	adc	r21, r19
+ 5ae:	fa 01       	movw	r30, r20
+ 5b0:	e6 58       	subi	r30, 0x86	; 134
+ 5b2:	ff 4f       	sbci	r31, 0xFF	; 255
+ 5b4:	20 81       	ld	r18, Z
+ 5b6:	92 17       	cp	r25, r18
+ 5b8:	08 f1       	brcs	.+66     	; 0x5fc <movecursor+0x68>
+ 5ba:	10 92 84 00 	sts	0x0084, r1
+ 5be:	28 2f       	mov	r18, r24
+ 5c0:	30 e0       	ldi	r19, 0x00	; 0
+ 5c2:	90 91 83 00 	lds	r25, 0x0083
+ 5c6:	22 0f       	add	r18, r18
+ 5c8:	33 1f       	adc	r19, r19
+ 5ca:	21 50       	subi	r18, 0x01	; 1
+ 5cc:	31 09       	sbc	r19, r1
+ 5ce:	29 0f       	add	r18, r25
+ 5d0:	31 1d       	adc	r19, r1
+ 5d2:	fa 01       	movw	r30, r20
+ 5d4:	e7 58       	subi	r30, 0x87	; 135
+ 5d6:	ff 4f       	sbci	r31, 0xFF	; 255
+ 5d8:	40 81       	ld	r20, Z
+ 5da:	50 e0       	ldi	r21, 0x00	; 0
+ 5dc:	24 17       	cp	r18, r20
+ 5de:	35 07       	cpc	r19, r21
+ 5e0:	24 f4       	brge	.+8      	; 0x5ea <movecursor+0x56>
+ 5e2:	98 0f       	add	r25, r24
+ 5e4:	90 93 83 00 	sts	0x0083, r25
+ 5e8:	09 c0       	rjmp	.+18     	; 0x5fc <movecursor+0x68>
+ 5ea:	10 92 82 00 	sts	0x0082, r1
+ 5ee:	69 e7       	ldi	r22, 0x79	; 121
+ 5f0:	70 e0       	ldi	r23, 0x00	; 0
+ 5f2:	80 e0       	ldi	r24, 0x00	; 0
+ 5f4:	0e 94 51 00 	call	0xa2	; 0xa2 <HD44780_NR>
+ 5f8:	10 92 83 00 	sts	0x0083, r1
+ 5fc:	60 91 84 00 	lds	r22, 0x0084
+ 600:	80 91 83 00 	lds	r24, 0x0083
+ 604:	0c 94 7f 02 	jmp	0x4fe	; 0x4fe <HD44780_XY>
+
+00000608 <main>:
+ 608:	61 e0       	ldi	r22, 0x01	; 1
+ 60a:	89 e7       	ldi	r24, 0x79	; 121
+ 60c:	90 e0       	ldi	r25, 0x00	; 0
+ 60e:	0e 94 09 02 	call	0x412	; 0x412 <HD44780_START>
+ 612:	69 e7       	ldi	r22, 0x79	; 121
+ 614:	70 e0       	ldi	r23, 0x00	; 0
+ 616:	80 e0       	ldi	r24, 0x00	; 0
+ 618:	0e 94 51 00 	call	0xa2	; 0xa2 <HD44780_NR>
+ 61c:	0e 94 60 02 	call	0x4c0	; 0x4c0 <HD44780_CLR>
+ 620:	8c e7       	ldi	r24, 0x7C	; 124
+ 622:	90 e0       	ldi	r25, 0x00	; 0
+ 624:	0e 94 73 02 	call	0x4e6	; 0x4e6 <HD44780_TEXT>
+ 628:	2f ef       	ldi	r18, 0xFF	; 255
+ 62a:	8d e2       	ldi	r24, 0x2D	; 45
+ 62c:	92 e2       	ldi	r25, 0x22	; 34
+ 62e:	21 50       	subi	r18, 0x01	; 1
+ 630:	80 40       	sbci	r24, 0x00	; 0
+ 632:	90 40       	sbci	r25, 0x00	; 0
+ 634:	e1 f7       	brne	.-8      	; 0x62e <main+0x26>
+ 636:	00 c0       	rjmp	.+0      	; 0x638 <main+0x30>
+ 638:	00 00       	nop
+ 63a:	ff cf       	rjmp	.-2      	; 0x63a <main+0x32>
+
+0000063c <__divmodhi4>:
+ 63c:	97 fb       	bst	r25, 7
+ 63e:	07 2e       	mov	r0, r23
+ 640:	16 f4       	brtc	.+4      	; 0x646 <__divmodhi4+0xa>
+ 642:	00 94       	com	r0
+ 644:	07 d0       	rcall	.+14     	; 0x654 <__divmodhi4_neg1>
+ 646:	77 fd       	sbrc	r23, 7
+ 648:	09 d0       	rcall	.+18     	; 0x65c <__divmodhi4_neg2>
+ 64a:	0e 94 32 03 	call	0x664	; 0x664 <__udivmodhi4>
+ 64e:	07 fc       	sbrc	r0, 7
+ 650:	05 d0       	rcall	.+10     	; 0x65c <__divmodhi4_neg2>
+ 652:	3e f4       	brtc	.+14     	; 0x662 <__divmodhi4_exit>
+
+00000654 <__divmodhi4_neg1>:
+ 654:	90 95       	com	r25
+ 656:	81 95       	neg	r24
+ 658:	9f 4f       	sbci	r25, 0xFF	; 255
+ 65a:	08 95       	ret
+
+0000065c <__divmodhi4_neg2>:
+ 65c:	70 95       	com	r23
+ 65e:	61 95       	neg	r22
+ 660:	7f 4f       	sbci	r23, 0xFF	; 255
+
+00000662 <__divmodhi4_exit>:
+ 662:	08 95       	ret
+
+00000664 <__udivmodhi4>:
+ 664:	aa 1b       	sub	r26, r26
+ 666:	bb 1b       	sub	r27, r27
+ 668:	51 e1       	ldi	r21, 0x11	; 17
+ 66a:	07 c0       	rjmp	.+14     	; 0x67a <__udivmodhi4_ep>
+
+0000066c <__udivmodhi4_loop>:
+ 66c:	aa 1f       	adc	r26, r26
+ 66e:	bb 1f       	adc	r27, r27
+ 670:	a6 17       	cp	r26, r22
+ 672:	b7 07       	cpc	r27, r23
+ 674:	10 f0       	brcs	.+4      	; 0x67a <__udivmodhi4_ep>
+ 676:	a6 1b       	sub	r26, r22
+ 678:	b7 0b       	sbc	r27, r23
+
+0000067a <__udivmodhi4_ep>:
+ 67a:	88 1f       	adc	r24, r24
+ 67c:	99 1f       	adc	r25, r25
+ 67e:	5a 95       	dec	r21
+ 680:	a9 f7       	brne	.-22     	; 0x66c <__udivmodhi4_loop>
+ 682:	80 95       	com	r24
+ 684:	90 95       	com	r25
+ 686:	bc 01       	movw	r22, r24
+ 688:	cd 01       	movw	r24, r26
+ 68a:	08 95       	ret
+
+0000068c <_exit>:
+ 68c:	f8 94       	cli
+
+0000068e <__stop_program>:
+ 68e:	ff cf       	rjmp	.-2      	; 0x68e <__stop_program>

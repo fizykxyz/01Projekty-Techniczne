@@ -1,0 +1,40 @@
+/*
+ * ATMEGA32L_LCD onewire.h
+ *
+ *  Stworzono: 2014 13-10-2014
+ *      Autor: D¹browski Tomasz
+ *     Edycja: 06:55:09
+ */
+
+#ifndef ONEWIRE_H_
+#define ONEWIRE_H_
+
+#include "../ADDS/tools.h"
+
+#define ONEWIRE_PIN A, 1
+#define GETONEWIRE (PINA & (1<<PA1))
+
+
+#define NIBBLE2HEX_(NIBBLE) (NIBBLE>9) ? (NIBBLE+55) : (NIBBLE+48);
+#define NIBBLE2HEX(NIBBLE) NIBBLE2HEX_(NIBBLE)
+
+
+unsigned char ROM_NO[8];
+uint8_t LastDiscrepancy;
+uint8_t LastFamilyDiscrepancy;
+uint8_t LastDeviceFlag;
+
+void ONEWIRE_INIT(void);
+uint8_t ONEWIRE_RESET(void);
+void ONEWIRE_WRITEBIT(uint8_t v);
+uint8_t ONEWIRE_READBIT(void);
+void ONEWIRE_WRITE(uint8_t v, uint8_t power /* = 0 */);
+uint8_t ONEWIRE_READ();
+void ONEWIRE_SELECT(const uint8_t rom[8]);
+void ONEWIRE_SKIP();
+void ONEWIRE_RESETSEARCH();
+uint8_t ONEWIRE_SEARCH(uint8_t *newAddr);
+uint8_t ONEWIRE_CRC8(const uint8_t *addr, uint8_t len);
+
+
+#endif /* ONEWIRE_H_ */

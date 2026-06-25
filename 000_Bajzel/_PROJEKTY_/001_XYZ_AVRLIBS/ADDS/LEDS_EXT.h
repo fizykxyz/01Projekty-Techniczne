@@ -1,0 +1,58 @@
+/*
+ * 09_ATMEGA163L LEDS_MAIN.h
+ *
+ *  Stworzono: 2015 27 cze 2015
+ *      Autor: D¹browski Tomasz
+ *     Edycja: 20:33:49
+ */
+
+#ifndef ADDS_LEDS_MAIN_H_
+#define ADDS_LEDS_MAIN_H_
+
+#define LEDE01A C,6
+#define LEDE01K D,2
+#define LEDE01(STAN) if (STAN==0) {HIGH(LEDE01A);HIGH(LEDE01K);} else {LOW(LEDE01A);LOW(LEDE01K);}
+
+#define LEDE02A C,5
+#define LEDE02K D,2
+#define LEDE02(STAN) if (STAN==0) {HIGH(LEDE02A);HIGH(LEDE02K);} else {LOW(LEDE02A);LOW(LEDE02K);}
+
+#define LEDE03A C,6
+#define LEDE03K B,3
+#define LEDE03(STAN) if (STAN==0) {HIGH(LEDE03A);HIGH(LEDE03K);} else {LOW(LEDE03A);LOW(LEDE03K);}
+
+#define LEDE04A C,5
+#define LEDE04K B,3
+#define LEDE04(STAN) if (STAN==0) {HIGH(LEDE04A);HIGH(LEDE04K);} else {LOW(LEDE04A);LOW(LEDE04K);}
+
+#define LEDE05A C,5
+#define LEDE05K B,1
+#define LEDE05(STAN) if (STAN==0) {HIGH(LEDE05A);HIGH(LEDE05K);} else {LOW(LEDE05A);LOW(LEDE05K);}
+
+#define LEDE06A C,6
+#define LEDE06K B,1
+#define LEDE06(STAN) if (STAN==0) {HIGH(LEDE06A);HIGH(LEDE06K);} else {LOW(LEDE06A);LOW(LEDE06K);}
+
+#define LEDE07A D,2
+#define LEDE07K B,3
+#define LEDE07(STAN) if (STAN==0) {HIGH(LEDE07A);HIGH(LEDE07K);} else {LOW(LEDE07A);LOW(LEDE07K);}
+
+#define LEDE08A B,2
+#define LEDE08K B,0
+#define LEDE08(STAN) if (STAN==0) {HIGH(LEDE08A);HIGH(LEDE08K);} else {LOW(LEDE08A);LOW(LEDE08K);}
+
+#define LEDE09A B,1
+#define LEDE09K B,0
+#define LEDE09(STAN) if (STAN==0) {HIGH(LEDE09A);HIGH(LEDE09K);} else {LOW(LEDE09A);LOW(LEDE09K);}
+
+#define LEDE10A B,1
+#define LEDE10K B,4
+#define LEDE10(STAN) if (STAN==0) {HIGH(LEDE10A);HIGH(LEDE10K);} else {LOW(LEDE10A);LOW(LEDE10K);}
+
+#define LEDE11A D,2
+#define LEDE11K B,0
+#define LEDE11(STAN) if (STAN==0) {HIGH(LEDE11A);HIGH(LEDE11K);} else {LOW(LEDE11A);LOW(LEDE11K);}
+
+
+
+#endif /* ADDS_LEDS_MAIN_H_ */

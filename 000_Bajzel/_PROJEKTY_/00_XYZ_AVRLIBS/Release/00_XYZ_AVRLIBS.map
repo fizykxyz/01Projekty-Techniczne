@@ -1,0 +1,637 @@
+Archive member included because of file (symbol)
+
+e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_divmodhi4.o)
+                              ./HD44780/hd44780.o (__divmodhi4)
+e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_exit.o)
+                              e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5/crtm32.o (exit)
+e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_copy_data.o)
+                              ./HD44780/hd44780.o (__do_copy_data)
+e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_clear_bss.o)
+                              ./ONEWIRE/onewire.o (__do_clear_bss)
+e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_udivmodhi4.o)
+                              e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_divmodhi4.o) (__udivmodhi4)
+e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(strupr.o)
+                              ./main.o (strupr)
+e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(itoa.o)
+                              ./main.o (itoa)
+e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(strrev.o)
+                              e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(itoa.o) (strrev)
+
+Allocating common symbols
+Common symbol       size              file
+
+notePad             0x2               ./main.o
+lcd                 0x1               ./main.o
+x                   0x1               ./main.o
+_ow_LastDiscrepency
+                    0x1               ./ONEWIRE/onewire.o
+ID                  0x8               ./main.o
+_ow_last_buffer     0x2               ./ONEWIRE/onewire.o
+memo                0x2               ./main.o
+_ow_LastFamilyDiscrepency
+                    0x1               ./ONEWIRE/onewire.o
+OW_ERROR            0x1               ./ONEWIRE/onewire.o
+y                   0x1               ./main.o
+buf                 0xa               ./main.o
+_ow_LastDevice      0x1               ./ONEWIRE/onewire.o
+nrLed               0x1               ./main.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+user_signatures  0x00850000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5/crtm32.o
+LOAD ./ONEWIRE/onewire.o
+LOAD ./HD44780/hd44780.o
+LOAD ./DS18xxx/ds18xxx.o
+LOAD ./ADDS/memcheck.o
+LOAD ./ADDS/pins.o
+LOAD ./main.o
+LOAD e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a
+LOAD e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a
+LOAD e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000      0xe64
+ *(.vectors)
+ .vectors       0x00000000       0x54 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5/crtm32.o
+                0x00000000                __vector_default
+                0x00000000                __vectors
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+ .progmem.data.small3x5
+                0x00000054      0x123 ./main.o
+                0x00000054                small3x5
+ .progmem.data.HD44780_CHARSPLW
+                0x00000177       0x40 ./main.o
+                0x00000177                HD44780_CHARSPLW
+                0x000001b8                . = ALIGN (0x2)
+ *fill*         0x000001b7        0x1 
+                0x000001b8                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x000001b8        0x0 linker stubs
+ *(.trampolines*)
+                0x000001b8                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x000001b8                __ctors_start = .
+ *(.ctors)
+                0x000001b8                __ctors_end = .
+                0x000001b8                __dtors_start = .
+ *(.dtors)
+                0x000001b8                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x000001b8        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5/crtm32.o
+                0x000001b8                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x000001b8        0xc e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5/crtm32.o
+ *(.init2)
+ *(.init3)
+ .init3         0x000001c4       0x10 ./ADDS/memcheck.o
+ *(.init3)
+ *(.init4)
+ .init4         0x000001d4       0x16 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_copy_data.o)
+                0x000001d4                __do_copy_data
+ .init4         0x000001ea       0x10 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_clear_bss.o)
+                0x000001ea                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x000001fa        0x8 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5/crtm32.o
+ *(.init9)
+ *(.text)
+ .text          0x00000202        0x4 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5/crtm32.o
+                0x00000202                __vector_1
+                0x00000202                __vector_12
+                0x00000202                __bad_interrupt
+                0x00000202                __vector_6
+                0x00000202                __vector_3
+                0x00000202                __vector_11
+                0x00000202                __vector_13
+                0x00000202                __vector_17
+                0x00000202                __vector_19
+                0x00000202                __vector_7
+                0x00000202                __vector_5
+                0x00000202                __vector_4
+                0x00000202                __vector_9
+                0x00000202                __vector_2
+                0x00000202                __vector_15
+                0x00000202                __vector_8
+                0x00000202                __vector_14
+                0x00000202                __vector_10
+                0x00000202                __vector_16
+                0x00000202                __vector_18
+                0x00000202                __vector_20
+ .text          0x00000206        0x0 ./ONEWIRE/onewire.o
+ .text          0x00000206        0x0 ./HD44780/hd44780.o
+ .text          0x00000206        0x0 ./DS18xxx/ds18xxx.o
+ .text          0x00000206        0x0 ./ADDS/memcheck.o
+ .text          0x00000206        0x0 ./ADDS/pins.o
+ .text          0x00000206        0x0 ./main.o
+ .text          0x00000206        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_divmodhi4.o)
+ .text          0x00000206        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_exit.o)
+ .text          0x00000206        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_copy_data.o)
+ .text          0x00000206        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_clear_bss.o)
+ .text          0x00000206        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_udivmodhi4.o)
+ .text          0x00000206        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(strupr.o)
+ .text          0x00000206        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .text          0x00000206        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x00000206                . = ALIGN (0x2)
+ *(.text.*)
+ .text.OW_RESETPULSE
+                0x00000206       0x7a ./ONEWIRE/onewire.o
+                0x00000206                OW_RESETPULSE
+ .text._OW_IO1BIT
+                0x00000280       0x86 ./ONEWIRE/onewire.o
+                0x00000280                _OW_IO1BIT
+ .text.OW_W8BIT
+                0x00000306       0x32 ./ONEWIRE/onewire.o
+                0x00000306                OW_W8BIT
+ .text.OW_R8BIT
+                0x00000338        0x8 ./ONEWIRE/onewire.o
+                0x00000338                OW_R8BIT
+ .text.OW_COMMAND
+                0x00000340       0x54 ./ONEWIRE/onewire.o
+                0x00000340                OW_COMMAND
+ .text.OW_RESETSEARCH
+                0x00000394       0x16 ./ONEWIRE/onewire.o
+                0x00000394                OW_RESETSEARCH
+ .text.OW_SEARCH
+                0x000003aa      0x11e ./ONEWIRE/onewire.o
+                0x000003aa                OW_SEARCH
+ .text.OW_CRC8  0x000004c8       0x22 ./ONEWIRE/onewire.o
+                0x000004c8                OW_CRC8
+ .text.delayms  0x000004ea       0x16 ./HD44780/hd44780.o
+                0x000004ea                delayms
+ .text.HD44780_NR
+                0x00000500       0x20 ./HD44780/hd44780.o
+                0x00000500                HD44780_NR
+ .text._HD44780_PULSE
+                0x00000520       0x6e ./HD44780/hd44780.o
+                0x00000520                _HD44780_PULSE
+ .text._HD44780_W4BIT
+                0x0000058e       0x5c ./HD44780/hd44780.o
+                0x0000058e                _HD44780_W4BIT
+ .text._HD44780_W8BIT
+                0x000005ea       0xb4 ./HD44780/hd44780.o
+                0x000005ea                _HD44780_W8BIT
+ .text.HD44780_INIT
+                0x0000069e      0x1d2 ./HD44780/hd44780.o
+                0x0000069e                HD44780_INIT
+ .text.HD44780_START
+                0x00000870       0x3e ./HD44780/hd44780.o
+                0x00000870                HD44780_START
+ .text.HD44780_CUSTOMCHAR
+                0x000008ae       0x3e ./HD44780/hd44780.o
+                0x000008ae                HD44780_CUSTOMCHAR
+ .text.HD44780_CUSTOMCHARSET
+                0x000008ec       0x32 ./HD44780/hd44780.o
+                0x000008ec                HD44780_CUSTOMCHARSET
+ .text.HD44780_CLR
+                0x0000091e       0x16 ./HD44780/hd44780.o
+                0x0000091e                HD44780_CLR
+ .text.HD44780_HOME
+                0x00000934        0x8 ./HD44780/hd44780.o
+                0x00000934                HD44780_HOME
+ .text.HD44780_CHAR
+                0x0000093c        0x8 ./HD44780/hd44780.o
+                0x0000093c                HD44780_CHAR
+ .text.HD44780_TEXT
+                0x00000944       0x18 ./HD44780/hd44780.o
+                0x00000944                HD44780_TEXT
+ .text.HD44780_XY
+                0x0000095c       0x62 ./HD44780/hd44780.o
+                0x0000095c                HD44780_XY
+ .text.delayms  0x000009be       0x16 ./DS18xxx/ds18xxx.o
+ .text.DS18xxx_PARASITE
+                0x000009d4       0x2e ./DS18xxx/ds18xxx.o
+                0x000009d4                DS18xxx_PARASITE
+ .text.DS18xxx_STARTMEAS
+                0x00000a02       0x2e ./DS18xxx/ds18xxx.o
+                0x00000a02                DS18xxx_STARTMEAS
+ .text.DS18xxx_READSCRATCH
+                0x00000a30       0x4c ./DS18xxx/ds18xxx.o
+                0x00000a30                DS18xxx_READSCRATCH
+ .text.DS18xxx_READ_RAWTEMP
+                0x00000a7c       0x28 ./DS18xxx/ds18xxx.o
+                0x00000a7c                DS18xxx_READ_RAWTEMP
+ .text.DS18xxxSIGN
+                0x00000aa4        0xa ./DS18xxx/ds18xxx.o
+                0x00000aa4                DS18xxxSIGN
+ .text.DS18xxxINT
+                0x00000aae       0x16 ./DS18xxx/ds18xxx.o
+                0x00000aae                DS18xxxINT
+ .text.DS18xxxFRAC
+                0x00000ac4       0x24 ./DS18xxx/ds18xxx.o
+                0x00000ac4                DS18xxxFRAC
+ .text.get_mem_unused
+                0x00000ae8       0x1e ./ADDS/memcheck.o
+                0x00000ae8                get_mem_unused
+ .text.delayms  0x00000b06       0x16 ./main.o
+ .text.movecursor
+                0x00000b1c       0x7e ./main.o
+                0x00000b1c                movecursor
+ .text.startup.main
+                0x00000b9a      0x200 ./main.o
+                0x00000b9a                main
+ .text.libgcc.mul
+                0x00000d9a        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_divmodhi4.o)
+ .text.libgcc.div
+                0x00000d9a       0x28 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_divmodhi4.o)
+                0x00000d9a                _div
+                0x00000d9a                __divmodhi4
+ .text.libgcc   0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_divmodhi4.o)
+ .text.libgcc.prologue
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_divmodhi4.o)
+ .text.libgcc.builtins
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_divmodhi4.o)
+ .text.libgcc.fmul
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_divmodhi4.o)
+ .text.libgcc.mul
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_exit.o)
+ .text.libgcc.div
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_exit.o)
+ .text.libgcc.prologue
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_exit.o)
+ .text.libgcc.builtins
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_exit.o)
+ .text.libgcc.fmul
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_exit.o)
+ .text.libgcc.mul
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.div
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.prologue
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.builtins
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.fmul
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.mul
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.div
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.prologue
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.builtins
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.fmul
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.mul
+                0x00000dc2        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.div
+                0x00000dc2       0x28 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_udivmodhi4.o)
+                0x00000dc2                __udivmodhi4
+ .text.libgcc   0x00000dea        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.prologue
+                0x00000dea        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.builtins
+                0x00000dea        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.fmul
+                0x00000dea        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_udivmodhi4.o)
+ .text.avr-libc
+                0x00000dea       0x14 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(strupr.o)
+                0x00000dea                strupr
+ .text.avr-libc
+                0x00000dfe       0x42 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(itoa.o)
+                0x00000dfe                itoa
+ .text.avr-libc
+                0x00000e40       0x20 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x00000e40                strrev
+                0x00000e60                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x00000e60        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_exit.o)
+                0x00000e60                _exit
+                0x00000e60                exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x00000e60        0x4 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_exit.o)
+ *(.fini0)
+                0x00000e64                _etext = .
+
+.data           0x00800060       0xd4 load address 0x00000e64
+                0x00800060                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800060        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5/crtm32.o
+ .data          0x00800060        0x0 ./ONEWIRE/onewire.o
+ .data          0x00800060        0x0 ./HD44780/hd44780.o
+ .data          0x00800060        0x0 ./DS18xxx/ds18xxx.o
+ .data          0x00800060        0x0 ./ADDS/memcheck.o
+ .data          0x00800060        0x0 ./ADDS/pins.o
+ .data          0x00800060        0x0 ./main.o
+ .data          0x00800060        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_divmodhi4.o)
+ .data          0x00800060        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_exit.o)
+ .data          0x00800060        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_copy_data.o)
+ .data          0x00800060        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_clear_bss.o)
+ .data          0x00800060        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_udivmodhi4.o)
+ .data          0x00800060        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(strupr.o)
+ .data          0x00800060        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .data          0x00800060        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(strrev.o)
+ *(.data*)
+ .data.HD44780_E
+                0x00800060        0x3 ./HD44780/hd44780.o
+ .data.ucports  0x00800063        0x8 ./ADDS/pins.o
+                0x00800063                ucports
+ .data.znak     0x0080006b        0x8 ./main.o
+                0x0080006b                znak
+ .data.wyswG    0x00800073        0x3 ./main.o
+                0x00800073                wyswG
+ .data.wyswT    0x00800076        0x3 ./main.o
+                0x00800076                wyswT
+ *(.rodata)
+ .rodata        0x00800079       0x40 ./main.o
+ *(.rodata*)
+ .rodata.str1.1
+                0x008000b9       0x7b ./main.o
+ *(.gnu.linkonce.d*)
+                0x00800134                . = ALIGN (0x2)
+                0x00800134                _edata = .
+                0x00800134                PROVIDE (__data_end, .)
+
+.bss            0x00800134       0x21
+                0x00800134                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x00800134        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5/crtm32.o
+ .bss           0x00800134        0x0 ./ONEWIRE/onewire.o
+ .bss           0x00800134        0x0 ./HD44780/hd44780.o
+ .bss           0x00800134        0x0 ./DS18xxx/ds18xxx.o
+ .bss           0x00800134        0x0 ./ADDS/memcheck.o
+ .bss           0x00800134        0x0 ./ADDS/pins.o
+ .bss           0x00800134        0x0 ./main.o
+ .bss           0x00800134        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_divmodhi4.o)
+ .bss           0x00800134        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_exit.o)
+ .bss           0x00800134        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_copy_data.o)
+ .bss           0x00800134        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x00800134        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/avr5\libgcc.a(_udivmodhi4.o)
+ .bss           0x00800134        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(strupr.o)
+ .bss           0x00800134        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .bss           0x00800134        0x0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(strrev.o)
+ *(.bss*)
+ .bss.ids_count
+                0x00800134        0x1 ./main.o
+                0x00800134                ids_count
+ *(COMMON)
+ COMMON         0x00800135        0x6 ./ONEWIRE/onewire.o
+                0x00800135                _ow_LastDiscrepency
+                0x00800136                _ow_last_buffer
+                0x00800138                _ow_LastFamilyDiscrepency
+                0x00800139                OW_ERROR
+                0x0080013a                _ow_LastDevice
+ COMMON         0x0080013b       0x1a ./main.o
+                0x0080013b                notePad
+                0x0080013d                lcd
+                0x0080013e                x
+                0x0080013f                ID
+                0x00800147                memo
+                0x00800149                y
+                0x0080014a                buf
+                0x00800154                nrLed
+                0x00800155                PROVIDE (__bss_end, .)
+                0x00000e64                __data_load_start = LOADADDR (.data)
+                0x00000f38                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x00800155        0x0
+                0x00800155                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x00800155                PROVIDE (__noinit_end, .)
+                0x00800155                _end = .
+                0x00800155                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.user_signatures
+ *(.user_signatures*)
+
+.stab           0x00000000      0x9e4
+ *(.stab)
+ .stab          0x00000000      0x6cc e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5/crtm32.o
+ .stab          0x000006cc       0x90 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(strupr.o)
+                                 0x9c (size before relaxing)
+ .stab          0x0000075c      0x1b0 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(itoa.o)
+                                0x1bc (size before relaxing)
+ .stab          0x0000090c       0xd8 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5\libc.a(strrev.o)
+                                 0xe4 (size before relaxing)
+
+.stabstr        0x00000000      0x1f7
+ *(.stabstr)
+ .stabstr       0x00000000      0x1f7 e:/avr-programowanie/c/atmeltoolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr5/crtm32.o
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x00000000       0x2f
+ *(.comment)
+ .comment       0x00000000       0x2f ./ONEWIRE/onewire.o
+                                 0x30 (size before relaxing)
+ .comment       0x00000000       0x30 ./HD44780/hd44780.o
+ .comment       0x00000000       0x30 ./DS18xxx/ds18xxx.o
+ .comment       0x00000000       0x30 ./ADDS/memcheck.o
+ .comment       0x00000000       0x30 ./ADDS/pins.o
+ .comment       0x00000000       0x30 ./main.o
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info)
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_pubtypes
+ *(.debug_pubtypes)
+
+.debug_ranges
+ *(.debug_ranges)
+
+.debug_macro
+ *(.debug_macro)
+OUTPUT(00_XYZ_AVRLIBS.elf elf32-avr)
+LOAD linker stubs
