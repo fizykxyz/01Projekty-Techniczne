@@ -6,7 +6,7 @@
 #ifdef LED_BUILTIN
 #define LED_PIN LED_BUILTIN
 #else
-#define LED_PIN 13 // Domyślnie dla ESP32
+#define LED_PIN 15 // Domyślnie dla ESP32
 #endif
 
 void setup() {
