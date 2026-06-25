@@ -1,0 +1,27 @@
+==================================================
+ledmatrix7219d88 lib
+==================================================
+= Copyright (c) Davide Gironi, 2013              =
+= http://davidegironi.blogspot.it/               =
+==================================================
+
+
+This library implements a 8x8 led matrix for AVR Atmega.
+It uses just one MAX7219 serial input/output common-cathode display drivers
+and 3 micro ports.
+MAX7219 can refresh leds leving more resources to microcontroller.
+This library uses MAX7219 without the need of SPI. User can setup scan limit
+and intensity setup.
+Multiple led matrix can be attached.
+
+Setup parameters are stored in file ledmatrix7219d88.h
+
+
+Devel Notes
+-----------
+This library was developed on Eclipse, built with avr-gcc on Atmega8 @ 1MHz.
+
+
+License
+-------
+Please refer to LICENSE file for licensing information.

@@ -1,0 +1,403 @@
+
+98_M32_KS0108.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000036a  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  0000036a  000003fe  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000006  00800060  00800060  000003fe  2**0
+                  ALLOC
+  3 .stab         000006cc  00000000  00000000  00000400  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      00000097  00000000  00000000  00000acc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .comment      0000002f  00000000  00000000  00000b63  2**0
+                  CONTENTS, READONLY
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   8:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  10:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  14:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  18:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  1c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  20:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  24:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  28:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  2c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  30:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  34:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  38:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  3c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  40:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  44:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  48:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  4c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  50:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_clear_bss>:
+  60:	20 e0       	ldi	r18, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
+
+00000068 <.do_clear_bss_loop>:
+  68:	1d 92       	st	X+, r1
+
+0000006a <.do_clear_bss_start>:
+  6a:	a6 36       	cpi	r26, 0x66	; 102
+  6c:	b2 07       	cpc	r27, r18
+  6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
+  70:	0e 94 b0 01 	call	0x360	; 0x360 <main>
+  74:	0c 94 b3 01 	jmp	0x366	; 0x366 <_exit>
+
+00000078 <__bad_interrupt>:
+  78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000007c <glcdInitHW>:
+  7c:	d9 98       	cbi	0x1b, 1	; 27
+  7e:	d8 98       	cbi	0x1b, 0	; 27
+  80:	da 98       	cbi	0x1b, 2	; 27
+  82:	db 98       	cbi	0x1b, 3	; 27
+  84:	dc 98       	cbi	0x1b, 4	; 27
+  86:	de 98       	cbi	0x1b, 6	; 27
+  88:	df 98       	cbi	0x1b, 7	; 27
+  8a:	df 98       	cbi	0x1b, 7	; 27
+  8c:	d1 9a       	sbi	0x1a, 1	; 26
+  8e:	d0 9a       	sbi	0x1a, 0	; 26
+  90:	d2 9a       	sbi	0x1a, 2	; 26
+  92:	d3 9a       	sbi	0x1a, 3	; 26
+  94:	d4 9a       	sbi	0x1a, 4	; 26
+  96:	d6 9a       	sbi	0x1a, 6	; 26
+  98:	d7 9a       	sbi	0x1a, 7	; 26
+  9a:	d7 9a       	sbi	0x1a, 7	; 26
+  9c:	12 ba       	out	0x12, r1	; 18
+  9e:	8f ef       	ldi	r24, 0xFF	; 255
+  a0:	81 bb       	out	0x11, r24	; 17
+  a2:	08 95       	ret
+
+000000a4 <glcdControllerSelect>:
+  a4:	db 98       	cbi	0x1b, 3	; 27
+  a6:	dc 98       	cbi	0x1b, 4	; 27
+  a8:	de 98       	cbi	0x1b, 6	; 27
+  aa:	df 98       	cbi	0x1b, 7	; 27
+  ac:	81 30       	cpi	r24, 0x01	; 1
+  ae:	41 f0       	breq	.+16     	; 0xc0 <glcdControllerSelect+0x1c>
+  b0:	28 f0       	brcs	.+10     	; 0xbc <glcdControllerSelect+0x18>
+  b2:	82 30       	cpi	r24, 0x02	; 2
+  b4:	39 f0       	breq	.+14     	; 0xc4 <glcdControllerSelect+0x20>
+  b6:	83 30       	cpi	r24, 0x03	; 3
+  b8:	41 f4       	brne	.+16     	; 0xca <glcdControllerSelect+0x26>
+  ba:	06 c0       	rjmp	.+12     	; 0xc8 <glcdControllerSelect+0x24>
+  bc:	db 9a       	sbi	0x1b, 3	; 27
+  be:	08 95       	ret
+  c0:	dc 9a       	sbi	0x1b, 4	; 27
+  c2:	08 95       	ret
+  c4:	de 9a       	sbi	0x1b, 6	; 27
+  c6:	08 95       	ret
+  c8:	df 9a       	sbi	0x1b, 7	; 27
+  ca:	08 95       	ret
+
+000000cc <glcdBusyWait>:
+  cc:	f8 94       	cli
+  ce:	0e 94 52 00 	call	0xa4	; 0xa4 <glcdControllerSelect>
+  d2:	8f ef       	ldi	r24, 0xFF	; 255
+  d4:	82 bb       	out	0x12, r24	; 18
+  d6:	d9 98       	cbi	0x1b, 1	; 27
+  d8:	11 ba       	out	0x11, r1	; 17
+  da:	d8 9a       	sbi	0x1b, 0	; 27
+  dc:	da 9a       	sbi	0x1b, 2	; 27
+  de:	08 c0       	rjmp	.+16     	; 0xf0 <glcdBusyWait+0x24>
+  e0:	da 98       	cbi	0x1b, 2	; 27
+	...
+  ea:	da 9a       	sbi	0x1b, 2	; 27
+	...
+  f4:	87 99       	sbic	0x10, 7	; 16
+  f6:	f4 cf       	rjmp	.-24     	; 0xe0 <glcdBusyWait+0x14>
+  f8:	da 98       	cbi	0x1b, 2	; 27
+  fa:	d8 98       	cbi	0x1b, 0	; 27
+  fc:	8f ef       	ldi	r24, 0xFF	; 255
+  fe:	81 bb       	out	0x11, r24	; 17
+ 100:	78 94       	sei
+ 102:	08 95       	ret
+
+00000104 <glcdControlWrite>:
+ 104:	cf 93       	push	r28
+ 106:	df 93       	push	r29
+ 108:	1f 92       	push	r1
+ 10a:	cd b7       	in	r28, 0x3d	; 61
+ 10c:	de b7       	in	r29, 0x3e	; 62
+ 10e:	f8 94       	cli
+ 110:	69 83       	std	Y+1, r22	; 0x01
+ 112:	0e 94 66 00 	call	0xcc	; 0xcc <glcdBusyWait>
+ 116:	d9 98       	cbi	0x1b, 1	; 27
+ 118:	d8 98       	cbi	0x1b, 0	; 27
+ 11a:	da 9a       	sbi	0x1b, 2	; 27
+ 11c:	8f ef       	ldi	r24, 0xFF	; 255
+ 11e:	81 bb       	out	0x11, r24	; 17
+ 120:	69 81       	ldd	r22, Y+1	; 0x01
+ 122:	62 bb       	out	0x12, r22	; 18
+	...
+ 134:	da 98       	cbi	0x1b, 2	; 27
+ 136:	78 94       	sei
+ 138:	0f 90       	pop	r0
+ 13a:	df 91       	pop	r29
+ 13c:	cf 91       	pop	r28
+ 13e:	08 95       	ret
+
+00000140 <glcdControlRead>:
+ 140:	f8 94       	cli
+ 142:	0e 94 66 00 	call	0xcc	; 0xcc <glcdBusyWait>
+ 146:	d9 98       	cbi	0x1b, 1	; 27
+ 148:	11 ba       	out	0x11, r1	; 17
+ 14a:	d8 9a       	sbi	0x1b, 0	; 27
+ 14c:	da 9a       	sbi	0x1b, 2	; 27
+	...
+ 15e:	80 b3       	in	r24, 0x10	; 16
+ 160:	da 98       	cbi	0x1b, 2	; 27
+ 162:	d8 98       	cbi	0x1b, 0	; 27
+ 164:	9f ef       	ldi	r25, 0xFF	; 255
+ 166:	91 bb       	out	0x11, r25	; 17
+ 168:	78 94       	sei
+ 16a:	08 95       	ret
+
+0000016c <glcdReset>:
+ 16c:	88 23       	and	r24, r24
+ 16e:	11 f0       	breq	.+4      	; 0x174 <glcdReset+0x8>
+ 170:	df 98       	cbi	0x1b, 7	; 27
+ 172:	08 95       	ret
+ 174:	df 9a       	sbi	0x1b, 7	; 27
+ 176:	08 95       	ret
+
+00000178 <glcdSetXAddress>:
+ 178:	cf 93       	push	r28
+ 17a:	df 93       	push	r29
+ 17c:	c0 e6       	ldi	r28, 0x60	; 96
+ 17e:	d0 e0       	ldi	r29, 0x00	; 0
+ 180:	88 83       	st	Y, r24
+ 182:	60 e4       	ldi	r22, 0x40	; 64
+ 184:	80 e0       	ldi	r24, 0x00	; 0
+ 186:	0e 94 82 00 	call	0x104	; 0x104 <glcdControlWrite>
+ 18a:	10 92 62 00 	sts	0x0062, r1
+ 18e:	60 e4       	ldi	r22, 0x40	; 64
+ 190:	81 e0       	ldi	r24, 0x01	; 1
+ 192:	0e 94 82 00 	call	0x104	; 0x104 <glcdControlWrite>
+ 196:	10 92 64 00 	sts	0x0064, r1
+ 19a:	88 81       	ld	r24, Y
+ 19c:	68 2f       	mov	r22, r24
+ 19e:	6f 73       	andi	r22, 0x3F	; 63
+ 1a0:	60 64       	ori	r22, 0x40	; 64
+ 1a2:	82 95       	swap	r24
+ 1a4:	86 95       	lsr	r24
+ 1a6:	86 95       	lsr	r24
+ 1a8:	83 70       	andi	r24, 0x03	; 3
+ 1aa:	df 91       	pop	r29
+ 1ac:	cf 91       	pop	r28
+ 1ae:	0c 94 82 00 	jmp	0x104	; 0x104 <glcdControlWrite>
+
+000001b2 <glcdSetYAddress>:
+ 1b2:	cf 93       	push	r28
+ 1b4:	80 93 61 00 	sts	0x0061, r24
+ 1b8:	c8 2f       	mov	r28, r24
+ 1ba:	c8 6b       	ori	r28, 0xB8	; 184
+ 1bc:	6c 2f       	mov	r22, r28
+ 1be:	80 e0       	ldi	r24, 0x00	; 0
+ 1c0:	0e 94 82 00 	call	0x104	; 0x104 <glcdControlWrite>
+ 1c4:	6c 2f       	mov	r22, r28
+ 1c6:	81 e0       	ldi	r24, 0x01	; 1
+ 1c8:	cf 91       	pop	r28
+ 1ca:	0c 94 82 00 	jmp	0x104	; 0x104 <glcdControlWrite>
+
+000001ce <glcdDataRead>:
+ 1ce:	cf 93       	push	r28
+ 1d0:	df 93       	push	r29
+ 1d2:	c0 91 60 00 	lds	r28, 0x0060
+ 1d6:	c2 95       	swap	r28
+ 1d8:	c6 95       	lsr	r28
+ 1da:	c6 95       	lsr	r28
+ 1dc:	c3 70       	andi	r28, 0x03	; 3
+ 1de:	f8 94       	cli
+ 1e0:	8c 2f       	mov	r24, r28
+ 1e2:	0e 94 66 00 	call	0xcc	; 0xcc <glcdBusyWait>
+ 1e6:	d9 9a       	sbi	0x1b, 1	; 27
+ 1e8:	11 ba       	out	0x11, r1	; 17
+ 1ea:	d8 9a       	sbi	0x1b, 0	; 27
+ 1ec:	da 9a       	sbi	0x1b, 2	; 27
+	...
+ 1fe:	d0 b3       	in	r29, 0x10	; 16
+ 200:	da 98       	cbi	0x1b, 2	; 27
+ 202:	d8 98       	cbi	0x1b, 0	; 27
+ 204:	78 94       	sei
+ 206:	ec 2f       	mov	r30, r28
+ 208:	f0 e0       	ldi	r31, 0x00	; 0
+ 20a:	ee 0f       	add	r30, r30
+ 20c:	ff 1f       	adc	r31, r31
+ 20e:	ee 59       	subi	r30, 0x9E	; 158
+ 210:	ff 4f       	sbci	r31, 0xFF	; 255
+ 212:	90 81       	ld	r25, Z
+ 214:	9f 5f       	subi	r25, 0xFF	; 255
+ 216:	90 83       	st	Z, r25
+ 218:	90 91 60 00 	lds	r25, 0x0060
+ 21c:	9f 5f       	subi	r25, 0xFF	; 255
+ 21e:	90 93 60 00 	sts	0x0060, r25
+ 222:	97 ff       	sbrs	r25, 7
+ 224:	0a c0       	rjmp	.+20     	; 0x23a <glcdDataRead+0x6c>
+ 226:	80 91 61 00 	lds	r24, 0x0061
+ 22a:	8f 5f       	subi	r24, 0xFF	; 255
+ 22c:	80 93 61 00 	sts	0x0061, r24
+ 230:	0e 94 d9 00 	call	0x1b2	; 0x1b2 <glcdSetYAddress>
+ 234:	80 e0       	ldi	r24, 0x00	; 0
+ 236:	0e 94 bc 00 	call	0x178	; 0x178 <glcdSetXAddress>
+ 23a:	8d 2f       	mov	r24, r29
+ 23c:	df 91       	pop	r29
+ 23e:	cf 91       	pop	r28
+ 240:	08 95       	ret
+
+00000242 <glcdDataWrite>:
+ 242:	cf 93       	push	r28
+ 244:	df 93       	push	r29
+ 246:	d8 2f       	mov	r29, r24
+ 248:	c0 91 60 00 	lds	r28, 0x0060
+ 24c:	c2 95       	swap	r28
+ 24e:	c6 95       	lsr	r28
+ 250:	c6 95       	lsr	r28
+ 252:	c3 70       	andi	r28, 0x03	; 3
+ 254:	f8 94       	cli
+ 256:	8c 2f       	mov	r24, r28
+ 258:	0e 94 66 00 	call	0xcc	; 0xcc <glcdBusyWait>
+ 25c:	d9 9a       	sbi	0x1b, 1	; 27
+ 25e:	d8 98       	cbi	0x1b, 0	; 27
+ 260:	da 9a       	sbi	0x1b, 2	; 27
+ 262:	8f ef       	ldi	r24, 0xFF	; 255
+ 264:	81 bb       	out	0x11, r24	; 17
+ 266:	d2 bb       	out	0x12, r29	; 18
+	...
+ 278:	da 98       	cbi	0x1b, 2	; 27
+ 27a:	78 94       	sei
+ 27c:	ec 2f       	mov	r30, r28
+ 27e:	f0 e0       	ldi	r31, 0x00	; 0
+ 280:	ee 0f       	add	r30, r30
+ 282:	ff 1f       	adc	r31, r31
+ 284:	ee 59       	subi	r30, 0x9E	; 158
+ 286:	ff 4f       	sbci	r31, 0xFF	; 255
+ 288:	80 81       	ld	r24, Z
+ 28a:	8f 5f       	subi	r24, 0xFF	; 255
+ 28c:	80 83       	st	Z, r24
+ 28e:	80 91 60 00 	lds	r24, 0x0060
+ 292:	8f 5f       	subi	r24, 0xFF	; 255
+ 294:	80 93 60 00 	sts	0x0060, r24
+ 298:	87 ff       	sbrs	r24, 7
+ 29a:	0c c0       	rjmp	.+24     	; 0x2b4 <glcdDataWrite+0x72>
+ 29c:	80 91 61 00 	lds	r24, 0x0061
+ 2a0:	8f 5f       	subi	r24, 0xFF	; 255
+ 2a2:	80 93 61 00 	sts	0x0061, r24
+ 2a6:	0e 94 d9 00 	call	0x1b2	; 0x1b2 <glcdSetYAddress>
+ 2aa:	80 e0       	ldi	r24, 0x00	; 0
+ 2ac:	df 91       	pop	r29
+ 2ae:	cf 91       	pop	r28
+ 2b0:	0c 94 bc 00 	jmp	0x178	; 0x178 <glcdSetXAddress>
+ 2b4:	df 91       	pop	r29
+ 2b6:	cf 91       	pop	r28
+ 2b8:	08 95       	ret
+
+000002ba <glcdStartLine>:
+ 2ba:	cf 93       	push	r28
+ 2bc:	c8 2f       	mov	r28, r24
+ 2be:	c0 6c       	ori	r28, 0xC0	; 192
+ 2c0:	6c 2f       	mov	r22, r28
+ 2c2:	80 e0       	ldi	r24, 0x00	; 0
+ 2c4:	0e 94 82 00 	call	0x104	; 0x104 <glcdControlWrite>
+ 2c8:	6c 2f       	mov	r22, r28
+ 2ca:	81 e0       	ldi	r24, 0x01	; 1
+ 2cc:	cf 91       	pop	r28
+ 2ce:	0c 94 82 00 	jmp	0x104	; 0x104 <glcdControlWrite>
+
+000002d2 <glcdSetAddress>:
+ 2d2:	cf 93       	push	r28
+ 2d4:	c8 2f       	mov	r28, r24
+ 2d6:	86 2f       	mov	r24, r22
+ 2d8:	0e 94 d9 00 	call	0x1b2	; 0x1b2 <glcdSetYAddress>
+ 2dc:	8c 2f       	mov	r24, r28
+ 2de:	cf 91       	pop	r28
+ 2e0:	0c 94 bc 00 	jmp	0x178	; 0x178 <glcdSetXAddress>
+
+000002e4 <glcdClearScreen>:
+ 2e4:	cf 93       	push	r28
+ 2e6:	df 93       	push	r29
+ 2e8:	c0 e0       	ldi	r28, 0x00	; 0
+ 2ea:	6c 2f       	mov	r22, r28
+ 2ec:	80 e0       	ldi	r24, 0x00	; 0
+ 2ee:	0e 94 69 01 	call	0x2d2	; 0x2d2 <glcdSetAddress>
+ 2f2:	d0 e0       	ldi	r29, 0x00	; 0
+ 2f4:	80 e0       	ldi	r24, 0x00	; 0
+ 2f6:	0e 94 21 01 	call	0x242	; 0x242 <glcdDataWrite>
+ 2fa:	df 5f       	subi	r29, 0xFF	; 255
+ 2fc:	d0 38       	cpi	r29, 0x80	; 128
+ 2fe:	d1 f7       	brne	.-12     	; 0x2f4 <glcdClearScreen+0x10>
+ 300:	cf 5f       	subi	r28, 0xFF	; 255
+ 302:	c8 30       	cpi	r28, 0x08	; 8
+ 304:	91 f7       	brne	.-28     	; 0x2ea <glcdClearScreen+0x6>
+ 306:	df 91       	pop	r29
+ 308:	cf 91       	pop	r28
+ 30a:	08 95       	ret
+
+0000030c <glcdHome>:
+ 30c:	80 e0       	ldi	r24, 0x00	; 0
+ 30e:	0e 94 5d 01 	call	0x2ba	; 0x2ba <glcdStartLine>
+ 312:	60 e0       	ldi	r22, 0x00	; 0
+ 314:	80 e0       	ldi	r24, 0x00	; 0
+ 316:	0e 94 69 01 	call	0x2d2	; 0x2d2 <glcdSetAddress>
+ 31a:	10 92 62 00 	sts	0x0062, r1
+ 31e:	10 92 63 00 	sts	0x0063, r1
+ 322:	10 92 64 00 	sts	0x0064, r1
+ 326:	10 92 65 00 	sts	0x0065, r1
+ 32a:	08 95       	ret
+
+0000032c <glcdInit>:
+ 32c:	0e 94 3e 00 	call	0x7c	; 0x7c <glcdInitHW>
+ 330:	80 e0       	ldi	r24, 0x00	; 0
+ 332:	0e 94 b6 00 	call	0x16c	; 0x16c <glcdReset>
+ 336:	6f e3       	ldi	r22, 0x3F	; 63
+ 338:	80 e0       	ldi	r24, 0x00	; 0
+ 33a:	0e 94 82 00 	call	0x104	; 0x104 <glcdControlWrite>
+ 33e:	6f e3       	ldi	r22, 0x3F	; 63
+ 340:	81 e0       	ldi	r24, 0x01	; 1
+ 342:	0e 94 82 00 	call	0x104	; 0x104 <glcdControlWrite>
+ 346:	0e 94 72 01 	call	0x2e4	; 0x2e4 <glcdClearScreen>
+ 34a:	0c 94 86 01 	jmp	0x30c	; 0x30c <glcdHome>
+
+0000034e <glcdGotoChar>:
+ 34e:	96 2f       	mov	r25, r22
+ 350:	99 0f       	add	r25, r25
+ 352:	96 0f       	add	r25, r22
+ 354:	68 2f       	mov	r22, r24
+ 356:	89 2f       	mov	r24, r25
+ 358:	88 0f       	add	r24, r24
+ 35a:	0c 94 69 01 	jmp	0x2d2	; 0x2d2 <glcdSetAddress>
+
+0000035e <glcdDelay>:
+ 35e:	08 95       	ret
+
+00000360 <main>:
+ 360:	0e 94 3e 00 	call	0x7c	; 0x7c <glcdInitHW>
+ 364:	ff cf       	rjmp	.-2      	; 0x364 <main+0x4>
+
+00000366 <_exit>:
+ 366:	f8 94       	cli
+
+00000368 <__stop_program>:
+ 368:	ff cf       	rjmp	.-2      	; 0x368 <__stop_program>

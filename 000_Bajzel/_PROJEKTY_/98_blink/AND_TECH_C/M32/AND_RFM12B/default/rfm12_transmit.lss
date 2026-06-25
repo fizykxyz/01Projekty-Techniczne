@@ -1,0 +1,780 @@
+
+rfm12_transmit.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000408  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000001c  00800060  00000408  0000049c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000066  0080007c  0080007c  000004b8  2**0
+                  ALLOC
+  3 .debug_aranges 000000b8  00000000  00000000  000004b8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 0000018b  00000000  00000000  00000570  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000735  00000000  00000000  000006fb  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000374  00000000  00000000  00000e30  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000749  00000000  00000000  000011a4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000110  00000000  00000000  000018f0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000024c  00000000  00000000  00001a00  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000307  00000000  00000000  00001c4c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 000000e8  00000000  00000000  00001f53  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+	char buffer[20];
+	itoa(number,buffer,base);
+	uart_puts(buffer);
+}
+
+char uart_getc(void){
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 91 01 	jmp	0x322	; 0x322 <__vector_13>
+  38:	0c 94 b9 01 	jmp	0x372	; 0x372 <__vector_14>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e8 e0       	ldi	r30, 0x08	; 8
+  68:	f4 e0       	ldi	r31, 0x04	; 4
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <.do_copy_data_start>
+
+0000006c <.do_copy_data_loop>:
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+
+00000070 <.do_copy_data_start>:
+  70:	ac 37       	cpi	r26, 0x7C	; 124
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <.do_copy_data_loop>
+
+00000076 <__do_clear_bss>:
+  76:	10 e0       	ldi	r17, 0x00	; 0
+  78:	ac e7       	ldi	r26, 0x7C	; 124
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	a2 3e       	cpi	r26, 0xE2	; 226
+  82:	b1 07       	cpc	r27, r17
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 49 00 	call	0x92	; 0x92 <main>
+  8a:	0c 94 02 02 	jmp	0x404	; 0x404 <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <main>:
+
+#else
+//-------------------------------------------
+//to jest kod dla uk³adu nadrzêdnego - MASTER
+//-------------------------------------------
+int main(void){
+  92:	cf 93       	push	r28
+  94:	df 93       	push	r29
+
+	Rfm_spi_init();//inicjalizacja magistrali SPI
+  96:	0e 94 b7 00 	call	0x16e	; 0x16e <Rfm_spi_init>
+	
+	Rfm_xmit(SW_RESET);
+  9a:	80 e0       	ldi	r24, 0x00	; 0
+  9c:	9e ef       	ldi	r25, 0xFE	; 254
+  9e:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+  a2:	84 ec       	ldi	r24, 0xC4	; 196
+  a4:	99 e0       	ldi	r25, 0x09	; 9
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+  a6:	20 e9       	ldi	r18, 0x90	; 144
+  a8:	31 e0       	ldi	r19, 0x01	; 1
+  aa:	f9 01       	movw	r30, r18
+  ac:	31 97       	sbiw	r30, 0x01	; 1
+  ae:	f1 f7       	brne	.-4      	; 0xac <main+0x1a>
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+  b0:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+  b2:	d9 f7       	brne	.-10     	; 0xaa <main+0x18>
+	_delay_ms(250);//resetujê uk³ad i czekam nieco na zakoñczenie tej operacji.
+	
+	uart_init(9600);//inicjalizacja USART
+  b4:	80 e8       	ldi	r24, 0x80	; 128
+  b6:	95 e2       	ldi	r25, 0x25	; 37
+  b8:	0e 94 5e 01 	call	0x2bc	; 0x2bc <uart_init>
+	sei();//w³¹czamy przerwania do obs³ugi uart
+  bc:	78 94       	sei
+
+	uart_puts("RFM12B - MASTER\r\n");//wyœwietlamy powitanie
+  be:	80 e6       	ldi	r24, 0x60	; 96
+  c0:	90 e0       	ldi	r25, 0x00	; 0
+  c2:	0e 94 85 01 	call	0x30a	; 0x30a <uart_puts>
+
+	//inicjalizacja RFM12B
+	//ustawienie pasma 868MHz, konfiguracja FIFO
+	Rfm_xmit(CONFIGURATION|EN_DATA_REG|EN_FIFO|BAND_868|CAP_12_0);
+  c6:	87 ee       	ldi	r24, 0xE7	; 231
+  c8:	90 e8       	ldi	r25, 0x80	; 128
+  ca:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	//w³¹czenie oscylatora
+	Rfm_xmit(POWER|EN_OSC|DIS_CLKO);
+  ce:	89 e0       	ldi	r24, 0x09	; 9
+  d0:	92 e8       	ldi	r25, 0x82	; 130
+  d2:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	//ustawienie pasma (musi byæ takie samo w nadajniku i odbiorniku)
+	Rfm_xmit(FREQUENCY|RF12_FREQUENCY_CALC_868(868000000UL));
+  d6:	80 e4       	ldi	r24, 0x40	; 64
+  d8:	96 ea       	ldi	r25, 0xA6	; 166
+  da:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	//ustawienie prêdkoœci transmisji danych (musi byæ takia sama w nadajniku i odbiorniku)
+	Rfm_xmit(BAUD|BAUD_4800);
+  de:	87 e4       	ldi	r24, 0x47	; 71
+  e0:	96 ec       	ldi	r25, 0xC6	; 198
+  e2:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	//ustawienie pasma 134kHz i parametrów odbiornika
+	Rfm_xmit(RECEIVER|P20_VDI|BW134|LNA_0|RSSI_103);
+  e6:	80 ea       	ldi	r24, 0xA0	; 160
+  e8:	94 e9       	ldi	r25, 0x94	; 148
+  ea:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	//ustawienie cyfroiwego filtra danych i opcji odzyskiwania zegara
+	Rfm_xmit(DATA_FILTER|AUTO_CR|DIGITAL_F|DQD_4);
+  ee:	8c ea       	ldi	r24, 0xAC	; 172
+  f0:	92 ec       	ldi	r25, 0xC2	; 194
+  f2:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	//reset bufora FIFO, konfiguracja synchronizacji za pomoc¹ 2 bajtów
+	Rfm_xmit(FIFO_RST|FIFO_IT_8|FIFO_SYNC|HS_RST_DIS);
+  f6:	81 e8       	ldi	r24, 0x81	; 129
+  f8:	9a ec       	ldi	r25, 0xCA	; 202
+  fa:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	
+	//ustawienie konfigurowalnego bajta synchronizacji na D4 (bêdzie on "adresem" naszego uk³adu)
+	Rfm_xmit(SYNC_PATTERN|0xD4);
+  fe:	84 ed       	ldi	r24, 0xD4	; 212
+ 100:	9e ec       	ldi	r25, 0xCE	; 206
+ 102:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+
+	//konfiguracja kontrolera czêstotliwoœci
+	Rfm_xmit(AFC|KEEP_RX|REST_OFF|EN_FOFFSET|EN_AFC);
+ 106:	83 e8       	ldi	r24, 0x83	; 131
+ 108:	94 ec       	ldi	r25, 0xC4	; 196
+ 10a:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	//konfiguracja nadajnika i jego mocy (na ustawienie maksymalne)
+	Rfm_xmit(TRANSMITER|FSK_PHASE_0|FSK_DF_90K|OUT_P_0);
+ 10e:	80 e5       	ldi	r24, 0x50	; 80
+ 110:	98 e9       	ldi	r25, 0x98	; 152
+ 112:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	//konfiguracja pêtli PLL
+	Rfm_xmit(PLL|PLL_DH_DIS|SEL_CLK_2_5|MAX_BAUD_256);
+ 116:	87 e1       	ldi	r24, 0x17	; 23
+ 118:	9c ec       	ldi	r25, 0xCC	; 204
+ 11a:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+
+	//wy³¹czenie timera wakeup
+	Rfm_xmit(WAKEUP_TIM|WUT_X_2_0|0);
+ 11e:	80 e0       	ldi	r24, 0x00	; 0
+ 120:	90 ee       	ldi	r25, 0xE0	; 224
+ 122:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	//wy³¹czenie oszczêdzania energii
+	Rfm_xmit(LOW_DC|LOW_DC_DIS);
+ 126:	80 e0       	ldi	r24, 0x00	; 0
+ 128:	98 ec       	ldi	r25, 0xC8	; 200
+ 12a:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	//ustawienie monitora napiêcia na 2,2V
+	Rfm_xmit(BOD_CLK|CLK_5_00|BOD_2_2);
+ 12e:	80 ec       	ldi	r24, 0xC0	; 192
+ 130:	90 ec       	ldi	r25, 0xC0	; 192
+ 132:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+ 136:	c0 e9       	ldi	r28, 0x90	; 144
+ 138:	d1 e0       	ldi	r29, 0x01	; 1
+
+	while(1){
+		Rfm_write_str("Siemka", 0xD0);//wysy³am do naszego uk³adu slave powitanie
+ 13a:	82 e7       	ldi	r24, 0x72	; 114
+ 13c:	90 e0       	ldi	r25, 0x00	; 0
+ 13e:	60 ed       	ldi	r22, 0xD0	; 208
+ 140:	0e 94 d8 00 	call	0x1b0	; 0x1b0 <Rfm_write_str>
+		Rfm_read_str(bufor,64);//odczytujê dane przesy³ane przez inny uk³ad
+ 144:	81 e8       	ldi	r24, 0x81	; 129
+ 146:	90 e0       	ldi	r25, 0x00	; 0
+ 148:	60 e4       	ldi	r22, 0x40	; 64
+ 14a:	0e 94 2d 01 	call	0x25a	; 0x25a <Rfm_read_str>
+		uart_puts(bufor);//i wyœwietlamy je w terminalu RS232
+ 14e:	81 e8       	ldi	r24, 0x81	; 129
+ 150:	90 e0       	ldi	r25, 0x00	; 0
+ 152:	0e 94 85 01 	call	0x30a	; 0x30a <uart_puts>
+		uart_puts("\r\n");
+ 156:	89 e7       	ldi	r24, 0x79	; 121
+ 158:	90 e0       	ldi	r25, 0x00	; 0
+ 15a:	0e 94 85 01 	call	0x30a	; 0x30a <uart_puts>
+ 15e:	88 e8       	ldi	r24, 0x88	; 136
+ 160:	93 e1       	ldi	r25, 0x13	; 19
+ 162:	fe 01       	movw	r30, r28
+ 164:	31 97       	sbiw	r30, 0x01	; 1
+ 166:	f1 f7       	brne	.-4      	; 0x164 <main+0xd2>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 168:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 16a:	d9 f7       	brne	.-10     	; 0x162 <main+0xd0>
+ 16c:	e6 cf       	rjmp	.-52     	; 0x13a <main+0xa8>
+
+0000016e <Rfm_spi_init>:
+ * Description: Funkcje do obs³ugi uk³adu RFM12B z poziomu procesora AVR
+ */
+#include "RFM12B.h"
+
+void Rfm_spi_init(void){
+	DDRB |= (1<<PB7)|(1<<PB5)|(1<<PB4);//konfiguracja kierunku i podcigania linii SPI
+ 16e:	87 b3       	in	r24, 0x17	; 23
+ 170:	80 6b       	ori	r24, 0xB0	; 176
+ 172:	87 bb       	out	0x17, r24	; 23
+	PORTB |= (1<<PB6);
+ 174:	c6 9a       	sbi	0x18, 6	; 24
+	//uwaga - pomimo i¿ tu nie u¿ywamy lini SS jako lini CS dla uk³adu RFM
+	//to do poprawnej pracy modu³u SPI w procesorze linia SS musi byæ ustawiona jako wyjœcie
+
+	SPCR |= (1<<SPE)|(1<<MSTR)|(1<<SPR0);//SPI w trybie master z podzia³em zegara przez 64 
+ 176:	8d b1       	in	r24, 0x0d	; 13
+ 178:	81 65       	ori	r24, 0x51	; 81
+ 17a:	8d b9       	out	0x0d, r24	; 13
+	
+
+	PORTC |= (1<<PC5);//dezaktywacja uk³adu RFM12B
+ 17c:	ad 9a       	sbi	0x15, 5	; 21
+	DDRC |= (1<<PC5);//konfiguracja kierunku linii CS
+ 17e:	a5 9a       	sbi	0x14, 5	; 20
+}
+ 180:	08 95       	ret
+
+00000182 <Rfm_xmit>:
+uint16_t Rfm_xmit(uint16_t data){
+	//na pocz¹tek rodzielamy dane na 2 bajty
+	uint8_t msb, lsb;
+	lsb = data;
+	msb = data>>8;
+	PORTC &= ~(1<<PC5);//aktywujemy liniê CS uk³adu
+ 182:	ad 98       	cbi	0x15, 5	; 21
+	//teraz wysy³amy 2 bajty jednoczeœnie odbieraj¹c 2 bajty z uk³adu
+	SPDR = msb;
+ 184:	9f b9       	out	0x0f, r25	; 15
+	while(!(SPSR&(1<<7)));
+ 186:	77 9b       	sbis	0x0e, 7	; 14
+ 188:	fe cf       	rjmp	.-4      	; 0x186 <Rfm_xmit+0x4>
+	msb = SPDR;
+ 18a:	9f b1       	in	r25, 0x0f	; 15
+	SPDR = lsb;
+ 18c:	8f b9       	out	0x0f, r24	; 15
+	while(!(SPSR&(1<<7)));
+ 18e:	77 9b       	sbis	0x0e, 7	; 14
+ 190:	fe cf       	rjmp	.-4      	; 0x18e <Rfm_xmit+0xc>
+	lsb = SPDR;
+ 192:	8f b1       	in	r24, 0x0f	; 15
+	//_delay_ms(1);
+	PORTC |= (1<<PC5);//dezaktywujemy liniê CS uk³adu
+ 194:	ad 9a       	sbi	0x15, 5	; 21
+ 196:	39 2f       	mov	r19, r25
+ 198:	20 e0       	ldi	r18, 0x00	; 0
+ 19a:	28 0f       	add	r18, r24
+ 19c:	31 1d       	adc	r19, r1
+	//i zwracamy odebrane dane
+	return( (((uint16_t)msb)<<8)+((uint16_t)lsb) );
+}
+ 19e:	c9 01       	movw	r24, r18
+ 1a0:	08 95       	ret
+
+000001a2 <Rfm_ready_wait>:
+
+void Rfm_ready_wait(void){
+	//aby sprawdziæ gotowoœæ uk³adu do odbioru komend z procesora
+	//aktywujemy jego liniê CS
+	PORTC &= ~(1<<PC5);
+ 1a2:	ad 98       	cbi	0x15, 5	; 21
+    can be achieved.
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+ 1a4:	85 e0       	ldi	r24, 0x05	; 5
+ 1a6:	8a 95       	dec	r24
+ 1a8:	f1 f7       	brne	.-4      	; 0x1a6 <Rfm_ready_wait+0x4>
+	w wersji docelowej ta instrukcja powinna byæ wykonywana do okreœlonego czasu, po którym
+	procesor powinien uznaæ, ¿e uk³ad siê zawiesi³ lub nie odpowiada z innych przyczyn
+	i nale¿y podj¹æ odpowiednie dzia³ania (np. informacja, ¿e ¿adne dane nie sa do nas wysy³ane lub
+	¿e nalezy zreseowaæ uk³ad)
+	*/
+	while(!(PINB&(1<<PB6)));
+ 1aa:	b6 9b       	sbis	0x16, 6	; 22
+ 1ac:	fe cf       	rjmp	.-4      	; 0x1aa <Rfm_ready_wait+0x8>
+}
+ 1ae:	08 95       	ret
+
+000001b0 <Rfm_write_str>:
+
+void Rfm_write_str(char* s, uint8_t address){
+ 1b0:	0f 93       	push	r16
+ 1b2:	1f 93       	push	r17
+ 1b4:	cf 93       	push	r28
+ 1b6:	df 93       	push	r29
+ 1b8:	ec 01       	movw	r28, r24
+ 1ba:	06 2f       	mov	r16, r22
+	//instrukcja nadaj¹ca ci¹g znaków
+	char c;//zmienna pomocnicza
+	//w³¹czamy nadajnik
+	Rfm_xmit(POWER|EN_TRANSMISSION|EN_SYNTH|EN_OSC|DIS_CLKO);
+ 1bc:	89 e3       	ldi	r24, 0x39	; 57
+ 1be:	92 e8       	ldi	r25, 0x82	; 130
+ 1c0:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+ 1c4:	80 e2       	ldi	r24, 0x20	; 32
+ 1c6:	9e e4       	ldi	r25, 0x4E	; 78
+ 1c8:	01 97       	sbiw	r24, 0x01	; 1
+ 1ca:	f1 f7       	brne	.-4      	; 0x1c8 <Rfm_write_str+0x18>
+	//czekamy nieco d³uzej na jego aktywacjê
+	_delay_ms(5);
+
+	//nadajemy 3 bajty synchronizacji (0xAA)
+	Rfm_ready_wait();
+ 1cc:	0e 94 d1 00 	call	0x1a2	; 0x1a2 <Rfm_ready_wait>
+	Rfm_xmit(TX_WRITE|0xAA);
+ 1d0:	8a ea       	ldi	r24, 0xAA	; 170
+ 1d2:	98 eb       	ldi	r25, 0xB8	; 184
+ 1d4:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	Rfm_ready_wait();
+ 1d8:	0e 94 d1 00 	call	0x1a2	; 0x1a2 <Rfm_ready_wait>
+	Rfm_xmit(TX_WRITE|0xAA);
+ 1dc:	8a ea       	ldi	r24, 0xAA	; 170
+ 1de:	98 eb       	ldi	r25, 0xB8	; 184
+ 1e0:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	Rfm_ready_wait();
+ 1e4:	0e 94 d1 00 	call	0x1a2	; 0x1a2 <Rfm_ready_wait>
+	Rfm_xmit(TX_WRITE|0xAA);
+ 1e8:	8a ea       	ldi	r24, 0xAA	; 170
+ 1ea:	98 eb       	ldi	r25, 0xB8	; 184
+ 1ec:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	//nastêpnie kolejny bajt synchrnoizacji (0x2D)
+	Rfm_ready_wait();
+ 1f0:	0e 94 d1 00 	call	0x1a2	; 0x1a2 <Rfm_ready_wait>
+	Rfm_xmit(TX_WRITE|0x2D);
+ 1f4:	8d e2       	ldi	r24, 0x2D	; 45
+ 1f6:	98 eb       	ldi	r25, 0xB8	; 184
+ 1f8:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	Rfm_ready_wait();
+ 1fc:	0e 94 d1 00 	call	0x1a2	; 0x1a2 <Rfm_ready_wait>
+	//oraz definiowalny bajt synchronizacji (czyli nasz adres)
+	Rfm_xmit(TX_WRITE|address);
+ 200:	10 e0       	ldi	r17, 0x00	; 0
+ 202:	c8 01       	movw	r24, r16
+ 204:	01 c0       	rjmp	.+2      	; 0x208 <Rfm_write_str+0x58>
+	Rfm_ready_wait();
+
+	//wysy³amy ca³y ³añcuch znaków
+	while((c=*s++)){
+		Rfm_xmit(TX_WRITE|c);
+ 206:	90 e0       	ldi	r25, 0x00	; 0
+ 208:	98 6b       	ori	r25, 0xB8	; 184
+ 20a:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+		Rfm_ready_wait();
+ 20e:	0e 94 d1 00 	call	0x1a2	; 0x1a2 <Rfm_ready_wait>
+	//oraz definiowalny bajt synchronizacji (czyli nasz adres)
+	Rfm_xmit(TX_WRITE|address);
+	Rfm_ready_wait();
+
+	//wysy³amy ca³y ³añcuch znaków
+	while((c=*s++)){
+ 212:	89 91       	ld	r24, Y+
+ 214:	88 23       	and	r24, r24
+ 216:	b9 f7       	brne	.-18     	; 0x206 <Rfm_write_str+0x56>
+		Rfm_xmit(TX_WRITE|c);
+		Rfm_ready_wait();
+	}
+	//i bajt równy 0 koñcz¹cy ci¹g znaków
+	Rfm_xmit(TX_WRITE|0);
+ 218:	80 e0       	ldi	r24, 0x00	; 0
+ 21a:	98 eb       	ldi	r25, 0xB8	; 184
+ 21c:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	Rfm_ready_wait();
+ 220:	0e 94 d1 00 	call	0x1a2	; 0x1a2 <Rfm_ready_wait>
+	//oraz 3 bajty koñcz¹ce transmisjê
+	Rfm_xmit(TX_WRITE|0xAA);
+ 224:	8a ea       	ldi	r24, 0xAA	; 170
+ 226:	98 eb       	ldi	r25, 0xB8	; 184
+ 228:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	Rfm_ready_wait();
+ 22c:	0e 94 d1 00 	call	0x1a2	; 0x1a2 <Rfm_ready_wait>
+	Rfm_xmit(TX_WRITE|0xAA);
+ 230:	8a ea       	ldi	r24, 0xAA	; 170
+ 232:	98 eb       	ldi	r25, 0xB8	; 184
+ 234:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	Rfm_ready_wait();
+ 238:	0e 94 d1 00 	call	0x1a2	; 0x1a2 <Rfm_ready_wait>
+	Rfm_xmit(TX_WRITE|0xAA);
+ 23c:	8a ea       	ldi	r24, 0xAA	; 170
+ 23e:	98 eb       	ldi	r25, 0xB8	; 184
+ 240:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	Rfm_ready_wait();
+ 244:	0e 94 d1 00 	call	0x1a2	; 0x1a2 <Rfm_ready_wait>
+	//nastêpnie wy³¹czamy nadajnik
+	Rfm_xmit(POWER|DIS_CLKO);
+ 248:	81 e0       	ldi	r24, 0x01	; 1
+ 24a:	92 e8       	ldi	r25, 0x82	; 130
+ 24c:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+}
+ 250:	df 91       	pop	r29
+ 252:	cf 91       	pop	r28
+ 254:	1f 91       	pop	r17
+ 256:	0f 91       	pop	r16
+ 258:	08 95       	ret
+
+0000025a <Rfm_read_str>:
+
+void Rfm_read_str(char* c, uint8_t max_size){
+ 25a:	0f 93       	push	r16
+ 25c:	1f 93       	push	r17
+ 25e:	cf 93       	push	r28
+ 260:	df 93       	push	r29
+ 262:	ec 01       	movw	r28, r24
+ 264:	06 2f       	mov	r16, r22
+	//w³¹czamy odbiornik
+	Rfm_xmit(POWER|EN_RX|EN_BASEBAND|EN_OSC|DIS_CLKO);
+ 266:	89 ec       	ldi	r24, 0xC9	; 201
+ 268:	92 e8       	ldi	r25, 0x82	; 130
+ 26a:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+ 26e:	80 e2       	ldi	r24, 0x20	; 32
+ 270:	9e e4       	ldi	r25, 0x4E	; 78
+ 272:	01 97       	sbiw	r24, 0x01	; 1
+ 274:	f1 f7       	brne	.-4      	; 0x272 <Rfm_read_str+0x18>
+	_delay_ms(5);
+	//para komend powoduj¹ca w efekcie dzia³ania reset synchronizacji odbiornika
+	Rfm_xmit(FIFO_RST|FIFO_IT_8|HS_RST_DIS);
+ 276:	81 e8       	ldi	r24, 0x81	; 129
+ 278:	9a ec       	ldi	r25, 0xCA	; 202
+ 27a:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+	Rfm_xmit(FIFO_RST|FIFO_IT_8|EN_AFT_SYNC|HS_RST_DIS);
+ 27e:	83 e8       	ldi	r24, 0x83	; 131
+ 280:	9a ec       	ldi	r25, 0xCA	; 202
+ 282:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+ 286:	10 e0       	ldi	r17, 0x00	; 0
+	
+	uint8_t i=0;
+	do{
+		//oczekujemy a¿ uk³ad bêdzie gotowy (a¿ bajt bêdzie w buforze)
+		Rfm_ready_wait();
+ 288:	0e 94 d1 00 	call	0x1a2	; 0x1a2 <Rfm_ready_wait>
+		//i odczytujemy ten bajt
+		*c=(char)Rfm_xmit(FIFO_READ);
+ 28c:	80 e0       	ldi	r24, 0x00	; 0
+ 28e:	90 eb       	ldi	r25, 0xB0	; 176
+ 290:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+ 294:	88 83       	st	Y, r24
+		i++;
+ 296:	1f 5f       	subi	r17, 0xFF	; 255
+		if(i>=max_size)*(++c)=0;
+ 298:	10 17       	cp	r17, r16
+ 29a:	10 f0       	brcs	.+4      	; 0x2a0 <Rfm_read_str+0x46>
+ 29c:	21 96       	adiw	r28, 0x01	; 1
+ 29e:	18 82       	st	Y, r1
+	}while(*c++!=0);
+ 2a0:	88 81       	ld	r24, Y
+ 2a2:	88 23       	and	r24, r24
+ 2a4:	11 f0       	breq	.+4      	; 0x2aa <Rfm_read_str+0x50>
+ 2a6:	21 96       	adiw	r28, 0x01	; 1
+ 2a8:	ef cf       	rjmp	.-34     	; 0x288 <Rfm_read_str+0x2e>
+
+	//nastêpnie wy³¹czamy odbiornik
+	Rfm_xmit(POWER|DIS_CLKO);
+ 2aa:	81 e0       	ldi	r24, 0x01	; 1
+ 2ac:	92 e8       	ldi	r25, 0x82	; 130
+ 2ae:	0e 94 c1 00 	call	0x182	; 0x182 <Rfm_xmit>
+}
+ 2b2:	df 91       	pop	r29
+ 2b4:	cf 91       	pop	r28
+ 2b6:	1f 91       	pop	r17
+ 2b8:	0f 91       	pop	r16
+ 2ba:	08 95       	ret
+
+000002bc <uart_init>:
+
+volatile uint8_t rx_overrun=0;
+
+void uart_init(uint16_t baud){
+	//wyliczamy wartoœæ rejestru UBRR
+	uint16_t ubrr_cal=F_CPU/16/baud-1;
+ 2bc:	9c 01       	movw	r18, r24
+ 2be:	40 e0       	ldi	r20, 0x00	; 0
+ 2c0:	50 e0       	ldi	r21, 0x00	; 0
+ 2c2:	60 e4       	ldi	r22, 0x40	; 64
+ 2c4:	72 e4       	ldi	r23, 0x42	; 66
+ 2c6:	8f e0       	ldi	r24, 0x0F	; 15
+ 2c8:	90 e0       	ldi	r25, 0x00	; 0
+ 2ca:	0e 94 e0 01 	call	0x3c0	; 0x3c0 <__udivmodsi4>
+ 2ce:	21 50       	subi	r18, 0x01	; 1
+ 2d0:	30 40       	sbci	r19, 0x00	; 0
+	//konfiguracja baud
+	UBRRH = (uint8_t)(ubrr_cal>>8);
+ 2d2:	30 bd       	out	0x20, r19	; 32
+	UBRRL = (uint8_t)ubrr_cal;
+ 2d4:	29 b9       	out	0x09, r18	; 9
+	//w³¹czenie UART
+	UCSRB = (1<<RXEN)|(1<<TXEN);
+ 2d6:	88 e1       	ldi	r24, 0x18	; 24
+ 2d8:	8a b9       	out	0x0a, r24	; 10
+	UCSRC = (1<<URSEL)|(1<<UCSZ0)|(1<<UCSZ1);
+ 2da:	86 e8       	ldi	r24, 0x86	; 134
+ 2dc:	80 bd       	out	0x20, r24	; 32
+	UCSRB |= (1<<RXEN)|(1<<TXEN)|(1<<RXCIE);
+ 2de:	8a b1       	in	r24, 0x0a	; 10
+ 2e0:	88 69       	ori	r24, 0x98	; 152
+ 2e2:	8a b9       	out	0x0a, r24	; 10
+}
+ 2e4:	08 95       	ret
+
+000002e6 <uart_putc>:
+
+void uart_putc(char data){
+ 2e6:	28 2f       	mov	r18, r24
+	uint8_t new_h=(uart_tx_h+1)&UART_BUFFER_MASK;
+ 2e8:	90 91 7e 00 	lds	r25, 0x007E
+ 2ec:	9f 5f       	subi	r25, 0xFF	; 255
+ 2ee:	9f 70       	andi	r25, 0x0F	; 15
+	while(new_h==uart_tx_t);
+ 2f0:	80 91 7f 00 	lds	r24, 0x007F
+ 2f4:	98 17       	cp	r25, r24
+ 2f6:	e1 f3       	breq	.-8      	; 0x2f0 <uart_putc+0xa>
+	UART_TX_BUF[new_h]=data;
+ 2f8:	e9 2f       	mov	r30, r25
+ 2fa:	f0 e0       	ldi	r31, 0x00	; 0
+ 2fc:	ee 53       	subi	r30, 0x3E	; 62
+ 2fe:	ff 4f       	sbci	r31, 0xFF	; 255
+ 300:	20 83       	st	Z, r18
+	uart_tx_h=new_h;
+ 302:	90 93 7e 00 	sts	0x007E, r25
+	UCSRB |= (1<<UDRIE);
+ 306:	55 9a       	sbi	0x0a, 5	; 10
+}
+ 308:	08 95       	ret
+
+0000030a <uart_puts>:
+
+void uart_puts(char *string){
+ 30a:	cf 93       	push	r28
+ 30c:	df 93       	push	r29
+ 30e:	ec 01       	movw	r28, r24
+ 310:	02 c0       	rjmp	.+4      	; 0x316 <uart_puts+0xc>
+	char c;
+	while((c=*string++))uart_putc(c);
+ 312:	0e 94 73 01 	call	0x2e6	; 0x2e6 <uart_putc>
+ 316:	89 91       	ld	r24, Y+
+ 318:	88 23       	and	r24, r24
+ 31a:	d9 f7       	brne	.-10     	; 0x312 <uart_puts+0x8>
+}
+ 31c:	df 91       	pop	r29
+ 31e:	cf 91       	pop	r28
+ 320:	08 95       	ret
+
+00000322 <__vector_13>:
+    }
+  }while(odebrany!='\r');//jeœli odebraliœmy znak zakoñczenia liczby to wychodzimy z pêtli  
+  return liczba;//zwracamy odebran¹ liczbê
+}
+
+ISR(USART_RXC_vect){
+ 322:	1f 92       	push	r1
+ 324:	0f 92       	push	r0
+ 326:	0f b6       	in	r0, 0x3f	; 63
+ 328:	0f 92       	push	r0
+ 32a:	11 24       	eor	r1, r1
+ 32c:	8f 93       	push	r24
+ 32e:	9f 93       	push	r25
+ 330:	ef 93       	push	r30
+ 332:	ff 93       	push	r31
+	uint8_t new_h=(uart_rx_h+1)&UART_BUFFER_MASK;
+ 334:	90 91 7c 00 	lds	r25, 0x007C
+ 338:	9f 5f       	subi	r25, 0xFF	; 255
+ 33a:	9f 70       	andi	r25, 0x0F	; 15
+
+	if(new_h!=uart_rx_t){
+ 33c:	80 91 7d 00 	lds	r24, 0x007D
+ 340:	98 17       	cp	r25, r24
+ 342:	51 f0       	breq	.+20     	; 0x358 <__vector_13+0x36>
+		uart_rx_h=new_h;
+ 344:	90 93 7c 00 	sts	0x007C, r25
+		UART_RX_BUF[uart_rx_h]=UDR;
+ 348:	e0 91 7c 00 	lds	r30, 0x007C
+ 34c:	f0 e0       	ldi	r31, 0x00	; 0
+ 34e:	8c b1       	in	r24, 0x0c	; 12
+ 350:	ee 52       	subi	r30, 0x2E	; 46
+ 352:	ff 4f       	sbci	r31, 0xFF	; 255
+ 354:	80 83       	st	Z, r24
+ 356:	04 c0       	rjmp	.+8      	; 0x360 <__vector_13+0x3e>
+	}else{
+		rx_overrun=1;
+ 358:	81 e0       	ldi	r24, 0x01	; 1
+ 35a:	80 93 80 00 	sts	0x0080, r24
+		new_h=UDR;//odczytujemy bufor, ¿eby nie zawiesiæ systemu
+ 35e:	8c b1       	in	r24, 0x0c	; 12
+	}
+}
+ 360:	ff 91       	pop	r31
+ 362:	ef 91       	pop	r30
+ 364:	9f 91       	pop	r25
+ 366:	8f 91       	pop	r24
+ 368:	0f 90       	pop	r0
+ 36a:	0f be       	out	0x3f, r0	; 63
+ 36c:	0f 90       	pop	r0
+ 36e:	1f 90       	pop	r1
+ 370:	18 95       	reti
+
+00000372 <__vector_14>:
+
+ISR(USART_UDRE_vect){
+ 372:	1f 92       	push	r1
+ 374:	0f 92       	push	r0
+ 376:	0f b6       	in	r0, 0x3f	; 63
+ 378:	0f 92       	push	r0
+ 37a:	11 24       	eor	r1, r1
+ 37c:	8f 93       	push	r24
+ 37e:	9f 93       	push	r25
+ 380:	ef 93       	push	r30
+ 382:	ff 93       	push	r31
+	if(uart_tx_t!=uart_tx_h){
+ 384:	90 91 7f 00 	lds	r25, 0x007F
+ 388:	80 91 7e 00 	lds	r24, 0x007E
+ 38c:	98 17       	cp	r25, r24
+ 38e:	71 f0       	breq	.+28     	; 0x3ac <__vector_14+0x3a>
+		uart_tx_t=(uart_tx_t+1)&UART_BUFFER_MASK;
+ 390:	80 91 7f 00 	lds	r24, 0x007F
+ 394:	8f 5f       	subi	r24, 0xFF	; 255
+ 396:	8f 70       	andi	r24, 0x0F	; 15
+ 398:	80 93 7f 00 	sts	0x007F, r24
+		UDR=UART_TX_BUF[uart_tx_t];
+ 39c:	e0 91 7f 00 	lds	r30, 0x007F
+ 3a0:	f0 e0       	ldi	r31, 0x00	; 0
+ 3a2:	ee 53       	subi	r30, 0x3E	; 62
+ 3a4:	ff 4f       	sbci	r31, 0xFF	; 255
+ 3a6:	80 81       	ld	r24, Z
+ 3a8:	8c b9       	out	0x0c, r24	; 12
+ 3aa:	01 c0       	rjmp	.+2      	; 0x3ae <__vector_14+0x3c>
+	}else{
+		UCSRB &= ~(1<<UDRIE);
+ 3ac:	55 98       	cbi	0x0a, 5	; 10
+	}
+}
+ 3ae:	ff 91       	pop	r31
+ 3b0:	ef 91       	pop	r30
+ 3b2:	9f 91       	pop	r25
+ 3b4:	8f 91       	pop	r24
+ 3b6:	0f 90       	pop	r0
+ 3b8:	0f be       	out	0x3f, r0	; 63
+ 3ba:	0f 90       	pop	r0
+ 3bc:	1f 90       	pop	r1
+ 3be:	18 95       	reti
+
+000003c0 <__udivmodsi4>:
+ 3c0:	a1 e2       	ldi	r26, 0x21	; 33
+ 3c2:	1a 2e       	mov	r1, r26
+ 3c4:	aa 1b       	sub	r26, r26
+ 3c6:	bb 1b       	sub	r27, r27
+ 3c8:	fd 01       	movw	r30, r26
+ 3ca:	0d c0       	rjmp	.+26     	; 0x3e6 <__udivmodsi4_ep>
+
+000003cc <__udivmodsi4_loop>:
+ 3cc:	aa 1f       	adc	r26, r26
+ 3ce:	bb 1f       	adc	r27, r27
+ 3d0:	ee 1f       	adc	r30, r30
+ 3d2:	ff 1f       	adc	r31, r31
+ 3d4:	a2 17       	cp	r26, r18
+ 3d6:	b3 07       	cpc	r27, r19
+ 3d8:	e4 07       	cpc	r30, r20
+ 3da:	f5 07       	cpc	r31, r21
+ 3dc:	20 f0       	brcs	.+8      	; 0x3e6 <__udivmodsi4_ep>
+ 3de:	a2 1b       	sub	r26, r18
+ 3e0:	b3 0b       	sbc	r27, r19
+ 3e2:	e4 0b       	sbc	r30, r20
+ 3e4:	f5 0b       	sbc	r31, r21
+
+000003e6 <__udivmodsi4_ep>:
+ 3e6:	66 1f       	adc	r22, r22
+ 3e8:	77 1f       	adc	r23, r23
+ 3ea:	88 1f       	adc	r24, r24
+ 3ec:	99 1f       	adc	r25, r25
+ 3ee:	1a 94       	dec	r1
+ 3f0:	69 f7       	brne	.-38     	; 0x3cc <__udivmodsi4_loop>
+ 3f2:	60 95       	com	r22
+ 3f4:	70 95       	com	r23
+ 3f6:	80 95       	com	r24
+ 3f8:	90 95       	com	r25
+ 3fa:	9b 01       	movw	r18, r22
+ 3fc:	ac 01       	movw	r20, r24
+ 3fe:	bd 01       	movw	r22, r26
+ 400:	cf 01       	movw	r24, r30
+ 402:	08 95       	ret
+
+00000404 <_exit>:
+ 404:	f8 94       	cli
+
+00000406 <__stop_program>:
+ 406:	ff cf       	rjmp	.-2      	; 0x406 <__stop_program>

@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "RC5_REC", "RC5_REC\RC5_REC.cproj", "{C606CCAA-BB12-4752-83FE-BA3BA3F2A851}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C606CCAA-BB12-4752-83FE-BA3BA3F2A851}.Debug|AVR.ActiveCfg = Debug|AVR
+		{C606CCAA-BB12-4752-83FE-BA3BA3F2A851}.Debug|AVR.Build.0 = Debug|AVR
+		{C606CCAA-BB12-4752-83FE-BA3BA3F2A851}.Release|AVR.ActiveCfg = Release|AVR
+		{C606CCAA-BB12-4752-83FE-BA3BA3F2A851}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

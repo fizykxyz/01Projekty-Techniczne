@@ -1,0 +1,143 @@
+   1               		.file	"main.c"
+   2               		.arch atmega162
+   3               	__SREG__ = 0x3f
+   4               	__SP_H__ = 0x3e
+   5               	__SP_L__ = 0x3d
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               	.global	delay_10ms8
+  20               	delay_10ms8:
+  21               	.LFB7:
+  22               	.LM1:
+  23               	/* prologue: frame size=0 */
+  24 0000 CF93      		push r28
+  25 0002 DF93      		push r29
+  26               	/* prologue end (size=2) */
+  27 0004 282F      		mov r18,r24
+  28 0006 A0E2      		ldi r26,lo8(20000)
+  29 0008 BEE4      		ldi r27,hi8(20000)
+  30 000a C0E0      		ldi r28,hlo8(20000)
+  31 000c D0E0      		ldi r29,hhi8(20000)
+  32               	.L2:
+  33               	.LBB2:
+  34               	.LBB3:
+  35               	.LBB4:
+  36               	.LBB5:
+  37               	.LM2:
+  38 000e CD01      		movw r24,r26
+  39               	/* #APP */
+  40 0010 0197      		1: sbiw r24,1
+  41 0012 F1F7      		brne 1b
+  42               	/* #NOAPP */
+  43               	.LBE5:
+  44               	.LBE4:
+  45               	.LBE3:
+  46               	.LBE2:
+  47               	.LM3:
+  48 0014 2150      		subi r18,1
+  49 0016 D8F7      		brcc .L2
+  50               	/* epilogue: frame size=0 */
+  51 0018 DF91      		pop r29
+  52 001a CF91      		pop r28
+  53 001c 0895      		ret
+  54               	/* epilogue end (size=3) */
+  55               	/* function delay_10ms8 size 16 (11) */
+  56               	.LFE7:
+  58               	.global	main
+  60               	main:
+  61               	.LFB8:
+  62               	.LM4:
+  63               	/* prologue: frame size=0 */
+  64 001e C0E0      		ldi r28,lo8(__stack - 0)
+  65 0020 D0E0      		ldi r29,hi8(__stack - 0)
+  66 0022 DEBF      		out __SP_H__,r29
+  67 0024 CDBF      		out __SP_L__,r28
+  68               	/* prologue end (size=4) */
+  69               	.LM5:
+  70 0026 8CE3      		ldi r24,lo8(60)
+  71 0028 81BB      		out 49-0x20,r24
+  72               	.LM6:
+  73 002a 8FEC      		ldi r24,lo8(-49)
+  74 002c 82BB      		out 50-0x20,r24
+  75               	.LM7:
+  76 002e 0E94 0000 		call lcd_Init
+  77               	.LM8:
+  78 0032 86E0      		ldi r24,lo8(6)
+  79 0034 0E94 0000 		call lcd_SetStatus
+  80               	.LM9:
+  81 0038 0E94 0000 		call lcd_GetFile
+  82 003c BC01      		movw r22,r24
+  83 003e 80E0      		ldi r24,lo8(str_Hello)
+  84 0040 90E0      		ldi r25,hi8(str_Hello)
+  85 0042 0E94 0000 		call fputs_P
+  86               	.LM10:
+  87 0046 0E94 0000 		call lcd_Update
+  88               	.LM11:
+  89 004a 88EC      		ldi r24,lo8(-56)
+  90 004c 0E94 0000 		call delay_10ms8
+  91               	.LM12:
+  92 0050 C0E0      		ldi r28,lo8(0)
+  93               	.L14:
+  94               	.LM13:
+  95 0052 0E94 0000 		call lcd_Cls
+  96               	.LM14:
+  97 0056 0E94 0000 		call lcd_GetFile
+  98 005a 2C2F      		mov r18,r28
+  99 005c 3327      		clr r19
+ 100 005e BC01      		movw r22,r24
+ 101 0060 C901      		movw r24,r18
+ 102 0062 8050      		subi r24,lo8(-(str_all))
+ 103 0064 9040      		sbci r25,hi8(-(str_all))
+ 104 0066 0E94 0000 		call fputs_P
+ 105               	.LM15:
+ 106 006a 0E94 0000 		call lcd_Update
+ 107               	.LM16:
+ 108 006e CF5F      		subi r28,lo8(-(1))
+ 109 0070 0C2F      		mov r16,r28
+ 110 0072 1127      		clr r17
+ 111 0074 80E0      		ldi r24,lo8(str_all)
+ 112 0076 90E0      		ldi r25,hi8(str_all)
+ 113 0078 0E94 0000 		call strlen_P
+ 114 007c 0817      		cp r16,r24
+ 115 007e 1907      		cpc r17,r25
+ 116 0080 08F0      		brlo .L16
+ 117               	.LM17:
+ 118 0082 C0E0      		ldi r28,lo8(0)
+ 119               	.L16:
+ 120               	.LM18:
+ 121 0084 84E6      		ldi r24,lo8(100)
+ 122 0086 0E94 0000 		call delay_10ms8
+ 123               	.LM19:
+ 124 008a E3CF      		rjmp .L14
+ 125               	/* epilogue: frame size=0 */
+ 126               	/* epilogue: noreturn */
+ 127               	/* epilogue end (size=0) */
+ 128               	/* function main size 55 (51) */
+ 129               	.LFE8:
+ 131               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\DOCUME~1\Radek\USTAWI~1\Temp/cc6Jaaaa.s:3      *ABS*:0000003f __SREG__
+C:\DOCUME~1\Radek\USTAWI~1\Temp/cc6Jaaaa.s:4      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\Radek\USTAWI~1\Temp/cc6Jaaaa.s:5      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\Radek\USTAWI~1\Temp/cc6Jaaaa.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\Radek\USTAWI~1\Temp/cc6Jaaaa.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\Radek\USTAWI~1\Temp/cc6Jaaaa.s:20     .text:00000000 delay_10ms8
+C:\DOCUME~1\Radek\USTAWI~1\Temp/cc6Jaaaa.s:60     .text:0000001e main
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+__stack
+lcd_Init
+lcd_SetStatus
+lcd_GetFile
+str_Hello
+fputs_P
+lcd_Update
+lcd_Cls
+str_all
+strlen_P

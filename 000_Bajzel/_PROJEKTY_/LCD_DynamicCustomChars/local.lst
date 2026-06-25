@@ -1,0 +1,202 @@
+   1               		.file	"local.c"
+   2               		.arch atmega162
+   3               	__SREG__ = 0x3f
+   4               	__SP_H__ = 0x3e
+   5               	__SP_L__ = 0x3d
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               	.global	str_all
+  19               		.section	.progmem.data,"a",@progbits
+  22               	str_all:
+  23 0000 8081 8283 		.string	"\200\201\202\203\204\205\206\207\210\211\212\213\214\215\216\217\220\221"
+  23      8485 8687 
+  23      8889 8A8B 
+  23      8C8D 8E8F 
+  23      9091 00
+  24               	.global	str_Hello
+  27               	str_Hello:
+  28 0013 437A 6586 		.string	"Cze\206\201"
+  28      8100 
+  29               	.global	local_lcdspec
+  32               	local_lcdspec:
+  33 0019 00        		.byte	0
+  34 001a 00        		.byte	0
+  35 001b 0E        		.byte	14
+  36 001c 01        		.byte	1
+  37 001d 0F        		.byte	15
+  38 001e 11        		.byte	17
+  39 001f 0F        		.byte	15
+  40 0020 02        		.byte	2
+  41 0021 61        		.byte	97
+  42 0022 02        		.byte	2
+  43 0023 04        		.byte	4
+  44 0024 0E        		.byte	14
+  45 0025 10        		.byte	16
+  46 0026 10        		.byte	16
+  47 0027 11        		.byte	17
+  48 0028 0E        		.byte	14
+  49 0029 00        		.byte	0
+  50 002a 63        		.byte	99
+  51 002b 00        		.byte	0
+  52 002c 00        		.byte	0
+  53 002d 0E        		.byte	14
+  54 002e 11        		.byte	17
+  55 002f 1F        		.byte	31
+  56 0030 10        		.byte	16
+  57 0031 0E        		.byte	14
+  58 0032 02        		.byte	2
+  59 0033 65        		.byte	101
+  60 0034 0C        		.byte	12
+  61 0035 04        		.byte	4
+  62 0036 06        		.byte	6
+  63 0037 04        		.byte	4
+  64 0038 0C        		.byte	12
+  65 0039 04        		.byte	4
+  66 003a 0E        		.byte	14
+  67 003b 00        		.byte	0
+  68 003c 6C        		.byte	108
+  69 003d 02        		.byte	2
+  70 003e 04        		.byte	4
+  71 003f 16        		.byte	22
+  72 0040 19        		.byte	25
+  73 0041 11        		.byte	17
+  74 0042 11        		.byte	17
+  75 0043 11        		.byte	17
+  76 0044 00        		.byte	0
+  77 0045 6E        		.byte	110
+  78 0046 02        		.byte	2
+  79 0047 04        		.byte	4
+  80 0048 0E        		.byte	14
+  81 0049 11        		.byte	17
+  82 004a 11        		.byte	17
+  83 004b 11        		.byte	17
+  84 004c 0E        		.byte	14
+  85 004d 00        		.byte	0
+  86 004e 6F        		.byte	111
+  87 004f 02        		.byte	2
+  88 0050 04        		.byte	4
+  89 0051 0E        		.byte	14
+  90 0052 10        		.byte	16
+  91 0053 0E        		.byte	14
+  92 0054 01        		.byte	1
+  93 0055 1E        		.byte	30
+  94 0056 00        		.byte	0
+  95 0057 73        		.byte	115
+  96 0058 02        		.byte	2
+  97 0059 04        		.byte	4
+  98 005a 1F        		.byte	31
+  99 005b 02        		.byte	2
+ 100 005c 04        		.byte	4
+ 101 005d 08        		.byte	8
+ 102 005e 1F        		.byte	31
+ 103 005f 00        		.byte	0
+ 104 0060 7A        		.byte	122
+ 105 0061 04        		.byte	4
+ 106 0062 00        		.byte	0
+ 107 0063 1F        		.byte	31
+ 108 0064 02        		.byte	2
+ 109 0065 04        		.byte	4
+ 110 0066 08        		.byte	8
+ 111 0067 1F        		.byte	31
+ 112 0068 00        		.byte	0
+ 113 0069 7A        		.byte	122
+ 114 006a 0E        		.byte	14
+ 115 006b 11        		.byte	17
+ 116 006c 11        		.byte	17
+ 117 006d 1F        		.byte	31
+ 118 006e 11        		.byte	17
+ 119 006f 11        		.byte	17
+ 120 0070 11        		.byte	17
+ 121 0071 02        		.byte	2
+ 122 0072 41        		.byte	65
+ 123 0073 02        		.byte	2
+ 124 0074 0E        		.byte	14
+ 125 0075 15        		.byte	21
+ 126 0076 10        		.byte	16
+ 127 0077 10        		.byte	16
+ 128 0078 10        		.byte	16
+ 129 0079 11        		.byte	17
+ 130 007a 0E        		.byte	14
+ 131 007b 43        		.byte	67
+ 132 007c 1F        		.byte	31
+ 133 007d 10        		.byte	16
+ 134 007e 10        		.byte	16
+ 135 007f 1E        		.byte	30
+ 136 0080 10        		.byte	16
+ 137 0081 10        		.byte	16
+ 138 0082 1F        		.byte	31
+ 139 0083 02        		.byte	2
+ 140 0084 45        		.byte	69
+ 141 0085 10        		.byte	16
+ 142 0086 10        		.byte	16
+ 143 0087 14        		.byte	20
+ 144 0088 18        		.byte	24
+ 145 0089 10        		.byte	16
+ 146 008a 10        		.byte	16
+ 147 008b 1F        		.byte	31
+ 148 008c 00        		.byte	0
+ 149 008d 4C        		.byte	76
+ 150 008e 02        		.byte	2
+ 151 008f 15        		.byte	21
+ 152 0090 11        		.byte	17
+ 153 0091 19        		.byte	25
+ 154 0092 15        		.byte	21
+ 155 0093 13        		.byte	19
+ 156 0094 11        		.byte	17
+ 157 0095 11        		.byte	17
+ 158 0096 4E        		.byte	78
+ 159 0097 02        		.byte	2
+ 160 0098 0E        		.byte	14
+ 161 0099 15        		.byte	21
+ 162 009a 11        		.byte	17
+ 163 009b 11        		.byte	17
+ 164 009c 11        		.byte	17
+ 165 009d 11        		.byte	17
+ 166 009e 0E        		.byte	14
+ 167 009f 4F        		.byte	79
+ 168 00a0 02        		.byte	2
+ 169 00a1 0F        		.byte	15
+ 170 00a2 14        		.byte	20
+ 171 00a3 10        		.byte	16
+ 172 00a4 0E        		.byte	14
+ 173 00a5 01        		.byte	1
+ 174 00a6 01        		.byte	1
+ 175 00a7 1E        		.byte	30
+ 176 00a8 53        		.byte	83
+ 177 00a9 02        		.byte	2
+ 178 00aa 1F        		.byte	31
+ 179 00ab 05        		.byte	5
+ 180 00ac 02        		.byte	2
+ 181 00ad 04        		.byte	4
+ 182 00ae 08        		.byte	8
+ 183 00af 10        		.byte	16
+ 184 00b0 1F        		.byte	31
+ 185 00b1 5A        		.byte	90
+ 186 00b2 04        		.byte	4
+ 187 00b3 1F        		.byte	31
+ 188 00b4 01        		.byte	1
+ 189 00b5 02        		.byte	2
+ 190 00b6 04        		.byte	4
+ 191 00b7 08        		.byte	8
+ 192 00b8 10        		.byte	16
+ 193 00b9 1F        		.byte	31
+ 194 00ba 5A        		.byte	90
+ 195               		.text
+ 196               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 local.c
+C:\DOCUME~1\Radek\USTAWI~1\Temp/cc6Laaaa.s:3      *ABS*:0000003f __SREG__
+C:\DOCUME~1\Radek\USTAWI~1\Temp/cc6Laaaa.s:4      *ABS*:0000003e __SP_H__
+C:\DOCUME~1\Radek\USTAWI~1\Temp/cc6Laaaa.s:5      *ABS*:0000003d __SP_L__
+C:\DOCUME~1\Radek\USTAWI~1\Temp/cc6Laaaa.s:6      *ABS*:00000000 __tmp_reg__
+C:\DOCUME~1\Radek\USTAWI~1\Temp/cc6Laaaa.s:7      *ABS*:00000001 __zero_reg__
+C:\DOCUME~1\Radek\USTAWI~1\Temp/cc6Laaaa.s:22     .progmem.data:00000000 str_all
+C:\DOCUME~1\Radek\USTAWI~1\Temp/cc6Laaaa.s:27     .progmem.data:00000013 str_Hello
+C:\DOCUME~1\Radek\USTAWI~1\Temp/cc6Laaaa.s:32     .progmem.data:00000019 local_lcdspec
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

@@ -1,0 +1,78 @@
+
+Release/98_TEST_M8.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000005a  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000000ae  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  000000ae  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000000e0  2**2
+                  CONTENTS, READONLY
+  4 .debug_info   0000048c  00000000  00000000  0000011c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 0000044e  00000000  00000000  000005a8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   0000001a  00000000  00000000  000009f6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_str    0000017a  00000000  00000000  00000a10  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	20 c0       	rjmp	.+64     	; 0x42 <__ctors_end>
+   2:	27 c0       	rjmp	.+78     	; 0x52 <__bad_interrupt>
+   4:	26 c0       	rjmp	.+76     	; 0x52 <__bad_interrupt>
+   6:	25 c0       	rjmp	.+74     	; 0x52 <__bad_interrupt>
+   8:	24 c0       	rjmp	.+72     	; 0x52 <__bad_interrupt>
+   a:	23 c0       	rjmp	.+70     	; 0x52 <__bad_interrupt>
+   c:	22 c0       	rjmp	.+68     	; 0x52 <__bad_interrupt>
+   e:	21 c0       	rjmp	.+66     	; 0x52 <__bad_interrupt>
+  10:	20 c0       	rjmp	.+64     	; 0x52 <__bad_interrupt>
+  12:	1f c0       	rjmp	.+62     	; 0x52 <__bad_interrupt>
+  14:	1e c0       	rjmp	.+60     	; 0x52 <__bad_interrupt>
+  16:	1d c0       	rjmp	.+58     	; 0x52 <__bad_interrupt>
+  18:	1c c0       	rjmp	.+56     	; 0x52 <__bad_interrupt>
+  1a:	1b c0       	rjmp	.+54     	; 0x52 <__bad_interrupt>
+  1c:	1a c0       	rjmp	.+52     	; 0x52 <__bad_interrupt>
+  1e:	19 c0       	rjmp	.+50     	; 0x52 <__bad_interrupt>
+  20:	18 c0       	rjmp	.+48     	; 0x52 <__bad_interrupt>
+  22:	17 c0       	rjmp	.+46     	; 0x52 <__bad_interrupt>
+  24:	16 c0       	rjmp	.+44     	; 0x52 <__bad_interrupt>
+
+00000026 <MkBuildTime>:
+  26:	32 33 3a 33 39 3a 32 33 00                          23:39:23.
+
+0000002f <MkBuildDate>:
+  2f:	32 30 31 38 2d 30 33 2d 32 31 00                    2018-03-21.
+
+0000003a <MkBuildNumber>:
+  3a:	33 00                                               3.
+
+0000003c <MkBuildVersion>:
+  3c:	31 2e 30 2e 30 00                                   1.0.0.
+
+00000042 <__ctors_end>:
+  42:	11 24       	eor	r1, r1
+  44:	1f be       	out	0x3f, r1	; 63
+  46:	cf e5       	ldi	r28, 0x5F	; 95
+  48:	d4 e0       	ldi	r29, 0x04	; 4
+  4a:	de bf       	out	0x3e, r29	; 62
+  4c:	cd bf       	out	0x3d, r28	; 61
+  4e:	02 d0       	rcall	.+4      	; 0x54 <main>
+  50:	02 c0       	rjmp	.+4      	; 0x56 <_exit>
+
+00000052 <__bad_interrupt>:
+  52:	d6 cf       	rjmp	.-84     	; 0x0 <__vectors>
+
+00000054 <main>:
+  54:	ff cf       	rjmp	.-2      	; 0x54 <main>
+
+00000056 <_exit>:
+  56:	f8 94       	cli
+
+00000058 <__stop_program>:
+  58:	ff cf       	rjmp	.-2      	; 0x58 <__stop_program>

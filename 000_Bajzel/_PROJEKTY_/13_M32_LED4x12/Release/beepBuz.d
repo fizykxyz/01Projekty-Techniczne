@@ -1,0 +1,1 @@
+beepBuz.o: ../beepBuz.c

@@ -1,0 +1,8 @@
+[project]
+mcu=atmega8
+f_cpu=4000000
+[MkVersion]
+BuildVersion=1.0.0
+BuildNumber=3
+BuildTime=23:39:23
+BuildDate=2018-03-21

@@ -1,0 +1,385 @@
+#******************************************************************************
+# Plik "makefile" dla projektu demonstracyjnego z wyswietlaczem KS07XX
+# na platformie LPC21XX.
+#
+# Nazwa pliku: Makefile_LPC21
+# Data: 10.10.2007
+# Wersja: 1.0
+#
+# Plik oparty na szablonie Erica B. Weddington'a, wyedytowany przez
+# Rafala Baranowskiego. Oryginalna note licencyjna zachowano ponizej.
+#
+# Niniejsze oprogramowanie udostepniane jest nieodplatnie i moze byc
+# powielane, modyfikowane i wykorzystywane w celach komercyjnych pod
+# warunkiem zachowania noty copyright.
+# Na poprawne dzialanie i bezpieczenstwo tego oprogramowania nie jest
+# udzalana zadna gwarancja.
+#
+#****************************************************************************
+# 
+# WinAVR Makefile Template written by Eric B. Weddington, Jörg Wunsch, et al.
+#
+# Released to the Public Domain
+#
+# Additional material for this makefile was written by:
+#
+#******************************************************************************
+# On command line:
+#
+# make all = Make software.
+#
+# make clean = Clean out built project files.
+#
+# make program = Download the hex file to the device, using lpc_prog.
+#                Please customize the lpc_prog settings below first!
+#
+# make filename.s = Just compile filename.c into the assembler code only.
+#
+# make filename.i = Create a preprocessed source file for use in submitting
+#                   bug reports to the GCC project.
+#
+# To rebuild project do "make clean" then "make all".
+#******************************************************************************
+
+
+# MCU type
+DISP_PLATFORM = LPC21
+
+# CPU
+CPU = arm7tdmi-s
+
+# Processor frequency.
+#     This will define a symbol, F_CPU, in all source code files equal to the 
+#     processor frequency. You can then use this symbol in your source code to 
+#     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
+#     automatically to create a 32-bit value in your source code.
+F_CPU = 60000000
+
+# Target file name (without extension).
+TARGET = demo_$(DISP_PLATFORM)
+
+# Main source directory.
+SRC_DIR = src
+
+# Project source directory.
+PRJ_DIR = demo
+
+# Display source directory.
+DISP_DIR = disp
+
+# Platform source directory.
+PLATF_PATH = ../Platforms
+
+# Linker script source directory.
+LINK_PATH = $(PLATF_PATH)/linker
+
+# List any extra directories to look for include files here.
+#     Each directory must be seperated by a space.
+#     Use forward slashes for directory separators.
+#     For a directory that hasIOSET1 = (0xAA << 16); spaces, enclose it in quotes.
+EXTRAINCDIRS = include include/$(DISP_DIR) include/$(PRJ_DIR) \
+							 $(PLATF_PATH)/include
+
+# List C source files here. (C dependencies are automatically generated.)
+SRC =   $(SRC_DIR)/$(PRJ_DIR)/$(TARGET).c \
+		$(SRC_DIR)/$(DISP_DIR)/KS07XX.c \
+		$(PLATF_PATH)/$(SRC_DIR)/$(DISP_PLATFORM)_platf_spec.c 
+
+# List Assembler source files here.
+#     Make them always end in a capital .S.  Files ending in a lowercase .s
+#     will not be considered source files but generated files (assembler
+#     output from the compiler), and will be deleted upon "make clean"!
+#     Even though the DOS/Win* filesystem matches both .s and .S the same,
+#     it will preserve the spelling of the filenames, and gcc itself does
+#     care about how the name is spelled on its command-line.
+ASRC = $(PLATF_PATH)/$(SRC_DIR)/$(DISP_PLATFORM)_startup.S
+
+# Linker script.
+LINKERSCRIPT = $(LINK_PATH)/$(DISP_PLATFORM)_flash.ld
+
+# Optimization level, can be [0, 1, 2, 3, s]. 
+#     0 = turn off optimization. s = optimize for size.
+#     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
+OPT = s
+
+
+# Compiler flag to set the C Standard level.
+#     c89   = "ANSI" C
+#     gnu89 = c89 plus GCC extensions
+#     c99   = ISO C99 standard (not yet fully implemented)
+#     gnu99 = c99 plus GCC extensions
+CSTANDARD = -std=gnu99
+
+
+# Place -D or -U options here
+CDEFS = -DF_CPU=$(F_CPU)UL -DDISP_PLATFORM=$(DISP_PLATFORM)
+
+
+# Place -I options here
+CINCS =
+
+
+
+#---------------- Compiler Options ----------------
+#  -g*:          generate debugging information
+#  -O*:          optimization level
+#  -f...:        tuning, see GCC manual and avr-libc documentation
+#  -Wall...:     warning level
+#  -Wa,...:      tell GCC to pass this to the assembler.
+#    -adhlns...: create assembler listing 
+CFLAGS = -g$(DEBUG)
+CFLAGS += -nostdinc
+CFLAGS += $(CDEFS) $(CINCS)
+CFLAGS += -O$(OPT)
+CFLAGS += -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
+CFLAGS += -Wall -W
+CFLAGS += -Wa,-adhlns=$(<:.c=.lst)
+CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
+CFLAGS += $(CSTANDARD)
+
+
+#---------------- Assembler Options ----------------
+#  -Wa,...:   tell GCC to pass this to the assembler.
+#  -ahlms:    create listing
+#  -gstabs:   have the assembleIOSET1 = (0xAA << 16);r create line number information;
+ASFLAGS = -Wa,-adhlns=$(<:.S=.lst),-gstabs 
+
+
+#---------------- Library Options ----------------
+# Minimalistic printf version
+PRINTF_LIB_MIN = -Wl,-u,vfprintf -lprintf_min
+
+# Floating point printf version (requires MATH_LIB = -lm below)
+PRINTF_LIB_FLOAT = -Wl,-u,vfprintf -lprintf_flt
+
+# If this is left blank, then it will use the Standard printf version.
+PRINTF_LIB = 
+#PRINTF_LIB = $(PRINTF_LIB_MIN)
+#PRINTF_LIB = $(PRINTF_LIB_FLOAT)
+
+
+# Minimalistic scanf version
+SCANF_LIB_MIN = -Wl,-u,vfscanf -lscanf_min
+
+# Floating point + %[ scanf version (requires MATH_LIB = -lm below)
+SCANF_LIB_FLOAT = -Wl,-u,vfscanf -lscanf_flt
+
+# If this is left blank, then it will use the Standard scanf version.
+SCANF_LIB = 
+#SCANF_LIB = $(SCANF_LIB_MIN)
+#SCANF_LIB = $(SCANF_LIB_FLOAT)
+
+
+MATH_LIB = 
+#-lm
+
+
+#---------------- Linker Options ----------------
+#  -Wl,...:     tell GCC to pass this to linker.
+#    -Map:      create map file
+#    --cref:    add cross reference to  map file
+LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
+LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
+LDFLAGS += -nostdlib -lgcc
+LDFLAGS += -T$(LINKERSCRIPT)
+
+#============================================================================
+
+# GNUARM utils path
+GNUARM_PATH = 
+
+# Define programs and commands.
+SHELL = sh
+CC = $(GNUARM_PATH)arm-elf-gcc
+OBJCOPY = $(GNUARM_PATH)arm-elf-objcopy
+OBJDUMP = $(GNUARM_PATH)arm-elf-objdump
+SIZE = $(GNUARM_PATH)arm-elf-size
+NM = $(GNUARM_PATH)arm-elf-nm
+REMOVE = rm -f
+COPY = cp
+MKDIR = mkdir -p
+PROG = lpc21isp
+
+
+# Define Messages
+# English
+MSG_ERRORS_NONE = Errors: none
+MSG_BEGIN = -------- begin --------
+MSG_END = --------  end  --------
+MSG_SIZE_BEFORE = Size before: 
+MSG_SIZE_AFTER = Size after:
+MSG_FLASH = Creating load file for Flash:
+MSG_EXTENDED_LISTING = Creating Extended Listing:
+MSG_SYMBOL_TABLE = Creating Symbol Table:
+MSG_LINKING = Linking:
+MSG_COMPILING = Compiling:
+MSG_ASSEMBLING = Assembling:
+MSG_CLEANING = Cleaning project:
+
+
+
+
+# Define all object files.
+OBJ = $(ASRC:.S=.o) $(SRC:.c=.o) 
+
+# Define all listing files.
+LST = $(ASRC:.S=.lst)  $(SRC:.c=.lst)
+
+
+# Compiler flags to generate dependency files.
+GENDEPFLAGS = -MD -MP -MF .dep/$(@F).d
+
+
+# Combine all necessary flags and optional flags.
+# Add target processor to flags.
+ALL_CFLAGS = -mcpu=$(CPU) -I. $(CFLAGS) $(GENDEPFLAGS)
+ALL_ASFLAGS = -mcpu=$(CPU) -I. -x assembler-with-cpp $(ASFLAGS)
+
+
+
+
+
+# Default target.
+all: begin gccversion sizebefore build sizeafter copyresults end
+
+build: elf hex srec bin lss
+
+elf: $(TARGET).elf
+hex: $(TARGET).hex
+srec: $(TARGET).srec
+bin: $(TARGET).bin
+lss: $(TARGET).lss 
+
+# Create folders for output files.
+copyresults:
+	@$(MKDIR) built
+	@$(COPY) -f $(LST) $(OBJ) $(TARGET).elf $(TARGET).hex \
+				$(TARGET).srec $(TARGET).bin $(TARGET).lss $(TARGET).map built/
+		
+	@$(REMOVE) $(OBJ) $(LST)
+	@$(REMOVE) *.lss *.sym *.map *.elf
+
+# Eye candy.
+# AVR Studio 3.x does not check make's exit code but relies on
+# the following magic strings to be generated by the compile job.
+begin:
+	@echo
+	@echo $(MSG_BEGIN)
+
+end:
+	@echo $(MSG_END)
+	@echo
+
+# Display size of file.
+HEXSIZE = $(SIZE) --target=ihex $(TARGET).hex
+ELFSIZE = $(SIZE) -A $(TARGET).elf
+MEM = mem.sh $(TARGET).elf
+
+sizebefore:
+	@if test -f $(TARGET).elf; then echo; echo $(MSG_SIZE_BEFORE); $(ELFSIZE); \
+	$(AVRMEM) 2>/dev/null; echo; fi
+
+sizeafter:
+	@if test -f $(TARGET).elf; then echo; echo $(MSG_SIZE_AFTER); $(ELFSIZE); \
+	$(MEM) 2>/dev/null; echo; fi
+
+
+
+# Display compiler version information.
+gccversion : 
+	@$(CC) --version
+
+
+
+# Program the device.  
+program : $(TARGET).hex
+	$(PROG) -control -detectolny $(TARGET).hex /dev/ttyS0 19200 12000
+	
+
+# Create final output files (.hex, .srec, .bin) from ELF output file.
+%.hex: %.elf
+	@echo
+	@echo $(MSG_FLASH) $@
+	$(OBJCOPY) -O ihex -R .eeprom $< $@
+
+%.srec: %.elf
+	$(OBJCOPY) -O srec -R .eeprom $< $@
+
+%.bin: %.elf
+	$(OBJCOPY) -O binary -R .eeprom $< $@
+
+# Create extended listing file from ELF output file.
+%.lss: %.elf
+	@echo
+	@echo $(MSG_EXTENDED_LISTING) $@
+	$(OBJDUMP) -h -S $< > $@
+	
+
+# Link: create ELF output file from object files.
+.SECONDARY : $(TARGET).elf
+.PRECIOUS : $(OBJ)
+%.elf: $(OBJ)
+	@echo
+	@echo $(MSG_LINKING) $@
+	$(CC) $(ALL_CFLAGS) $^ --output $@ $(LDFLAGS)
+
+
+# Compile: create object files from C source files.
+%.o : %.c
+	@echo
+	@echo $(MSG_COMPILING) $<
+	$(CC) -c $(ALL_CFLAGS) $< -o $@ 
+
+
+# Compile: create assembler files from C source files.
+%.s : %.c
+	$(CC) -S $(ALL_CFLAGS) $< -o $@
+
+
+# Assemble: create object files from assembler source files.
+%.o : %.S
+	@echo
+	@echo $(MSG_ASSEMBLING) $<
+	$(CC) -c $(ALL_ASFLAGS) $< -o $@
+
+# Create preprocessed source for use in sending a bug report.
+%.i : %.c
+	$(CC) -E -mcpu=$(CPU) -I. $(CFLAGS) $< -o $@ 
+
+
+# Target: clean project.
+clean: begin clean_list end
+
+clean_list :
+	@echo
+	@echo $(MSG_CLEANING)
+	$(REMOVE) *.hex
+	$(REMOVE) *.eep
+	$(REMOVE) *.srec
+	$(REMOVE) *.bin
+	$(REMOVE) *.elf
+	$(REMOVE) *.map
+	$(REMOVE) *.sym
+	$(REMOVE) *.lss
+	$(REMOVE) *.lst
+	$(REMOVE) *.lnk
+	$(REMOVE) *.a90
+	$(REMOVE) *.obj
+	$(REMOVE) *.o
+	$(REMOVE) $(OBJ)
+	$(REMOVE) $(LST)
+	$(REMOVE) $(SRC:.c=.s)
+	$(REMOVE) $(SRC:.c=.d)
+	$(REMOVE) -r .dep
+	$(REMOVE) -r built
+
+
+
+# Include the dependency files.
+-include $(shell mkdir .dep 2>/dev/null) $(wildcard .dep/*)
+
+
+# Listing of phony targets.
+.PHONY : all begin finish end sizebefore sizeafter gccversion \
+build elf hex lss copyresults\
+clean clean_list program

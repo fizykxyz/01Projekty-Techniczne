@@ -1,0 +1,682 @@
+
+98_M328_KS0108.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         0000000c  00800100  00000724  000007b8  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000724  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000002  0080010c  0080010c  000007c4  2**0
+                  ALLOC
+  3 .stab         000006cc  00000000  00000000  000007c4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      00000097  00000000  00000000  00000e90  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .comment      0000002f  00000000  00000000  00000f27  2**0
+                  CONTENTS, READONLY
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2c 01 	jmp	0x258	; 0x258 <__ctors_end>
+   4:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+   8:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+   c:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  10:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  14:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  18:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  1c:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  20:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  24:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  28:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  2c:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  30:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  34:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  38:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  3c:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  40:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  44:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  48:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  4c:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  50:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  54:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  58:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  5c:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  60:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+  64:	0c 94 49 01 	jmp	0x292	; 0x292 <__bad_interrupt>
+
+00000068 <__c.1556>:
+  68:	4e 61 70 69 73 20 77 65 20 46 4c 41 53 48 00        Napis we FLASH.
+
+00000077 <font5x8>:
+  77:	00 00 00 00 00 00 00 5f 00 00 00 07 00 07 00 14     ......._........
+  87:	7f 14 7f 14 24 2a 7f 2a 12 23 13 08 64 62 36 49     ....$*.*.#..db6I
+  97:	55 22 50 00 05 03 00 00 00 1c 22 41 00 00 41 22     U"P......."A..A"
+  a7:	1c 00 08 2a 1c 2a 08 08 08 3e 08 08 00 50 30 00     ...*.*...>...P0.
+  b7:	00 08 08 08 08 08 00 30 30 00 00 20 10 08 04 02     .......00.. ....
+  c7:	3e 51 49 45 3e 00 42 7f 40 00 42 61 51 49 46 21     >QIE>.B.@.BaQIF!
+  d7:	41 45 4b 31 18 14 12 7f 10 27 45 45 45 39 3c 4a     AEK1.....'EEE9<J
+  e7:	49 49 30 01 71 09 05 03 36 49 49 49 36 06 49 49     II0.q...6III6.II
+  f7:	29 1e 00 36 36 00 00 00 56 36 00 00 00 08 14 22     )..66...V6....."
+ 107:	41 14 14 14 14 14 41 22 14 08 00 02 01 51 09 06     A.....A".....Q..
+ 117:	32 49 79 41 3e 7e 11 11 11 7e 7f 49 49 49 36 3e     2IyA>~...~.III6>
+ 127:	41 41 41 22 7f 41 41 22 1c 7f 49 49 49 41 7f 09     AAA".AA"..IIIA..
+ 137:	09 01 01 3e 41 41 51 32 7f 08 08 08 7f 00 41 7f     ...>AAQ2......A.
+ 147:	41 00 20 40 41 3f 01 7f 08 14 22 41 7f 40 40 40     A. @A?...."A.@@@
+ 157:	40 7f 02 04 02 7f 7f 04 08 10 7f 3e 41 41 41 3e     @..........>AAA>
+ 167:	7f 09 09 09 06 3e 41 51 21 5e 7f 09 19 29 46 46     .....>AQ!^...)FF
+ 177:	49 49 49 31 01 01 7f 01 01 3f 40 40 40 3f 1f 20     III1.....?@@@?. 
+ 187:	40 20 1f 7f 20 18 20 7f 63 14 08 14 63 03 04 78     @ .. . .c...c..x
+ 197:	04 03 61 51 49 45 43 00 00 7f 41 41 02 04 08 10     ..aQIEC...AA....
+ 1a7:	20 41 41 7f 00 00 04 02 01 02 04 40 40 40 40 40      AA........@@@@@
+ 1b7:	00 01 02 04 00 20 54 54 54 78 7f 48 44 44 38 38     ..... TTTx.HDD88
+ 1c7:	44 44 44 20 38 44 44 48 7f 38 54 54 54 18 08 7e     DDD 8DDH.8TTT..~
+ 1d7:	09 01 02 08 14 54 54 3c 7f 08 04 04 78 00 44 7d     .....TT<....x.D}
+ 1e7:	40 00 20 40 44 3d 00 00 7f 10 28 44 00 41 7f 40     @. @D=....(D.A.@
+ 1f7:	00 7c 04 18 04 78 7c 08 04 04 78 38 44 44 44 38     .|...x|...x8DDD8
+ 207:	7c 14 14 14 08 08 14 14 18 7c 7c 08 04 04 08 48     |........||....H
+ 217:	54 54 54 20 04 3f 44 40 20 3c 40 40 20 7c 1c 20     TTT .?D@ <@@ |. 
+ 227:	40 20 1c 3c 40 30 40 3c 44 28 10 28 44 0c 50 50     @ .<@0@<D(.(D.PP
+ 237:	50 3c 44 64 54 4c 44 00 08 36 41 00 00 00 7f 00     P<DdTLD..6A.....
+ 247:	00 00 41 36 08 00 08 08 2a 1c 08 08 1c 2a 08 08     ..A6....*....*..
+	...
+
+00000258 <__ctors_end>:
+ 258:	11 24       	eor	r1, r1
+ 25a:	1f be       	out	0x3f, r1	; 63
+ 25c:	cf ef       	ldi	r28, 0xFF	; 255
+ 25e:	d8 e0       	ldi	r29, 0x08	; 8
+ 260:	de bf       	out	0x3e, r29	; 62
+ 262:	cd bf       	out	0x3d, r28	; 61
+
+00000264 <__do_copy_data>:
+ 264:	11 e0       	ldi	r17, 0x01	; 1
+ 266:	a0 e0       	ldi	r26, 0x00	; 0
+ 268:	b1 e0       	ldi	r27, 0x01	; 1
+ 26a:	e4 e2       	ldi	r30, 0x24	; 36
+ 26c:	f7 e0       	ldi	r31, 0x07	; 7
+ 26e:	02 c0       	rjmp	.+4      	; 0x274 <__do_copy_data+0x10>
+ 270:	05 90       	lpm	r0, Z+
+ 272:	0d 92       	st	X+, r0
+ 274:	ac 30       	cpi	r26, 0x0C	; 12
+ 276:	b1 07       	cpc	r27, r17
+ 278:	d9 f7       	brne	.-10     	; 0x270 <__do_copy_data+0xc>
+
+0000027a <__do_clear_bss>:
+ 27a:	21 e0       	ldi	r18, 0x01	; 1
+ 27c:	ac e0       	ldi	r26, 0x0C	; 12
+ 27e:	b1 e0       	ldi	r27, 0x01	; 1
+ 280:	01 c0       	rjmp	.+2      	; 0x284 <.do_clear_bss_start>
+
+00000282 <.do_clear_bss_loop>:
+ 282:	1d 92       	st	X+, r1
+
+00000284 <.do_clear_bss_start>:
+ 284:	ae 30       	cpi	r26, 0x0E	; 14
+ 286:	b2 07       	cpc	r27, r18
+ 288:	e1 f7       	brne	.-8      	; 0x282 <.do_clear_bss_loop>
+ 28a:	0e 94 4b 01 	call	0x296	; 0x296 <main>
+ 28e:	0c 94 90 03 	jmp	0x720	; 0x720 <_exit>
+
+00000292 <__bad_interrupt>:
+ 292:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000296 <main>:
+ 296:	cf 93       	push	r28
+ 298:	0e 94 e6 01 	call	0x3cc	; 0x3cc <GLCD_init>
+ 29c:	0e 94 2b 02 	call	0x456	; 0x456 <GLCD_cls>
+ 2a0:	c0 e0       	ldi	r28, 0x00	; 0
+ 2a2:	4c 2f       	mov	r20, r28
+ 2a4:	60 e2       	ldi	r22, 0x20	; 32
+ 2a6:	80 e4       	ldi	r24, 0x40	; 64
+ 2a8:	0e 94 bb 02 	call	0x576	; 0x576 <GLCD_Circle>
+ 2ac:	cf 5f       	subi	r28, 0xFF	; 255
+ 2ae:	c0 32       	cpi	r28, 0x20	; 32
+ 2b0:	c1 f7       	brne	.-16     	; 0x2a2 <main+0xc>
+ 2b2:	62 e0       	ldi	r22, 0x02	; 2
+ 2b4:	82 e0       	ldi	r24, 0x02	; 2
+ 2b6:	0e 94 ff 01 	call	0x3fe	; 0x3fe <GLCD_goto>
+ 2ba:	81 e0       	ldi	r24, 0x01	; 1
+ 2bc:	91 e0       	ldi	r25, 0x01	; 1
+ 2be:	0e 94 af 02 	call	0x55e	; 0x55e <GLCD_puttext>
+ 2c2:	88 e6       	ldi	r24, 0x68	; 104
+ 2c4:	90 e0       	ldi	r25, 0x00	; 0
+ 2c6:	0e 94 a1 02 	call	0x542	; 0x542 <GLCD_puttext_P>
+ 2ca:	2f e3       	ldi	r18, 0x3F	; 63
+ 2cc:	4f e7       	ldi	r20, 0x7F	; 127
+ 2ce:	60 e0       	ldi	r22, 0x00	; 0
+ 2d0:	80 e0       	ldi	r24, 0x00	; 0
+ 2d2:	0e 94 1d 03 	call	0x63a	; 0x63a <GLCD_Line>
+ 2d6:	20 e0       	ldi	r18, 0x00	; 0
+ 2d8:	4f e7       	ldi	r20, 0x7F	; 127
+ 2da:	6f e3       	ldi	r22, 0x3F	; 63
+ 2dc:	80 e0       	ldi	r24, 0x00	; 0
+ 2de:	0e 94 1d 03 	call	0x63a	; 0x63a <GLCD_Line>
+ 2e2:	80 e0       	ldi	r24, 0x00	; 0
+ 2e4:	90 e0       	ldi	r25, 0x00	; 0
+ 2e6:	cf 91       	pop	r28
+ 2e8:	08 95       	ret
+
+000002ea <GLCD_EnableController>:
+ 2ea:	81 11       	cpse	r24, r1
+ 2ec:	03 c0       	rjmp	.+6      	; 0x2f4 <GLCD_EnableController+0xa>
+ 2ee:	40 98       	cbi	0x08, 0	; 8
+ 2f0:	41 9a       	sbi	0x08, 1	; 8
+ 2f2:	08 95       	ret
+ 2f4:	41 98       	cbi	0x08, 1	; 8
+ 2f6:	40 9a       	sbi	0x08, 0	; 8
+ 2f8:	08 95       	ret
+
+000002fa <GLCD_ReadStatus>:
+ 2fa:	1a b8       	out	0x0a, r1	; 10
+ 2fc:	42 9a       	sbi	0x08, 2	; 8
+ 2fe:	43 98       	cbi	0x08, 3	; 8
+ 300:	0e 94 75 01 	call	0x2ea	; 0x2ea <GLCD_EnableController>
+ 304:	44 9a       	sbi	0x08, 4	; 8
+ 306:	00 00       	nop
+ 308:	89 b1       	in	r24, 0x09	; 9
+ 30a:	44 98       	cbi	0x08, 4	; 8
+ 30c:	08 95       	ret
+
+0000030e <GLCD_WaitUntillBusy>:
+ 30e:	cf 93       	push	r28
+ 310:	c8 2f       	mov	r28, r24
+ 312:	8c 2f       	mov	r24, r28
+ 314:	0e 94 7d 01 	call	0x2fa	; 0x2fa <GLCD_ReadStatus>
+ 318:	87 fd       	sbrc	r24, 7
+ 31a:	fb cf       	rjmp	.-10     	; 0x312 <GLCD_WaitUntillBusy+0x4>
+ 31c:	cf 91       	pop	r28
+ 31e:	08 95       	ret
+
+00000320 <GLCD_WriteCommand>:
+ 320:	1f 93       	push	r17
+ 322:	cf 93       	push	r28
+ 324:	df 93       	push	r29
+ 326:	1f 92       	push	r1
+ 328:	cd b7       	in	r28, 0x3d	; 61
+ 32a:	de b7       	in	r29, 0x3e	; 62
+ 32c:	18 2f       	mov	r17, r24
+ 32e:	86 2f       	mov	r24, r22
+ 330:	69 83       	std	Y+1, r22	; 0x01
+ 332:	0e 94 87 01 	call	0x30e	; 0x30e <GLCD_WaitUntillBusy>
+ 336:	8f ef       	ldi	r24, 0xFF	; 255
+ 338:	8a b9       	out	0x0a, r24	; 10
+ 33a:	42 98       	cbi	0x08, 2	; 8
+ 33c:	43 98       	cbi	0x08, 3	; 8
+ 33e:	69 81       	ldd	r22, Y+1	; 0x01
+ 340:	86 2f       	mov	r24, r22
+ 342:	0e 94 75 01 	call	0x2ea	; 0x2ea <GLCD_EnableController>
+ 346:	1b b9       	out	0x0b, r17	; 11
+ 348:	44 9a       	sbi	0x08, 4	; 8
+ 34a:	00 00       	nop
+ 34c:	44 98       	cbi	0x08, 4	; 8
+ 34e:	0f 90       	pop	r0
+ 350:	df 91       	pop	r29
+ 352:	cf 91       	pop	r28
+ 354:	1f 91       	pop	r17
+ 356:	08 95       	ret
+
+00000358 <GLCD_ReadData>:
+ 358:	cf 93       	push	r28
+ 35a:	c0 91 0d 01 	lds	r28, 0x010D
+ 35e:	c2 95       	swap	r28
+ 360:	c6 95       	lsr	r28
+ 362:	c6 95       	lsr	r28
+ 364:	c3 70       	andi	r28, 0x03	; 3
+ 366:	8c 2f       	mov	r24, r28
+ 368:	0e 94 87 01 	call	0x30e	; 0x30e <GLCD_WaitUntillBusy>
+ 36c:	1a b8       	out	0x0a, r1	; 10
+ 36e:	42 9a       	sbi	0x08, 2	; 8
+ 370:	43 9a       	sbi	0x08, 3	; 8
+ 372:	8c 2f       	mov	r24, r28
+ 374:	0e 94 75 01 	call	0x2ea	; 0x2ea <GLCD_EnableController>
+ 378:	44 9a       	sbi	0x08, 4	; 8
+ 37a:	00 00       	nop
+ 37c:	89 b1       	in	r24, 0x09	; 9
+ 37e:	44 98       	cbi	0x08, 4	; 8
+ 380:	90 91 0d 01 	lds	r25, 0x010D
+ 384:	9f 5f       	subi	r25, 0xFF	; 255
+ 386:	90 93 0d 01 	sts	0x010D, r25
+ 38a:	cf 91       	pop	r28
+ 38c:	08 95       	ret
+
+0000038e <GLCD_WriteData>:
+ 38e:	cf 93       	push	r28
+ 390:	df 93       	push	r29
+ 392:	d8 2f       	mov	r29, r24
+ 394:	c0 91 0d 01 	lds	r28, 0x010D
+ 398:	c2 95       	swap	r28
+ 39a:	c6 95       	lsr	r28
+ 39c:	c6 95       	lsr	r28
+ 39e:	c3 70       	andi	r28, 0x03	; 3
+ 3a0:	8c 2f       	mov	r24, r28
+ 3a2:	0e 94 87 01 	call	0x30e	; 0x30e <GLCD_WaitUntillBusy>
+ 3a6:	8f ef       	ldi	r24, 0xFF	; 255
+ 3a8:	8a b9       	out	0x0a, r24	; 10
+ 3aa:	42 98       	cbi	0x08, 2	; 8
+ 3ac:	43 9a       	sbi	0x08, 3	; 8
+ 3ae:	db b9       	out	0x0b, r29	; 11
+ 3b0:	8c 2f       	mov	r24, r28
+ 3b2:	0e 94 75 01 	call	0x2ea	; 0x2ea <GLCD_EnableController>
+ 3b6:	44 9a       	sbi	0x08, 4	; 8
+ 3b8:	00 00       	nop
+ 3ba:	44 98       	cbi	0x08, 4	; 8
+ 3bc:	80 91 0d 01 	lds	r24, 0x010D
+ 3c0:	8f 5f       	subi	r24, 0xFF	; 255
+ 3c2:	80 93 0d 01 	sts	0x010D, r24
+ 3c6:	df 91       	pop	r29
+ 3c8:	cf 91       	pop	r28
+ 3ca:	08 95       	ret
+
+000003cc <GLCD_init>:
+ 3cc:	3c 9a       	sbi	0x07, 4	; 7
+ 3ce:	3b 9a       	sbi	0x07, 3	; 7
+ 3d0:	3a 9a       	sbi	0x07, 2	; 7
+ 3d2:	38 9a       	sbi	0x07, 0	; 7
+ 3d4:	39 9a       	sbi	0x07, 1	; 7
+ 3d6:	40 9a       	sbi	0x08, 0	; 8
+ 3d8:	41 9a       	sbi	0x08, 1	; 8
+ 3da:	3d 9a       	sbi	0x07, 5	; 7
+ 3dc:	45 9a       	sbi	0x08, 5	; 8
+ 3de:	60 e0       	ldi	r22, 0x00	; 0
+ 3e0:	8f e3       	ldi	r24, 0x3F	; 63
+ 3e2:	0e 94 90 01 	call	0x320	; 0x320 <GLCD_WriteCommand>
+ 3e6:	60 e0       	ldi	r22, 0x00	; 0
+ 3e8:	80 ec       	ldi	r24, 0xC0	; 192
+ 3ea:	0e 94 90 01 	call	0x320	; 0x320 <GLCD_WriteCommand>
+ 3ee:	61 e0       	ldi	r22, 0x01	; 1
+ 3f0:	8f e3       	ldi	r24, 0x3F	; 63
+ 3f2:	0e 94 90 01 	call	0x320	; 0x320 <GLCD_WriteCommand>
+ 3f6:	61 e0       	ldi	r22, 0x01	; 1
+ 3f8:	80 ec       	ldi	r24, 0xC0	; 192
+ 3fa:	0c 94 90 01 	jmp	0x320	; 0x320 <GLCD_WriteCommand>
+
+000003fe <GLCD_goto>:
+ 3fe:	1f 93       	push	r17
+ 400:	cf 93       	push	r28
+ 402:	df 93       	push	r29
+ 404:	d8 2f       	mov	r29, r24
+ 406:	c6 2f       	mov	r28, r22
+ 408:	80 93 0d 01 	sts	0x010D, r24
+ 40c:	60 93 0c 01 	sts	0x010C, r22
+ 410:	60 e0       	ldi	r22, 0x00	; 0
+ 412:	80 e4       	ldi	r24, 0x40	; 64
+ 414:	0e 94 90 01 	call	0x320	; 0x320 <GLCD_WriteCommand>
+ 418:	c8 6b       	ori	r28, 0xB8	; 184
+ 41a:	60 e0       	ldi	r22, 0x00	; 0
+ 41c:	8c 2f       	mov	r24, r28
+ 41e:	0e 94 90 01 	call	0x320	; 0x320 <GLCD_WriteCommand>
+ 422:	61 e0       	ldi	r22, 0x01	; 1
+ 424:	80 e4       	ldi	r24, 0x40	; 64
+ 426:	0e 94 90 01 	call	0x320	; 0x320 <GLCD_WriteCommand>
+ 42a:	61 e0       	ldi	r22, 0x01	; 1
+ 42c:	8c 2f       	mov	r24, r28
+ 42e:	0e 94 90 01 	call	0x320	; 0x320 <GLCD_WriteCommand>
+ 432:	1d 2f       	mov	r17, r29
+ 434:	12 95       	swap	r17
+ 436:	16 95       	lsr	r17
+ 438:	16 95       	lsr	r17
+ 43a:	13 70       	andi	r17, 0x03	; 3
+ 43c:	8d 2f       	mov	r24, r29
+ 43e:	8f 73       	andi	r24, 0x3F	; 63
+ 440:	61 2f       	mov	r22, r17
+ 442:	80 64       	ori	r24, 0x40	; 64
+ 444:	0e 94 90 01 	call	0x320	; 0x320 <GLCD_WriteCommand>
+ 448:	61 2f       	mov	r22, r17
+ 44a:	8c 2f       	mov	r24, r28
+ 44c:	df 91       	pop	r29
+ 44e:	cf 91       	pop	r28
+ 450:	1f 91       	pop	r17
+ 452:	0c 94 90 01 	jmp	0x320	; 0x320 <GLCD_WriteCommand>
+
+00000456 <GLCD_cls>:
+ 456:	1f 93       	push	r17
+ 458:	cf 93       	push	r28
+ 45a:	df 93       	push	r29
+ 45c:	80 91 00 01 	lds	r24, 0x0100
+ 460:	81 11       	cpse	r24, r1
+ 462:	02 c0       	rjmp	.+4      	; 0x468 <GLCD_cls+0x12>
+ 464:	1f ef       	ldi	r17, 0xFF	; 255
+ 466:	01 c0       	rjmp	.+2      	; 0x46a <GLCD_cls+0x14>
+ 468:	10 e0       	ldi	r17, 0x00	; 0
+ 46a:	c0 e0       	ldi	r28, 0x00	; 0
+ 46c:	6c 2f       	mov	r22, r28
+ 46e:	80 e0       	ldi	r24, 0x00	; 0
+ 470:	0e 94 ff 01 	call	0x3fe	; 0x3fe <GLCD_goto>
+ 474:	d0 e0       	ldi	r29, 0x00	; 0
+ 476:	81 2f       	mov	r24, r17
+ 478:	0e 94 c7 01 	call	0x38e	; 0x38e <GLCD_WriteData>
+ 47c:	df 5f       	subi	r29, 0xFF	; 255
+ 47e:	d0 38       	cpi	r29, 0x80	; 128
+ 480:	d1 f7       	brne	.-12     	; 0x476 <GLCD_cls+0x20>
+ 482:	cf 5f       	subi	r28, 0xFF	; 255
+ 484:	c8 30       	cpi	r28, 0x08	; 8
+ 486:	91 f7       	brne	.-28     	; 0x46c <GLCD_cls+0x16>
+ 488:	10 92 0d 01 	sts	0x010D, r1
+ 48c:	10 92 0c 01 	sts	0x010C, r1
+ 490:	df 91       	pop	r29
+ 492:	cf 91       	pop	r28
+ 494:	1f 91       	pop	r17
+ 496:	08 95       	ret
+
+00000498 <GLCD_putchar>:
+ 498:	0f 93       	push	r16
+ 49a:	1f 93       	push	r17
+ 49c:	cf 93       	push	r28
+ 49e:	df 93       	push	r29
+ 4a0:	95 e0       	ldi	r25, 0x05	; 5
+ 4a2:	89 9f       	mul	r24, r25
+ 4a4:	e0 01       	movw	r28, r0
+ 4a6:	11 24       	eor	r1, r1
+ 4a8:	c9 52       	subi	r28, 0x29	; 41
+ 4aa:	d0 40       	sbci	r29, 0x00	; 0
+ 4ac:	8e 01       	movw	r16, r28
+ 4ae:	0b 5f       	subi	r16, 0xFB	; 251
+ 4b0:	1f 4f       	sbci	r17, 0xFF	; 255
+ 4b2:	fe 01       	movw	r30, r28
+ 4b4:	84 91       	lpm	r24, Z
+ 4b6:	90 91 00 01 	lds	r25, 0x0100
+ 4ba:	91 11       	cpse	r25, r1
+ 4bc:	01 c0       	rjmp	.+2      	; 0x4c0 <GLCD_putchar+0x28>
+ 4be:	80 95       	com	r24
+ 4c0:	0e 94 c7 01 	call	0x38e	; 0x38e <GLCD_WriteData>
+ 4c4:	21 96       	adiw	r28, 0x01	; 1
+ 4c6:	c0 17       	cp	r28, r16
+ 4c8:	d1 07       	cpc	r29, r17
+ 4ca:	99 f7       	brne	.-26     	; 0x4b2 <GLCD_putchar+0x1a>
+ 4cc:	80 91 00 01 	lds	r24, 0x0100
+ 4d0:	81 11       	cpse	r24, r1
+ 4d2:	02 c0       	rjmp	.+4      	; 0x4d8 <GLCD_putchar+0x40>
+ 4d4:	8f ef       	ldi	r24, 0xFF	; 255
+ 4d6:	01 c0       	rjmp	.+2      	; 0x4da <GLCD_putchar+0x42>
+ 4d8:	80 e0       	ldi	r24, 0x00	; 0
+ 4da:	df 91       	pop	r29
+ 4dc:	cf 91       	pop	r28
+ 4de:	1f 91       	pop	r17
+ 4e0:	0f 91       	pop	r16
+ 4e2:	0c 94 c7 01 	jmp	0x38e	; 0x38e <GLCD_WriteData>
+
+000004e6 <GLCD_SetPixel>:
+ 4e6:	0f 93       	push	r16
+ 4e8:	1f 93       	push	r17
+ 4ea:	cf 93       	push	r28
+ 4ec:	df 93       	push	r29
+ 4ee:	18 2f       	mov	r17, r24
+ 4f0:	d6 2f       	mov	r29, r22
+ 4f2:	06 2f       	mov	r16, r22
+ 4f4:	06 95       	lsr	r16
+ 4f6:	06 95       	lsr	r16
+ 4f8:	06 95       	lsr	r16
+ 4fa:	60 2f       	mov	r22, r16
+ 4fc:	0e 94 ff 01 	call	0x3fe	; 0x3fe <GLCD_goto>
+ 500:	0e 94 ac 01 	call	0x358	; 0x358 <GLCD_ReadData>
+ 504:	0e 94 ac 01 	call	0x358	; 0x358 <GLCD_ReadData>
+ 508:	c8 2f       	mov	r28, r24
+ 50a:	60 2f       	mov	r22, r16
+ 50c:	81 2f       	mov	r24, r17
+ 50e:	0e 94 ff 01 	call	0x3fe	; 0x3fe <GLCD_goto>
+ 512:	80 91 00 01 	lds	r24, 0x0100
+ 516:	d7 70       	andi	r29, 0x07	; 7
+ 518:	21 e0       	ldi	r18, 0x01	; 1
+ 51a:	30 e0       	ldi	r19, 0x00	; 0
+ 51c:	0d 2e       	mov	r0, r29
+ 51e:	01 c0       	rjmp	.+2      	; 0x522 <GLCD_SetPixel+0x3c>
+ 520:	22 0f       	add	r18, r18
+ 522:	0a 94       	dec	r0
+ 524:	ea f7       	brpl	.-6      	; 0x520 <GLCD_SetPixel+0x3a>
+ 526:	88 23       	and	r24, r24
+ 528:	19 f0       	breq	.+6      	; 0x530 <GLCD_SetPixel+0x4a>
+ 52a:	8c 2f       	mov	r24, r28
+ 52c:	82 2b       	or	r24, r18
+ 52e:	03 c0       	rjmp	.+6      	; 0x536 <GLCD_SetPixel+0x50>
+ 530:	82 2f       	mov	r24, r18
+ 532:	80 95       	com	r24
+ 534:	8c 23       	and	r24, r28
+ 536:	df 91       	pop	r29
+ 538:	cf 91       	pop	r28
+ 53a:	1f 91       	pop	r17
+ 53c:	0f 91       	pop	r16
+ 53e:	0c 94 c7 01 	jmp	0x38e	; 0x38e <GLCD_WriteData>
+
+00000542 <GLCD_puttext_P>:
+ 542:	cf 93       	push	r28
+ 544:	df 93       	push	r29
+ 546:	ec 01       	movw	r28, r24
+ 548:	02 c0       	rjmp	.+4      	; 0x54e <GLCD_puttext_P+0xc>
+ 54a:	0e 94 4c 02 	call	0x498	; 0x498 <GLCD_putchar>
+ 54e:	fe 01       	movw	r30, r28
+ 550:	21 96       	adiw	r28, 0x01	; 1
+ 552:	84 91       	lpm	r24, Z
+ 554:	81 11       	cpse	r24, r1
+ 556:	f9 cf       	rjmp	.-14     	; 0x54a <GLCD_puttext_P+0x8>
+ 558:	df 91       	pop	r29
+ 55a:	cf 91       	pop	r28
+ 55c:	08 95       	ret
+
+0000055e <GLCD_puttext>:
+ 55e:	cf 93       	push	r28
+ 560:	df 93       	push	r29
+ 562:	ec 01       	movw	r28, r24
+ 564:	02 c0       	rjmp	.+4      	; 0x56a <GLCD_puttext+0xc>
+ 566:	0e 94 4c 02 	call	0x498	; 0x498 <GLCD_putchar>
+ 56a:	89 91       	ld	r24, Y+
+ 56c:	81 11       	cpse	r24, r1
+ 56e:	fb cf       	rjmp	.-10     	; 0x566 <GLCD_puttext+0x8>
+ 570:	df 91       	pop	r29
+ 572:	cf 91       	pop	r28
+ 574:	08 95       	ret
+
+00000576 <GLCD_Circle>:
+ 576:	bf 92       	push	r11
+ 578:	cf 92       	push	r12
+ 57a:	df 92       	push	r13
+ 57c:	ef 92       	push	r14
+ 57e:	ff 92       	push	r15
+ 580:	0f 93       	push	r16
+ 582:	1f 93       	push	r17
+ 584:	cf 93       	push	r28
+ 586:	df 93       	push	r29
+ 588:	f8 2e       	mov	r15, r24
+ 58a:	e6 2e       	mov	r14, r22
+ 58c:	d4 2f       	mov	r29, r20
+ 58e:	14 2f       	mov	r17, r20
+ 590:	11 95       	neg	r17
+ 592:	11 0f       	add	r17, r17
+ 594:	1f 5f       	subi	r17, 0xFF	; 255
+ 596:	00 e0       	ldi	r16, 0x00	; 0
+ 598:	c0 e0       	ldi	r28, 0x00	; 0
+ 59a:	42 c0       	rjmp	.+132    	; 0x620 <GLCD_Circle+0xaa>
+ 59c:	cc 2e       	mov	r12, r28
+ 59e:	ce 0c       	add	r12, r14
+ 5a0:	dd 2e       	mov	r13, r29
+ 5a2:	df 0c       	add	r13, r15
+ 5a4:	6c 2d       	mov	r22, r12
+ 5a6:	8d 2d       	mov	r24, r13
+ 5a8:	0e 94 73 02 	call	0x4e6	; 0x4e6 <GLCD_SetPixel>
+ 5ac:	bf 2c       	mov	r11, r15
+ 5ae:	bd 1a       	sub	r11, r29
+ 5b0:	6c 2d       	mov	r22, r12
+ 5b2:	8b 2d       	mov	r24, r11
+ 5b4:	0e 94 73 02 	call	0x4e6	; 0x4e6 <GLCD_SetPixel>
+ 5b8:	ce 2c       	mov	r12, r14
+ 5ba:	cc 1a       	sub	r12, r28
+ 5bc:	6c 2d       	mov	r22, r12
+ 5be:	8b 2d       	mov	r24, r11
+ 5c0:	0e 94 73 02 	call	0x4e6	; 0x4e6 <GLCD_SetPixel>
+ 5c4:	6c 2d       	mov	r22, r12
+ 5c6:	8d 2d       	mov	r24, r13
+ 5c8:	0e 94 73 02 	call	0x4e6	; 0x4e6 <GLCD_SetPixel>
+ 5cc:	cd 2e       	mov	r12, r29
+ 5ce:	ce 0c       	add	r12, r14
+ 5d0:	dc 2e       	mov	r13, r28
+ 5d2:	df 0c       	add	r13, r15
+ 5d4:	6c 2d       	mov	r22, r12
+ 5d6:	8d 2d       	mov	r24, r13
+ 5d8:	0e 94 73 02 	call	0x4e6	; 0x4e6 <GLCD_SetPixel>
+ 5dc:	bf 2c       	mov	r11, r15
+ 5de:	bc 1a       	sub	r11, r28
+ 5e0:	6c 2d       	mov	r22, r12
+ 5e2:	8b 2d       	mov	r24, r11
+ 5e4:	0e 94 73 02 	call	0x4e6	; 0x4e6 <GLCD_SetPixel>
+ 5e8:	ce 2c       	mov	r12, r14
+ 5ea:	cd 1a       	sub	r12, r29
+ 5ec:	6c 2d       	mov	r22, r12
+ 5ee:	8b 2d       	mov	r24, r11
+ 5f0:	0e 94 73 02 	call	0x4e6	; 0x4e6 <GLCD_SetPixel>
+ 5f4:	6c 2d       	mov	r22, r12
+ 5f6:	8d 2d       	mov	r24, r13
+ 5f8:	0e 94 73 02 	call	0x4e6	; 0x4e6 <GLCD_SetPixel>
+ 5fc:	cf 5f       	subi	r28, 0xFF	; 255
+ 5fe:	8c 2f       	mov	r24, r28
+ 600:	88 0f       	add	r24, r24
+ 602:	81 50       	subi	r24, 0x01	; 1
+ 604:	08 0f       	add	r16, r24
+ 606:	20 2f       	mov	r18, r16
+ 608:	22 0f       	add	r18, r18
+ 60a:	33 0b       	sbc	r19, r19
+ 60c:	21 0f       	add	r18, r17
+ 60e:	31 1d       	adc	r19, r1
+ 610:	17 fd       	sbrc	r17, 7
+ 612:	3a 95       	dec	r19
+ 614:	12 16       	cp	r1, r18
+ 616:	13 06       	cpc	r1, r19
+ 618:	1c f4       	brge	.+6      	; 0x620 <GLCD_Circle+0xaa>
+ 61a:	d1 50       	subi	r29, 0x01	; 1
+ 61c:	01 0f       	add	r16, r17
+ 61e:	1e 5f       	subi	r17, 0xFE	; 254
+ 620:	dc 17       	cp	r29, r28
+ 622:	0c f0       	brlt	.+2      	; 0x626 <GLCD_Circle+0xb0>
+ 624:	bb cf       	rjmp	.-138    	; 0x59c <GLCD_Circle+0x26>
+ 626:	df 91       	pop	r29
+ 628:	cf 91       	pop	r28
+ 62a:	1f 91       	pop	r17
+ 62c:	0f 91       	pop	r16
+ 62e:	ff 90       	pop	r15
+ 630:	ef 90       	pop	r14
+ 632:	df 90       	pop	r13
+ 634:	cf 90       	pop	r12
+ 636:	bf 90       	pop	r11
+ 638:	08 95       	ret
+
+0000063a <GLCD_Line>:
+ 63a:	af 92       	push	r10
+ 63c:	bf 92       	push	r11
+ 63e:	cf 92       	push	r12
+ 640:	df 92       	push	r13
+ 642:	ef 92       	push	r14
+ 644:	ff 92       	push	r15
+ 646:	0f 93       	push	r16
+ 648:	1f 93       	push	r17
+ 64a:	cf 93       	push	r28
+ 64c:	df 93       	push	r29
+ 64e:	00 d0       	rcall	.+0      	; 0x650 <GLCD_Line+0x16>
+ 650:	00 d0       	rcall	.+0      	; 0x652 <GLCD_Line+0x18>
+ 652:	cd b7       	in	r28, 0x3d	; 61
+ 654:	de b7       	in	r29, 0x3e	; 62
+ 656:	f8 2e       	mov	r15, r24
+ 658:	06 2f       	mov	r16, r22
+ 65a:	e4 2f       	mov	r30, r20
+ 65c:	f0 e0       	ldi	r31, 0x00	; 0
+ 65e:	e8 1b       	sub	r30, r24
+ 660:	f1 09       	sbc	r31, r1
+ 662:	f7 ff       	sbrs	r31, 7
+ 664:	03 c0       	rjmp	.+6      	; 0x66c <GLCD_Line+0x32>
+ 666:	f1 95       	neg	r31
+ 668:	e1 95       	neg	r30
+ 66a:	f1 09       	sbc	r31, r1
+ 66c:	de 2e       	mov	r13, r30
+ 66e:	8e 2f       	mov	r24, r30
+ 670:	e2 2f       	mov	r30, r18
+ 672:	f0 e0       	ldi	r31, 0x00	; 0
+ 674:	e0 1b       	sub	r30, r16
+ 676:	f1 09       	sbc	r31, r1
+ 678:	f7 ff       	sbrs	r31, 7
+ 67a:	03 c0       	rjmp	.+6      	; 0x682 <GLCD_Line+0x48>
+ 67c:	f1 95       	neg	r31
+ 67e:	e1 95       	neg	r30
+ 680:	f1 09       	sbc	r31, r1
+ 682:	ce 2e       	mov	r12, r30
+ 684:	ee 2e       	mov	r14, r30
+ 686:	f4 16       	cp	r15, r20
+ 688:	10 f4       	brcc	.+4      	; 0x68e <GLCD_Line+0x54>
+ 68a:	31 e0       	ldi	r19, 0x01	; 1
+ 68c:	01 c0       	rjmp	.+2      	; 0x690 <GLCD_Line+0x56>
+ 68e:	3f ef       	ldi	r19, 0xFF	; 255
+ 690:	02 17       	cp	r16, r18
+ 692:	10 f4       	brcc	.+4      	; 0x698 <GLCD_Line+0x5e>
+ 694:	91 e0       	ldi	r25, 0x01	; 1
+ 696:	01 c0       	rjmp	.+2      	; 0x69a <GLCD_Line+0x60>
+ 698:	9f ef       	ldi	r25, 0xFF	; 255
+ 69a:	e8 16       	cp	r14, r24
+ 69c:	2c f4       	brge	.+10     	; 0x6a8 <GLCD_Line+0x6e>
+ 69e:	18 2f       	mov	r17, r24
+ 6a0:	87 fd       	sbrc	r24, 7
+ 6a2:	1f 5f       	subi	r17, 0xFF	; 255
+ 6a4:	15 95       	asr	r17
+ 6a6:	08 c0       	rjmp	.+16     	; 0x6b8 <GLCD_Line+0x7e>
+ 6a8:	1e 2d       	mov	r17, r14
+ 6aa:	e7 fc       	sbrc	r14, 7
+ 6ac:	1f 5f       	subi	r17, 0xFF	; 255
+ 6ae:	15 95       	asr	r17
+ 6b0:	11 95       	neg	r17
+ 6b2:	02 c0       	rjmp	.+4      	; 0x6b8 <GLCD_Line+0x7e>
+ 6b4:	18 2f       	mov	r17, r24
+ 6b6:	06 c0       	rjmp	.+12     	; 0x6c4 <GLCD_Line+0x8a>
+ 6b8:	68 2f       	mov	r22, r24
+ 6ba:	77 27       	eor	r23, r23
+ 6bc:	61 95       	neg	r22
+ 6be:	0c f4       	brge	.+2      	; 0x6c2 <GLCD_Line+0x88>
+ 6c0:	70 95       	com	r23
+ 6c2:	5b 01       	movw	r10, r22
+ 6c4:	60 2f       	mov	r22, r16
+ 6c6:	8f 2d       	mov	r24, r15
+ 6c8:	2c 83       	std	Y+4, r18	; 0x04
+ 6ca:	39 83       	std	Y+1, r19	; 0x01
+ 6cc:	4b 83       	std	Y+3, r20	; 0x03
+ 6ce:	9a 83       	std	Y+2, r25	; 0x02
+ 6d0:	0e 94 73 02 	call	0x4e6	; 0x4e6 <GLCD_SetPixel>
+ 6d4:	4b 81       	ldd	r20, Y+3	; 0x03
+ 6d6:	2c 81       	ldd	r18, Y+4	; 0x04
+ 6d8:	39 81       	ldd	r19, Y+1	; 0x01
+ 6da:	9a 81       	ldd	r25, Y+2	; 0x02
+ 6dc:	f4 12       	cpse	r15, r20
+ 6de:	02 c0       	rjmp	.+4      	; 0x6e4 <GLCD_Line+0xaa>
+ 6e0:	02 17       	cp	r16, r18
+ 6e2:	79 f0       	breq	.+30     	; 0x702 <GLCD_Line+0xc8>
+ 6e4:	a1 2f       	mov	r26, r17
+ 6e6:	bb 27       	eor	r27, r27
+ 6e8:	a7 fd       	sbrc	r26, 7
+ 6ea:	b0 95       	com	r27
+ 6ec:	81 2f       	mov	r24, r17
+ 6ee:	aa 16       	cp	r10, r26
+ 6f0:	bb 06       	cpc	r11, r27
+ 6f2:	14 f4       	brge	.+4      	; 0x6f8 <GLCD_Line+0xbe>
+ 6f4:	8c 19       	sub	r24, r12
+ 6f6:	f3 0e       	add	r15, r19
+ 6f8:	1e 15       	cp	r17, r14
+ 6fa:	e4 f6       	brge	.-72     	; 0x6b4 <GLCD_Line+0x7a>
+ 6fc:	8d 0d       	add	r24, r13
+ 6fe:	09 0f       	add	r16, r25
+ 700:	d9 cf       	rjmp	.-78     	; 0x6b4 <GLCD_Line+0x7a>
+ 702:	0f 90       	pop	r0
+ 704:	0f 90       	pop	r0
+ 706:	0f 90       	pop	r0
+ 708:	0f 90       	pop	r0
+ 70a:	df 91       	pop	r29
+ 70c:	cf 91       	pop	r28
+ 70e:	1f 91       	pop	r17
+ 710:	0f 91       	pop	r16
+ 712:	ff 90       	pop	r15
+ 714:	ef 90       	pop	r14
+ 716:	df 90       	pop	r13
+ 718:	cf 90       	pop	r12
+ 71a:	bf 90       	pop	r11
+ 71c:	af 90       	pop	r10
+ 71e:	08 95       	ret
+
+00000720 <_exit>:
+ 720:	f8 94       	cli
+
+00000722 <__stop_program>:
+ 722:	ff cf       	rjmp	.-2      	; 0x722 <__stop_program>
