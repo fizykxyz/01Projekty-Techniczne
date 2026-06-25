@@ -1,0 +1,20 @@
+
+
+
+#include <avr/io.h>
+#include <util/delay.h>
+
+
+
+
+int main()
+{
+	DDRB=0xFF;
+	while(1){
+
+
+	PORTB^=0xF0;
+	_delay_ms(500);
+
+	}
+}

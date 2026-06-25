@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move &apos;font5x8.h, graphic.c, graphic.h, KS0108.c, KS0108.h, main.c&apos; to &apos;98_KS0108&apos;" description="Move 6 resources to &apos;98_KS0108&apos;" destination="/98_KS0108" element1="/98_M32_KS0108/font5x8.h" element2="/98_M32_KS0108/graphic.c" element3="/98_M32_KS0108/graphic.h" element4="/98_M32_KS0108/KS0108.c" element5="/98_M32_KS0108/KS0108.h" element6="/98_M32_KS0108/main.c" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="6" stamp="1474629891038" updateReferences="true"/>
+</session>

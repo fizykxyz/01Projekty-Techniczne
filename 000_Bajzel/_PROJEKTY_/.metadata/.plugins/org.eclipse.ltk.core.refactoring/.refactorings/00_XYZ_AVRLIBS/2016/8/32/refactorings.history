@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;00_XYZ_AVRLIBS/ADDS/tools.c&apos; to &apos;pins.c&apos;" description="Rename resource &apos;tools.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="ADDS/tools.c" name="pins.c" stamp="1470827103981" updateReferences="true"/>
+</session>

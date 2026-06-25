@@ -1,0 +1,214 @@
+/*                  e-gadget.header
+ * main.c
+ *
+ *  Created on: 2015-12-06
+ *    Modyfied: 2015-12-06 18:08:13
+ *      Author: D¹browski Tomasz
+ *
+ * Project name: "11_M32_MULTILCD"
+ *
+ *          MCU: ATmega32
+ *        F_CPU: 8 000 000 Hz
+ *
+ *    Flash: 4 250 bytes   [ 13,0 % ]
+ *      RAM:  170 bytes   [ 8,3 % ]
+ *   EEPROM:  0 bytes   [ 0,0 % ]
+ *
+ */
+
+
+
+#include <avr/io.h>
+#include <avr/boot.h>
+#include <avr/pgmspace.h>
+#include <avr/interrupt.h>
+#include <avr/sleep.h>
+#include <stdlib.h>
+#include <util/delay.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "ADDS/tools.h"
+#include "HD44780/hd44780.h"
+//#include "SPI.h"
+#include "ADDS/charsets.h"
+#include "ONEWIRE/onewire.h"
+#include "DS18B20/DS18B20.h"
+#include "UART/uart.h"
+
+#define led1 B,7
+#define led2 w2b(PB,4)
+
+void NAPIS(char* napis);
+
+
+TSCREEN wysw[]={
+			{16,2,w2b(PA,7)},
+			{16,4,w2b(PA,6)},
+			{20,2,w2b(PA,5)}
+	};
+
+int main(void) { //rozpoczynamy
+
+#if PINARRAY
+
+///for uint8_u i=0
+HD44780_NR(0,wysw);
+HD44780_INIT();
+HD44780_NR(1,wysw);
+HD44780_INIT();
+HD44780_NR(2,wysw);
+
+#endif
+HD44780_INIT();
+HD44780_CLR();
+//PORTB=0xAA;//
+//HD44780_TEXT(TOSTRING(__AVR_DEVICE_NAME__));
+
+HD44780_TEXT(strupr(TOSTRING(MCU)));
+_delay_ms(3000);
+HD44780_TEXT(TOSTRING(__AVR_DEVICE_NAME__));
+_delay_ms(4000);
+//HD44780_CUSTOMCHAR(0x01,znak1);
+//HD44780_CUSTOMCHAR(0x00,znak2);
+#define GET_LOW_FUSE_BITS (0x0000)
+#define GET_HIGH_FUSE_BITS (0x0003)
+#define GET_LOCK_BITS (0x0001)
+#define GET_EXTENDED_FUSE_BITS (0x0002)
+
+int high,low, lock,ext;
+
+ //Fuse values are saved in DECIMAL no. format
+_delay_ms(1); //DELAY to complete operation
+high=boot_lock_fuse_bits_get(GET_LOW_FUSE_BITS);
+_delay_ms(1);
+low=boot_lock_fuse_bits_get(GET_HIGH_FUSE_BITS);
+_delay_ms(1);
+lock=boot_lock_fuse_bits_get(GET_LOCK_BITS);
+_delay_ms(1);
+ext=boot_lock_fuse_bits_get(GET_EXTENDED_FUSE_BITS);
+_delay_ms(1);
+
+ //Display values
+
+HD44780_TEXT(TOSTRING(__LINE__));
+_delay_ms(3000);
+
+/*
+ * author Tomek
+ *
+ * To change this generated comment edit the template variable "comment":
+ * Window > Preferences > C/C++ > Editor > Templates.
+ */
+/*
+ * author Tomek
+ *
+ * To change this generated comment edit the template variable "comment":
+ * Window > Preferences > C/C++ > Editor > Templates.
+ */
+
+
+
+
+
+
+//UART_INIT();
+OW_INIT();
+
+
+//USART_Init();  // Initialise USART
+ char buf[15];
+	uint8_t aID[8];
+	uint8_t pos;
+	int16_t temp;
+
+
+
+
+
+
+
+
+
+
+
+while(1){ //pêtla nieskoñczona
+
+
+
+	//**********************************
+
+
+			NAPIS("Start skanowania magistrali");
+			NAPIS(__DATE__ __TIME__);
+
+
+			sprintf(buf,"%02X",SIGNATURE_0);
+			NAPIS(buf);
+			pos=0;
+			Error=OW_OK;
+			while (1)
+			{
+				pos=OW_SEARCH(OW_SearchROM, aID, pos);
+				//OW_Start_Conversion(1);
+				_delay_ms(750);
+				temp=7; //OW_GetTemperature(&aID[0]);
+				uint8_t crc=OW_CRC8(&aID[0],7);
+				for(uint8_t i=0;i<8;i++)
+					{
+						sprintf(buf,"%02X",aID[i]);
+						//GLCD_puttext(buf);
+HD44780_TEXT(buf);
+
+					}
+	_delay_ms(3000);
+				NAPIS(buf);
+					NAPIS(" / pos: ");
+
+
+
+					if (crc==aID[7]){
+						NAPIS("CRC OK.");
+					}
+						else
+						{
+
+							NAPIS("CRC ERR");
+					}
+				    sprintf(buf,"%02X %d %+03i.%04i", crc ,pos, temp/16, (temp & 0b1111)*625);
+
+								//GLCD_goto(0,36+ii*9);
+								//GLCD_puttext(buf);
+								NAPIS(buf);
+
+
+
+
+			}
+
+
+	}
+		//**********************************************
+
+
+
+}
+
+
+void NAPIS(char* napis){
+//static uint8_t line;
+//HD44780_NR(1,wysw);
+HD44780_CLR();
+HD44780_TEXT(napis);
+//line++;
+//UART_SENDSTR(napis);
+_delay_ms(500);
+}
+
+
+
+
+
+
+
+

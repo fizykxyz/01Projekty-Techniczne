@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;01_MIGAMY_LED/font.c&apos; to &apos;small4x5.h&apos;" description="Rename resource &apos;font.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="font.c" name="small4x5.h" stamp="1462013749276" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;01_MIGAMY_LED/small4x5.h&apos; to &apos;font_small_4x5.h&apos;" description="Rename resource &apos;small4x5.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="small4x5.h" name="font_small_4x5.h" stamp="1462014492499" updateReferences="true"/>
+</session>

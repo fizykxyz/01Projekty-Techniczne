@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete 15 resources" deleteContents="false" description="Delete 15 resources" element1="/10_ATMEGA328P_BLINK/avrlibdefs.h" element10="/10_ATMEGA328P_BLINK/rprintf.h" element11="/10_ATMEGA328P_BLINK/speech.c" element12="/10_ATMEGA328P_BLINK/speech.h" element13="/10_ATMEGA328P_BLINK/uart.c" element14="/10_ATMEGA328P_BLINK/uart.h" element15="/10_ATMEGA328P_BLINK/makefile" element2="/10_ATMEGA328P_BLINK/avrlibtypes.h" element3="/10_ATMEGA328P_BLINK/buffer.c" element4="/10_ATMEGA328P_BLINK/buffer.h" element5="/10_ATMEGA328P_BLINK/core.c" element6="/10_ATMEGA328P_BLINK/core.h" element7="/10_ATMEGA328P_BLINK/english.h" element8="/10_ATMEGA328P_BLINK/global.h" element9="/10_ATMEGA328P_BLINK/rprintf.c" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="15" stamp="1439116180369"/>
+</session>

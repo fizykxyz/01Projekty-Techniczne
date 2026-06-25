@@ -1,0 +1,149 @@
+/*
+ * 09_ATMEGA163L main.c
+ *
+ *  Stworzono: 2015 14 cze 2015
+ *      Autor: D¹browski Tomasz
+ *     Edycja: 19:39:04
+ */
+
+/*
+ *
+ *
+ */
+
+#include <inttypes.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <avr/sleep.h>
+#include <util/delay.h>
+#include <stdio.h>
+#include <math.h>
+
+#include <avr/pgmspace.h>
+
+
+
+#include "ADDS/tools.h"
+#include "ADDS/LEDS_MAIN.h"
+
+#include "ADDS/LEDS_EXT.h"
+
+#include "ADDS/LEDS_7SEG.h"
+
+
+
+//void TIMER0_INIT(){
+//	    // timer0 - konfig
+//
+//	/* tryb zwyk³y
+//	TCCR0 |= (1<<CS02)|(1<<CS00); //prescaler = 1024
+//
+//		TIMSK |= (1<<TOIE0); // zezwolenie na przerwanie OVF
+//		TCNT0 = 256-78; // czàstotliwoŠ 100 Hz w ka¿dym przerwaniu -regulacja
+//	*/
+//	//tryb ctc
+//		TCCR0 |= (1<<PWM01);                            /* tryb CTC */
+//        TCCR0 |= (1<<CS01)|(1<<CS00);           /* preskaler = 1024 */
+//        OCR0 = 249;                                                     /* dodatkowy podzia³ przez 208 (rej. przepe³nienia) */
+//        TIMSK |= (1<<OCIE0);
+//
+//}
+
+//_SFR_IO8(0x25)=(0);
+//
+//
+//TCCR2=0;
+//
+//TCCR2=(1<<PWM2);
+//
+//				|(1<<COM21)|(1<<CTC2);
+//
+
+
+#define DIGITS 4
+
+int main(void) { //rozpoczynamy
+
+	for (uint8_t p=0;p<PORTS;p++){
+        DDR(p)=0xFF;
+		PORT(p)=0xFF;
+		}
+
+
+
+
+
+
+
+//	DDRA=0xFF;
+//	 DDRB=0xFF;
+//	 DDRC=0xFF;
+//	 _SFR_IO8(0x11)=0xFF;
+////
+//	 PORTA=0b11111111;
+//	 PORTB=0b11111111; //cyfry i diody red
+//	 PORTC=0b11111111;
+//	 PORTD=0b11111111; //segmenty wyœwietlacza i diody
+//	 PORTA=0xFF;
+//	 PORTB=0xFF;
+//	 PORTC=0xFF;
+//	 PORTD=0xFF;
+
+	 PORT(PD)&=~(SegA|SegD);
+uint8_t pozc=0;
+//uint16_t liczba=1531;
+
+#define CASE 0
+while(1){ //pêtla nieskoñczona
+
+
+
+		for (uint8_t a=0;a<8;a++){
+			for (uint8_t t=0;t<4;t++){
+
+
+
+				uint8_t DIGIT[DIGITS][2] = {
+
+						{PD,2},
+						{PB,3},
+						{PB,1},
+						{PB,2}
+				};
+
+
+                               if (pozc>(DIGITS-2)) pozc=0;
+
+                         PORT(PD)=(~pgm_read_byte(&ZNAK_7SEG[pozc]));
+
+
+#if (CASE==0)
+                           for (uint8_t i=0;i<DIGITS;i++){
+                        	   if (i==pozc){
+                        	   PORT(DIGIT[2][0])&=~(1<<DIGIT[2][1]);}
+                        	   else{
+                        	   PORT(DIGIT[pozc][0])|=(1<<DIGIT[pozc][1]);}
+
+                           };
+
+#else
+                               switch(pozc) {
+                                 case 0:
+                                 { Dig_1(1);Dig_2(0);Dig_3(0);
+                                 break;}
+                                 case 1:
+                                 { Dig_1(0);Dig_2(1);Dig_3(0);
+                                 break;}
+                                 case 2:
+                                 {  Dig_1(0);Dig_2(0);Dig_3(1);
+                                 break;}
+                                 default:
+                                { Dig_1(1);Dig_2(0);Dig_3(0);
+                                 } }
+#endif
+                               pozc++;
+                delayms(500);
+			}
+		}
+	}
+}

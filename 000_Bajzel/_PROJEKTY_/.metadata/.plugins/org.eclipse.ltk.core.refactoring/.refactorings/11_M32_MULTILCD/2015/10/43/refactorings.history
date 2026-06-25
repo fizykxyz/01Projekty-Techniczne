@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;11_M32_MULTILCD/ADDS/hd44780.c&apos; to &apos;tools.c&apos;" description="Rename resource &apos;hd44780.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="ADDS/hd44780.c" name="tools.c" stamp="1445560784131" updateReferences="true"/>
+</session>

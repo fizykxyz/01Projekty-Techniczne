@@ -1,0 +1,4 @@
+#Mon Nov 24 04:31:08 CET 2014
+__DEFAULT__=false
+org.eclipse.help.ui.localSearch.master=true
+expression=Select Types

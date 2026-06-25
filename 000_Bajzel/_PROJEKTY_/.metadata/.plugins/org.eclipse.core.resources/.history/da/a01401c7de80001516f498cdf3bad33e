@@ -1,0 +1,262 @@
+/*
+ * _1wirebb.c
+ *
+ * Created: 2014-08-23 10:47:04
+ *  Author: tmf
+ */ 
+
+
+#include <avr\io.h>
+#include <util\delay.h>
+#include <avr\interrupt.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include "ADDS/tools.h"
+#include "ONEWIRE/onewire.h"
+#include "DS18B20/DS18B20.h"
+#include <avr/pgmspace.h>
+//#include "1wire_basic.h"
+//#include "1wire.h"
+//#include "DS18B20.h"
+//#include "KS0108lib.h"
+//#include "graphics.h"
+//#include "MKUART/mkuart.h"
+//#define F_CPU 16000000UL  // 8 MHz
+#define NL "\r\n"
+//#define LED_PIN A, 7
+
+
+
+#define OW_FAMILY_DS1820 0x10
+#define OW_FAMILY_DS18B20 0x28
+#define OW_FAMILY_DS1822 0x22
+#define OW_FAMILY_DS2502E48 0x89
+#define OW_FAMILY_DS2502 0x09
+
+//#define OW_DS2401 0x01 //iButton=1990A 'silicon serial number
+//#define OW_DS2411 0x01 //iButton= 'silicon serial number Vcc input
+//#define OW_DS1425 0x02 //iButton=1991 'multikey 1153bit secure
+//#define OW_DS2404 0x04 //iButton=1994 'econoram time chip
+//#define OW_DS2405 0x05 //iButton= 'Addresable Switch
+//#define OW_DS1993 0x06 //iButton=1993 '4k memory ibutton
+//#define OW_DS1992 0x08 //iButton=1992 '1k memory ibutton
+//#define OW_DS2502 0x09 //iButton=1982 '1k add-only memory
+//#define OW_DS1995 0x0A //iButton=1995 '16k memory ibutton
+//#define OW_DS2505 0x0B //iButton=1985 '16k add-only memory
+//#define OW_DS1996 0x0C //iButton=1996 '64k memory ibutton
+//#define OW_DS2506 0x0F //iButton=1986 '64k add-only  memory
+//#define OW_DS18S20 0x10 //iButton=1920 'high precision digital thermometer
+//#define OW_DS2406 0x12 //iButton= 'dual addressable switch plus 1k memory
+//#define OW_DS2407 0x12 //iButton= 'dual addressable switch plus 1k memory
+//#define OW_DS2430A 0x14 //iButton=1971 '256 eeprom
+//#define OW_DS1963L 0x1A //iButton=1963L '4k Monetary
+//#define OW_DS2436 0x1B //iButton= 'battery id/monitor chip
+//#define OW_DS28E04 0x1C //iButton= '4k EEPROM with PIO
+//#define OW_DS2423 0x1D //iButton= '4k ram with counter
+//#define OW_DS2409 0x1F //iButton= 'microlan coupler
+//#define OW_DS2450 0x20 //iButton= 'quad a/d converter
+//#define OW_DS1921 0x21 //iButton=1921 'Thermachron
+//#define OW_DS1822 0x22 //iButton= 'Econo Digital Thermometer
+//#define OW_DS2433 0x23 //iButton= '4k eeprom
+//#define OW_DS2415 0x24 //iButton= 'time chip
+//#define OW_DS2438 0x26 //iButton= 'smart battery monitor
+//#define OW_DS2417 0x27 //iButton= 'time chip with interrupt
+//#define OW_DS18B20 0x28 //iButton= 'programmable resolution digital thermometer
+//#define OW_DS2408 0x29 //iButton= '8-channel addressable switch
+//#define OW_DS2890 0x2C //iButton= 'digital potentiometer
+//#define OW_DS2431 0x2D //iButton= '1k eeprom
+//#define OW_DS2770 0x2E //iButton= 'battery monitor and charge controller
+//#define OW_DS2760 0x30 //iButton= 'high-precision li+ battery monitor
+//#define OW_DS2761 0x30 //iButton= 'high precision li+ battery monitor
+//#define OW_DS2762 0x30 //iButton= 'high precision li+ battery monitor with alerts
+//#define OW_DS2720 0x31 //iButton= 'efficient addressable single-cell rechargable lithium protection ic
+//#define OW_DS2432 0x33 //iButton=1961S '1k protected eeprom with SHA-1
+//#define OW_DS2740 0x36 //iButton= 'high precision coulomb counter
+//#define OW_DS 0x37 //iButton=1977 'Password protected 32k eeprom
+//#define OW_DS2413 0x3A //iButton= 'dual channel addressable switch
+//#define OW_DS2422 0x41 //iButton=1922L 1922T 1923 'Temperature Logger 8k mem
+//#define OW_DS2751 0x51 //iButton= 'multichemistry battery fuel gauge
+//#define OW_DS1420  0x81 //iButton=1420 'Serial ID Button
+//#define OW_DS2404S 0x84 //iButton= 'dual port plus time
+//#define OW_DS2502 0x89 //iButton=1982U '48 bit node address chip
+//#define OW_DS2505-UNW 0x8B //iButton=1985U '16k add-only uniqueware
+//#define OW_DS2506-UNW 0x8F //iButton=1986U '64k add-only uniqueware
+//#define OW_DSLCD 0xFF //iButton= 'LCD (Swart)
+//#define OW_DS28E01-100 0xXX //iButton= '1k EEPROM with SHA-1
+//#define OW_DS1821 0x00 //iButton= 'programmable digital thermostat and thermometer
+//#define OW_DS2223 0x00 //iButton= 'econoram
+//#define OW_DS2224 0x00 //iButton= 'econoram
+//#define OW_DS 0x00 //iButton=1962S '1k protected eeprom SHA-1
+//
+
+
+
+/*
+    BASIC STAMPS STYLE COMMANDS FOR ATMEL GCC-AVR
+
+    Usage Example:
+    ———————————————–
+    #define pinLed B,5  //define pins like this
+
+    OUTPUT(pinLED);     //compiles as DDRB |= (1<<5);
+    HIGH(pinLed);         //compiles as PORTB |= (1<<5);
+    ———————————————–
+*/
+
+
+#define USART_BAUDRATE 9600
+#define BAUD_PRESCALE (((F_CPU / (USART_BAUDRATE * 16UL))) - 1)
+
+volatile unsigned char value;
+/* This variable is volatile so both main and RX interrupt can use it.
+It could also be a uint8_t type */
+
+/* Interrupt Service Routine for Receive Complete
+NOTE: vector name changes with different AVRs see AVRStudio -
+Help - AVR-Libc reference - Library Reference - <avr/interrupt.h>: Interrupts
+for vector names other than USART_RXC_vect for ATmega32 */
+
+ISR(USART_RXC_vect){
+
+   value = UDR;             //read UART register into value
+   PORTB = ~value;          // output inverted value on LEDs (0=on)
+}
+
+void USART_Init(void){
+   // Set baud rate
+   UBRRL = BAUD_PRESCALE;// Load lower 8-bits into the low byte of the UBRR register
+   UBRRH = (BAUD_PRESCALE >> 8);
+	 /* Load upper 8-bits into the high byte of the UBRR register
+    Default frame format is 8 data bits, no parity, 1 stop bit
+  to change use UCSRC, see AVR datasheet*/
+
+  // Enable receiver and transmitter and receive complete interrupt
+  UCSRB = ((1<<TXEN)|(1<<RXEN) | (1<<RXCIE));
+}
+
+
+void USART_SendByte(uint8_t u8Data){
+
+  // Wait until last byte has been transmitted
+  while((UCSRA &(1<<UDRE)) == 0);
+
+  // Transmit data
+  UDR = u8Data;
+}
+
+void USART_SendText(char *s)		// wysy³a ³añcuch z pamiêci RAM na UART
+{
+
+	 char c;
+	  while ((c = *s++)) USART_SendByte(c);			// dopóki nie napotkasz 0 wysy³aj znak
+	}
+
+
+
+
+// not being used but here for completeness
+      // Wait until a byte has been received and return received data
+uint8_t USART_ReceiveByte(){
+  while((UCSRA &(1<<RXC)) == 0);
+  return UDR;
+}
+
+//uint8_t OW_CRC8(const uint8_t *addr, uint8_t len)
+//{
+//	uint8_t crc = 0;
+//
+//	while (len--) {
+//		uint8_t inbyte = *addr++;
+//		for (uint8_t i = 8; i; i--) {
+//			uint8_t mix = (crc ^ inbyte) & 0x01;
+//			crc >>= 1;
+//			if (mix) crc ^= 0x8C;
+//			inbyte >>= 1;
+//		}
+//	}
+//	return crc;
+//}
+
+int freeRam () {
+  extern int __heap_start, *__brkval;
+  int v;
+  return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval);
+}
+
+int main()
+{
+	OW_INIT();
+//	GLCD_init();
+//	GLCD_cls();
+
+
+USART_Init();  // Initialise USART
+DDRD=255;
+PORTD=255;
+
+sei();         // enable all interrupts
+ char buf[15];
+	uint8_t aID[8];
+	uint8_t pos;
+	int16_t temp;
+
+
+//**********************************
+
+	while(1){
+		USART_SendText("Start skanowania magistrali");
+		pos=0;
+		Error=OW_OK;
+		while (1)
+		{
+			pos=OW_SEARCH(OW_SearchROM, aID, pos);
+//			if(pos==0){
+//				USART_SendText("Koniec skanowania magistrali" NL);
+//				break;
+//			}
+
+					//_delay_ms(750);
+			OW_Start_Conversion(1);
+			_delay_us(750);
+			temp=OW_GetTemperature(&aID[0]);
+			uint8_t crc=OW_CRC8(&aID[0],7);
+			for(uint8_t i=0;i<8;i++)
+				{
+					sprintf(buf,"%02X",aID[i]);
+					//GLCD_puttext(buf);
+					USART_SendText(buf);
+
+				}
+				USART_SendText(" / pos: ");
+
+
+
+				if (crc==aID[7]){
+					USART_SendText("CRC OK.");
+				}
+					else
+					{
+
+						USART_SendText("CRC ERR");
+				}
+			    sprintf(buf,"%02X %d %+03i.%04i", crc ,pos, temp/16, (temp & 0b1111)*625);
+
+							//GLCD_goto(0,36+ii*9);
+							//GLCD_puttext(buf);
+							USART_SendText(buf NL);
+							USART_SendText(NL);
+
+
+
+
+		}
+
+
+}
+	//**********************************************
+}
+
+
+
+

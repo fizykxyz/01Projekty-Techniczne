@@ -1,0 +1,28 @@
+
+
+
+#include <avr/io.h>
+#include <util/delay.h>
+
+#define kw_1(n) n*n
+#define kw_2(n) n+n
+
+#define _DIGIT(num,n) kw_##num(n)
+#define DIGIT(num,n) _DIGIT(num,n)
+
+
+uint8_t nr=1;
+uint8_t wyn=0;
+#define numer 1
+int main()
+{
+	DDRB=0xFF;
+	while(1){
+
+    wyn=kw_1(nr);
+    wyn=DIGIT(numer,nr);
+	PORTB^=0xF0;
+	_delay_ms(500);
+
+	}
+}

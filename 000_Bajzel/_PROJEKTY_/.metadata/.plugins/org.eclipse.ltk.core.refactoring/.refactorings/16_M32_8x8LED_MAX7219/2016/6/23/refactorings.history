@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move &apos;LICENSE, README&apos; to &apos;16_M32_8x8LED_MAX7219&apos;" description="Move 2 resources to &apos;16_M32_8x8LED_MAX7219&apos;" destination="/16_M32_8x8LED_MAX7219" element1="/01_MIGAMY_LED/LICENSE" element2="/01_MIGAMY_LED/README" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="2" stamp="1465413812468" updateReferences="true"/>
+</session>

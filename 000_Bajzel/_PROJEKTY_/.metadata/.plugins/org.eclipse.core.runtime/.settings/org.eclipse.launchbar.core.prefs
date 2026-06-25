@@ -1,0 +1,9 @@
+LaunchTargetManager/configs/ARD01_LEDBLINK_SAY=org.eclipse.cdt.arduino.core.connectionType\:ArduinoISP
+LaunchTargetManager/org.eclipse.cdt.arduino.core.connectionType,ArduinoISP/name=ArduinoISP
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
+configDescList=org.eclipse.cdt.arduino.core.descriptorType\:ARD01_LEDBLINK_SAY
+eclipse.preferences.version=1
+org.eclipse.cdt.arduino.core.descriptorType\:ARD01_LEDBLINK_SAY/activeLaunchMode=run
+org.eclipse.cdt.arduino.core.descriptorType\:ARD01_LEDBLINK_SAY/activeLaunchTarget=org.eclipse.cdt.arduino.core.connectionType\:ArduinoISP

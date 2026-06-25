@@ -1,0 +1,96 @@
+/*
+ * main.c
+ *
+ *  Created on: 20 lis 2014
+ *      Author: Tomek
+ */
+
+#include <avr/io.h>
+#include <util/delay.h>
+
+#define MIN(A,B)  (((A)<(B)) ? (A) : (B) )
+#define MAX(A,B)  (((A)>(B)) ? (A) : (B) )
+#define PUT_IN_RANGE(V,VMIN,VMAX) MAX(VMIN,MIN(VMAX,V))
+#define MAP_TO_RANGE(V,VMIN0,VMAX0,VMIN1,VMAX1) ( (VMIN1) +  ( (V) – (VMIN0) ) * ( (VMAX1) – (VMIN1) ) / ( (VMAX0) – (VMIN0) ) )
+
+
+/* inne - lepsze definicje */
+// MACROS FOR EASY PIN HANDLING FOR ATMEL GCC-AVR
+//these macros are used indirectly by other macros , mainly for string concatination
+#define _SET(type,name,bit)            type ## name  |= _BV(bit)
+#define _CLEAR(type,name,bit)        type ## name  &= ~ _BV(bit)
+#define _TOGGLE(type,name,bit)        type ## name  ^= _BV(bit)
+#define _GET(type,name,bit)            ((type ## name >> bit) &  1)
+#define _PUT(type,name,bit,value)    type ## name = ( type ## name & ( ~ _BV(bit)) ) | ( ( 1 & (unsigned char)value ) << bit )
+
+//these macros are used by end user
+#define OUTPUT(pin)            _SET(DDR,pin)
+#define INPUT(pin)            _CLEAR(DDR,pin)
+#define HIGH(pin)            _SET(PORT,pin)
+#define LOW(pin)            _CLEAR(PORT,pin)
+#define TOGGLE(pin)            _TOGGLE(PORT,pin)
+#define READ(pin)            _GET(PIN,pin)
+
+/*
+    BASIC STAMPS STYLE COMMANDS FOR ATMEL GCC-AVR
+
+    Usage Example:
+    ———————————————–
+    #define pinLed B,5  //define pins like this
+
+    OUTPUT(pinLED);     //compiles as DDRB |= (1<<5);
+    HIGH(pinLed);         //compiles as PORTB |= (1<<5);
+    ———————————————–
+*/
+
+
+
+
+//definicje portów umo¿liwiaj¹ce dzia³anie w formie numerycznej np.PORT(0)=PORT(PD)=PORTD
+#define PORTS 4
+#define PD 0
+#define PC 1
+#define PB 2
+#define PA 3
+
+//#define DDR(p) _SFR_IO8(0x11+p*3)
+//#define PORT(p) _SFR_IO8(0x12+p*3)
+//#define PIN(p) _SFR_IO8(0x10+p*3)
+#define DDR(x) _SFR_IO8(_SFR_IO_ADDR(x)-1) // adr. r. kier. PORTx
+#define PORT(x) _SFR_IO8(_SFR_IO_ADDR(x)) // adr. r. wyj. PORTx
+#define PIN(x) _SFR_IO8(_SFR_IO_ADDR(x)-2) // adr. r. wej. PORTx
+
+
+//makro zmiany opisu Px,y np PD,5 na BAJT w formacie xxxxxyyy czyli port 0-31, pin 0-7 i vice-versa
+#define w2b(port,pin) ((port)<<3)&(pin)
+#define b2p(bajt) (bajt)>>3 //bajt to port
+#define b2b(bajt) (bajt)&(0x07) //bajt to bity
+
+//zmiana zapisu A na PA
+#define p2p(x,y)  (x)##(y)
+
+#define DIGITS 4
+uint8_t CYFRY[DIGITS] = {
+
+						w2b(PC,7),
+						w2b(PC,6),
+						w2b(PC,5),
+						w2b(PC,4)
+				};
+
+int main(void){
+	DDRD|=(1<<PD7);
+	DDRC=0xFF;
+	while(1){
+		PORTD^=(1<<PD7);
+		_delay_ms(300);
+        for (uint8_t i=0;i<3;i++){
+                 	  PORT(PC)^=(1<<7);
+                  }
+
+
+
+//                 		   PORT(CYFRY[pozc][0])&=~(1<<CYFRY[pozc][1]);
+
+	}
+}

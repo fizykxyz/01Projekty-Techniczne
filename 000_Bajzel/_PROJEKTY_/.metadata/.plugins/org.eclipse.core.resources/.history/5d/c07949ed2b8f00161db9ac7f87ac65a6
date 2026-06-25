@@ -1,0 +1,84 @@
+/*
+ * 00_XYZ_AVRLIBS main7219.c
+ *
+ *	    Autor: D¹browski Tomasz 
+ *  Stworzono: 2016-09-26   
+ *     Edycja: 11:52:06
+ */
+
+
+
+#include <inttypes.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <avr/sleep.h>
+#include <util/delay.h>
+#include <stdio.h>
+
+
+#include "MAX7219/max7219.h"
+
+
+#define segA (1<<6)
+#define segB (1<<5)
+#define segC (1<<4)
+#define segD (1<<3)
+#define segE (1<<2)
+#define segF (1<<1)
+#define segG (1<<0)
+#define seg_ (1<<7)
+
+/*
+*********************************************************************************************************
+* LED Segments:         a
+*                     ----
+*                   f|    |b
+*                    |  g |
+*                     ----
+*                   e|    |c
+*                    |    |
+*                     ----  o dp
+*                       d
+*   Register bits:
+*      bit:  7  6  5  4  3  2  1  0
+*           dp  a  b  c  d  e  f  g
+*********************************************************************************************************
+*/
+//				dABCDEFG
+uint8_t dec[] =
+{ segA|segB|segC|segD|segE|segF,
+  segB|segC,
+  segA|segB|segD|segE|segG,
+  segA|segB|segC|segD|segG,
+  segB|segC|segF|segG,
+  segA|segC|segD|segF|segG,
+  segC|segD|segE|segF|segG,
+  segA|segB|segC,
+  segA|segB|segC|segD|segE|segF|segG,
+  segA|segB|segC|segD|segF|segG
+};
+
+int main(void)  //rozpoczynamy
+{
+
+MAX7219_INIT();
+MAX7219_WREG(2,dec[2]);
+MAX7219_WREG(3,dec[0]);
+MAX7219_WREG(4,dec[1]);
+MAX7219_WREG(5,dec[6]);
+
+
+//MAX7219_WREG(6,0b00110000);
+
+
+	while(1) //pêtla nieskoñczona
+	{
+		for (uint8_t i=0;i<=9;i++)
+		{
+			MAX7219_BRIGHTNESS(i+5);
+	MAX7219_WREG(MAX7219_REGDIGIT7,dec[i] );
+		_delay_ms(300);
+		}
+
+	}
+}

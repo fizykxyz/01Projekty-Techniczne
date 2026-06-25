@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move &apos;main.c&apos; to &apos;002_XYZ_AVRLIBS&apos;" description="Move &apos;main.c&apos; to &apos;002_XYZ_AVRLIBS&apos;" destination="/002_XYZ_AVRLIBS" element1="/00_XYZ_AVRLIBS_2020/main.c" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1600532955640" updateReferences="true"/>
+</session>

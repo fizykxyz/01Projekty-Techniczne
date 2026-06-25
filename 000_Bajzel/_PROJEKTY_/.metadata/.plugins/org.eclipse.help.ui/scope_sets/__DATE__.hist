@@ -1,0 +1,4 @@
+#Tue Dec 15 05:52:29 CET 2015
+__DEFAULT__=false
+org.eclipse.help.ui.localSearch.master=true
+expression=__DATE__

@@ -1,0 +1,159 @@
+/*
+ * AVT009 lcd.c
+ *
+ *	    Autor: D¹browski Tomasz 
+ *  Stworzono: 2020-04-21   
+ *     Edycja: 10:08:53
+ */
+
+
+
+
+#include <avr/io.h>
+#include <inttypes.h>
+#include <util/delay.h>
+#include <string.h>
+#include <avr/pgmspace.h>
+#include <avr/sleep.h>
+#include <stdio.h>
+
+#include "makra.h"
+#include "harddef.h"
+#include "lcd.h"
+
+// Definicje sta³ych komen steruj¹cych
+#define LCDC_CLS				0x01
+#define LCDC_HOME				0x02
+#define LCDC_MODE				0x04
+	#define LCDC_MODER				0x02
+	#define LCDC_MODEL				0x00
+	#define LCDC_MODEMOVE			0x01
+#define LCDC_ON					0x08
+	#define LCDC_ONDISPLAY			0x04
+	#define LCDC_ONCURSOR			0x02
+	#define LCDC_ONBLINK			0x01
+#define LCDC_SHIFT				0x10
+	#define LCDC_SHIFTDISP			0x08
+	#define LCDC_SHIFTR				0x04
+	#define LCDC_SHIFTL				0x00
+#define LCDC_FUNC				0x20
+	#define LCDC_FUN8b				0x10
+	#define LCDC_FUN4b				0x00
+	#define LCDC_FUN2L				0x08
+	#define LCDC_FUN1L				0x00
+	#define LCDC_FUN5x10			0x04
+	#define LCDC_FUN5x7				0x00
+#define LCDC_CGA				0x40
+#define LCDC_DDA				0x80
+
+//deklaracja funkcji pisz¹cej
+static int lcd_put(char c, FILE *f);
+
+//zmienne
+static FILE lcd_fLCD_temp =
+		FDEV_SETUP_STREAM(lcd_put, NULL,
+		_FDEV_SETUP_WRITE);
+#define lcd_fLCD (&lcd_fLCD_temp)
+
+static char lcd_buffer[LCD_SX*LCD_SY];
+static uint8_t lcd_curpos;
+static uint8_t lcd_spec[8];
+static uint8_t lcd_status;
+
+//funkcje niskiego poziomu LCD
+#define lcd_epulse() \
+{PORT(LCD_CTRLPORT) |= 1<<LCD_E; \
+_delay_us(0.25); \
+PORT(LCD_CTRLPORT) &=~(1<<LCD_E);}
+
+// Odbiór danych - funkcja wewn.
+static inline uint8_t lcd_Get(void)
+{
+	uint8_t dana;
+	DDR(LCD_DATAPORT) = 0x00; //PORT as INPUT
+	PORT(LCD_CTRLPORT) |= 1<<LCD_E; //ACTIVE EN.
+	_delay_us(0.5);
+	dana = PIN(LCD_CTRLPORT); //GET DATA
+	PORT(LCD_CTRLPORT) &=~(1<<LCD_E); //DEAC.EN.
+	return dana;
+}
+
+uint8_t lcd_GetBF(void)
+{
+	//Wyprowadzenie do odcytu statusu
+	PORT(LCD_CTRLPORT) |= 1<<LCD_RW;
+	PORT(LCD_CTRLPORT) &=~(1<<LCD_RS);
+	_delay_us(0.25);
+	return lcd_Get();
+}
+
+// Czeka na wyzerowanie flagi zajêtoœci
+void lcd_WaitBF(void)
+{
+	// Bit zajêtoœci to bit najstarszy
+	while (0 !=(0x80 & lcd_GetBF())) {};
+}
+
+// Wys³anie danych - funkcja wewn.
+static void lcd_Send(uint8_t dana)
+{
+	DDR(LCD_DATAPORT) = 0xFF; //PORT AS OUTPUT
+	PORT(LCD_DATAPORT) = dana; //SEND DATA
+	lcd_epulse();
+}
+
+// wys³anie danej
+void lcd_SendData(uint8_t dana)
+{
+	lcd_WaitBF();
+	PORT(LCD_CTRLPORT) &=~(1<<LCD_RW);
+	PORT(LCD_CTRLPORT) |= 1<<LCD_RS;
+	_delay_us(0.25);
+	lcd_Send(dana);
+}
+
+// wys³anie instrukcji steruj¹cej
+void lcd_SendInstr(uint8_t dana)
+{
+	lcd_WaitBF();
+	PORT(LCD_CTRLPORT) &=~(1<<LCD_RW | 1<<LCD_RS);
+	_delay_us(0.25);
+	lcd_Send(dana);
+}
+
+static int lcd_put(char c, FILE *f)
+{
+	//Zabezpieczenie przed przepe³nieniem
+	if(lcd_curpos >= ELEMS(lcd_buffer)) lcd_curpos = 0;
+	lcd_buffer[lcd_curpos++] = c;
+	return 0;
+}
+
+void lcd_Init(void)
+{
+	lcd_Cls();
+	PORT(LCD_CTRLPORT) &=~(1<<LCD_RW | 1<<LCD_RS);
+	_delay_us(0.25);
+	lcd_Send(LCDC_FUNC | LCDC_FUN8b);
+	_delay_ms(4.3);
+	lcd_Send(LCDC_FUNC | LCDC_FUN8b);
+	_delay_us(200);
+	lcd_Send(LCDC_FUNC | LCDC_FUN8b);
+	// Ju¿ mo¿na sprawdzaæ BF
+#if LCD_SY == 1
+	lcd_SendInstr(LCDC_FUNC | LCDC_FUN8b | LCDC_FUN1L);
+#else
+	lcd_SendInstr(LCDC_FUNC | LCDC_FUN8b | LCDC_FUN2L);
+#endif
+	lcd_SendInstr(LCDC_ON);
+	lcd_SendInstr(LCDC_CLS);
+	lcd_SendInstr(LCDC_MODE | LCDC_MODER);
+	lcd_WaitBF();
+}
+
+void lcd_Cls(void)
+{
+	lcd_curpos = 0;
+	memset(lcd_buffer, ' ', sizeof(lcd_buffer));
+}
+

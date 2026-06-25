@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete 12 resources" deleteContents="false" description="Delete 12 resources" element1="/11_M32_MULTILCD/ADDS/isrt0c_w7seg.h" element10="/11_M32_MULTILCD/ADDS/timers.c" element11="/11_M32_MULTILCD/ADDS/timers.h" element12="/11_M32_MULTILCD/ADDS/w7seg.h" element2="/11_M32_MULTILCD/ADDS/LEDS_7SEG.h" element3="/11_M32_MULTILCD/ADDS/LEDS_EXT.h" element4="/11_M32_MULTILCD/ADDS/LEDS_MAIN.h" element5="/11_M32_MULTILCD/ADDS/logo_mis.h" element6="/11_M32_MULTILCD/ADDS/logo.h" element7="/11_M32_MULTILCD/ADDS/logonokia.h" element8="/11_M32_MULTILCD/ADDS/serwo.c" element9="/11_M32_MULTILCD/ADDS/serwo.h" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="12" stamp="1445140905650"/>
+</session>

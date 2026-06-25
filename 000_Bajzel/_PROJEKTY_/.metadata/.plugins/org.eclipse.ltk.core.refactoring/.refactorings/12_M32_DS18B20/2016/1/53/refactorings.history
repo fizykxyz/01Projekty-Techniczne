@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Move &apos;ds18b20, uart, main.c&apos; to &apos;12_M32_DS18B20&apos;" description="Move 3 resources to &apos;12_M32_DS18B20&apos;" destination="/12_M32_DS18B20" element1="src/ds18b20" element2="src/uart" element3="src/main.c" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="3" stamp="1451849330532" updateReferences="true"/>&#x0A;&#x0A;</session>

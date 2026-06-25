@@ -1,0 +1,179 @@
+/*                  e-gadget.header
+ * 1wirebb.c
+ *
+ *  Created on: 2015-12-06
+ *    Modyfied: 2015-12-06 18:08:13
+ *      Author: D¹browski Tomasz
+ *
+ * Project name: "11_M32_MULTILCD"
+ *
+ *          MCU: ATmega32
+ *        F_CPU: 8 000 000 Hz
+ *
+ *    Flash: 4 250 bytes   [ 13,0 % ]
+ *      RAM:  170 bytes   [ 8,3 % ]
+ *   EEPROM:  0 bytes   [ 0,0 % ]
+ *
+ */
+
+#include <avr/io.h>
+#include <util/delay.h>
+#include <avr/interrupt.h>
+#include <stdio.h>
+
+#include "ADDS/tools.h"
+#include "USART/usart.h"
+#include "ONEWIRE/onewire.h"
+#include "DS18B20/DS18B20.h"
+#include "ADDS/timers.h"
+
+volatile uint16_t millis;
+uint16_t last,rotary,rpm;
+
+#define ROT D,2
+#define ALRPM D,7
+
+
+
+
+ISR( TIMER0_COMP_vect ) {
+
+	++millis;
+}
+
+
+
+
+
+
+
+//uint8_t OW_CRC8(const uint8_t *addr, uint8_t len)
+//{
+//	uint8_t crc = 0;
+//
+//	while (len--) {
+//		uint8_t inbyte = *addr++;
+//		for (uint8_t i = 8; i; i--) {
+//			uint8_t mix = (crc ^ inbyte) & 0x01;
+//			crc >>= 1;
+//			if (mix) crc ^= 0x8C;
+//			inbyte >>= 1;
+//		}
+//	}
+//	return crc;
+//}
+
+//int freeRam () {
+//  extern int __heap_start, *__brkval;
+//  int v;
+//  return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval);
+//}
+
+int main()
+{
+//itoa();
+	OUTPUT(ROT);
+	HIGH(ROT);
+	cli();
+	GIMSK=(1<<INT0);		// Enable external interrupt INT0
+	MCUCR=(1<<ISC01); //|(1<<ISC00);    // Setup INT0 for faling/rising edge detection
+
+	OW_INIT();
+//	GLCD_init();
+//	GLCD_cls();
+
+
+USART_Init();  // Initialise USART
+OUTPUT(ALRPM);
+
+TIMER0_INIT();
+ char buf[15];
+	uint8_t aID[8];
+	uint8_t pos;
+	int16_t temp;
+
+
+//**********************************
+	sei();         // enable all interrupts
+
+	while(1){
+		USART_SendText("Start skanowania magistrali" NL);
+
+		_delay_ms(1000);
+		USART_SendText(__DATE__ __TIME__);
+
+
+					sprintf(buf," %02X%02X%02X \r\n",SIGNATURE_0,SIGNATURE_1,SIGNATURE_2);
+					USART_SendText(TOSTRING(F_CPU));
+					USART_SendText(TOSTRING(MCU));
+							_delay_ms(1000);
+		pos=0;
+		Error=OW_OK;
+		while (1)
+		{
+			pos=OW_SEARCH(OW_SearchROM, aID, pos);
+//			if(pos==0){
+//				USART_SendText("Koniec skanowania magistrali" NL);
+//				break;
+//			}
+
+					//_delay_ms(750);
+			OW_Start_Conversion(1);
+			_delay_us(750);
+			temp=OW_GetTemperature(&aID[0]);
+			uint8_t crc=OW_CRC8(&aID[0],7);
+			for(uint8_t i=0;i<8;i++)
+				{
+					sprintf(buf,"%02X",aID[i]);
+					//GLCD_puttext(buf);
+					USART_SendText(buf);
+
+				}
+				USART_SendText(" / pos: ");
+
+
+
+				if (crc==aID[7]){
+					USART_SendText("CRC OK.");
+				}
+					else
+					{
+
+						USART_SendText("CRC ERR");
+				}
+			    sprintf(buf,"%02X %d %+03i.%03i", crc ,pos, temp/16, (temp & 0b1111)*625);
+
+							//GLCD_goto(0,36+ii*9);
+							//GLCD_puttext(buf);
+							USART_SendText(buf);
+//							USART_SendText(NL);
+				if (millis!=last){
+
+					rpm=((rotary*60000)/(millis-last))/2;
+					rotary=0;
+					last=millis;
+				}
+
+ if (rpm<4000) TOGGLE(ALRPM);
+
+							sprintf(buf," %05u rpm", rpm);
+							USART_SendText(buf);
+							USART_SendText(NL);
+//
+
+
+		}
+
+
+}
+	//**********************************************
+}
+
+
+
+
+
+
+
+
+

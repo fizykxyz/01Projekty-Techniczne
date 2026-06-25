@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;98_M2560_IL9341/LCD_TFT&apos;" deleteContents="false" description="Delete resource &apos;98_M2560_IL9341/LCD_TFT&apos;" element1="/98_M2560_IL9341/LCD_TFT" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1480334370757"/>
+</session>

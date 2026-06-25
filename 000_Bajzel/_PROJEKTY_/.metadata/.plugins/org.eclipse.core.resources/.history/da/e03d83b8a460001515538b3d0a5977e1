@@ -1,0 +1,147 @@
+/*
+ * _1wirebb.c
+ *
+ * Created: 2014-08-23 10:47:04
+ *  Author: tmf
+ */ 
+
+
+#include <avr\io.h>
+#include <util\delay.h>
+#include <avr\interrupt.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include "1wire_basic.h"
+#include "1wire.h"
+#include "DS18B20.h"
+#include "KS0108lib.h"
+#include "graphics.h"
+//#include "MKUART/mkuart.h"
+#define F_CPU 16000000UL  // 8 MHz
+#define NL "\r\n"
+#define LED_PIN D, 7
+
+
+
+#define USART_BAUDRATE 9600
+#define BAUD_PRESCALE (((F_CPU / (USART_BAUDRATE * 16UL))) - 1)
+
+volatile unsigned char value;
+/* This variable is volatile so both main and RX interrupt can use it.
+It could also be a uint8_t type */
+
+/* Interrupt Service Routine for Receive Complete
+NOTE: vector name changes with different AVRs see AVRStudio -
+Help - AVR-Libc reference - Library Reference - <avr/interrupt.h>: Interrupts
+for vector names other than USART_RXC_vect for ATmega32 */
+
+ISR(USART_RXC_vect){
+
+   value = UDR;             //read UART register into value
+   PORTB = ~value;          // output inverted value on LEDs (0=on)
+}
+
+void USART_Init(void){
+   // Set baud rate
+   UBRRL = BAUD_PRESCALE;// Load lower 8-bits into the low byte of the UBRR register
+   UBRRH = (BAUD_PRESCALE >> 8);
+	 /* Load upper 8-bits into the high byte of the UBRR register
+    Default frame format is 8 data bits, no parity, 1 stop bit
+  to change use UCSRC, see AVR datasheet*/
+
+  // Enable receiver and transmitter and receive complete interrupt
+  UCSRB = ((1<<TXEN)|(1<<RXEN) | (1<<RXCIE));
+}
+
+
+void USART_SendByte(uint8_t u8Data){
+
+  // Wait until last byte has been transmitted
+  while((UCSRA &(1<<UDRE)) == 0);
+
+  // Transmit data
+  UDR = u8Data;
+}
+
+void USART_SendText(char *s)		// wysy³a ³añcuch z pamiêci RAM na UART
+{
+
+	 char c;
+	  while ((c = *s++)) USART_SendByte(c);			// dopóki nie napotkasz 0 wysy³aj znak
+	}
+
+
+
+
+// not being used but here for completeness
+      // Wait until a byte has been received and return received data
+uint8_t USART_ReceiveByte(){
+  while((UCSRA &(1<<RXC)) == 0);
+  return UDR;
+}
+
+SET(DDR, LED_PIN);
+SET(PORT, LED_PIN);
+
+
+int main()
+{
+	OW_init();
+//	GLCD_init();
+//	GLCD_cls();
+
+
+USART_Init();  // Initialise USART
+  sei();         // enable all interrupts
+ char buf[15];
+	uint8_t aID[8];
+	uint8_t pos;
+	int16_t temp;
+
+
+
+
+	while(1){
+		USART_SendText("Start skanowania magistrali" NL);
+		pos=0;
+		Error=OW_OK;
+		while (1)
+		{
+			pos=OWI_Search(OW_SearchROM, aID, pos);
+//			if(pos==0){
+//				USART_SendText("Koniec skanowania magistrali" NL);
+//				break;
+//			}
+
+					//_delay_ms(750);
+			for(uint8_t i=0;i<8;i++)
+				{
+					sprintf(buf,"%02X",aID[i]);
+					//GLCD_puttext(buf);
+					USART_SendText(buf);
+
+				}
+				USART_SendText(" / pos: ");
+				OW_Start_Conversion(1);
+_delay_us(750);
+				temp=OW_GetTemperature(&aID[0]);
+							sprintf(buf,"%d %+03i.%02i", pos, temp/16, (temp & 0b1111)*625);
+
+							//GLCD_goto(0,36+ii*9);
+							//GLCD_puttext(buf);
+							USART_SendText(buf);
+							USART_SendText(NL);
+
+
+
+
+		}
+
+
+}
+}
+
+
+
+

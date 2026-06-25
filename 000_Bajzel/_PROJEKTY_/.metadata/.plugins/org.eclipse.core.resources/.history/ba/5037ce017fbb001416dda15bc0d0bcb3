@@ -1,0 +1,29 @@
+#include <avr/io.h>
+#include "T6963C.h"
+#include "graphic.h"
+#include <util/delay.h>
+int main(void)
+{
+GLCD_Initalize(); // Initalize LCD
+GLCD_ClearText(); // Clear text area
+GLCD_ClearCG(); // Clear character generator area
+GLCD_ClearGraphic(); // Clear graphic area
+
+GLCD_TextGoTo(0,0);// set text coordinates
+GLCD_WriteString("Dziala Wyswietlacz"); // write text
+//GLCD_TextGoTo(0,2);
+//GLCD_WriteString("012345678901234567890");
+GLCD_Circle(32,32,20); // draw circle
+GLCD_Circle(108,32,20); // draw circle
+
+GLCD_Rectangle(8,8,124, 48); // draw rectangle
+_delay_ms(1000);
+GLCD_Rectangle(0,0,127, 3); // draw rectangle
+DDRD|=(1<<7);
+while(1){
+	PORTD^=(1<<7);
+	_delay_ms(500);
+}
+
+return 0;
+}

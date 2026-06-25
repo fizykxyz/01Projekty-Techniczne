@@ -1,0 +1,24 @@
+#Hardware Configuration File
+#Mon Aug 08 14:54:44 CEST 2016
+avreclipse.avrdude.useconsole=true
+bitsBefore=0
+gdbservertool=NONE
+unitsBefore=0
+usbdelay=
+port=usb
+mcu=atmega32
+bitbangdelay=
+hostinterface=USB
+avreclipse.avrdude.verbosity=0
+fcpu=16000000
+bitsAfter=0
+description=Atmega32@16
+jtagclock=0
+programmer=usbasp
+unitsAfter=0
+avreclipse.avrdude.command=avrdude
+programmertool=avreclipse.avrdude
+jtagdaisychain=false
+baud=
+exitspec=
+name=Atmega32_16MHz

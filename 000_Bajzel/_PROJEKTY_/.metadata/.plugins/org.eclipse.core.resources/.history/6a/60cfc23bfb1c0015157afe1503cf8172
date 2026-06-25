@@ -1,0 +1,206 @@
+/*
+ * 09_ATMEGA163L main.c
+ *
+ *  Stworzono: 2015 14 cze 2015
+ *      Autor: D¹browski Tomasz
+ *     Edycja: 19:39:04
+ */
+
+/*
+ *
+ *
+ */
+
+#include <inttypes.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <avr/sleep.h>
+#include <util/delay.h>
+#include <stdio.h>
+//#include "HD44780.h"
+//#include "SPI.h"
+
+
+/* inne - lepsze definicje */
+// MACROS FOR EASY PIN HANDLING FOR ATMEL GCC-AVR
+//these macros are used indirectly by other macros , mainly for string concatination
+#define _SET(type,name,bit)            type ## name  |= _BV(bit)
+#define _CLEAR(type,name,bit)        type ## name  &= ~ _BV(bit)
+#define _TOGGLE(type,name,bit)        type ## name  ^= _BV(bit)
+#define _GET(type,name,bit)            ((type ## name >> bit) &  1)
+#define _PUT(type,name,bit,value)    type ## name = ( type ## name & ( ~ _BV(bit)) ) | ( ( 1 & (unsigned char)value ) << bit )
+
+//these macros are used by end user
+#define OUTPUT(pin)            _SET(DDR,pin)
+#define INPUT(pin)            _CLEAR(DDR,pin)
+#define HIGH(pin)            _SET(PORT,pin)
+#define LOW(pin)            _CLEAR(PORT,pin)
+#define TOGGLE(pin)            _TOGGLE(PORT,pin)
+#define READ(pin)            _GET(PIN,pin)
+
+
+/*
+    BASIC STAMPS STYLE COMMANDS FOR ATMEL GCC-AVR
+
+    Usage Example:
+    ———————————————–
+    #define pinLed B,5  //define pins like this
+
+    OUTPUT(pinLED);     //compiles as DDRB |= (1<<5);
+    HIGH(pinLed);         //compiles as PORTB |= (1<<5);
+    ———————————————–
+
+*/
+
+#define LEDM01A C,4
+#define LEDM01K B,1
+#define LEDM01(STAN) if (STAN==0) HIGH(LEDM01A); else {LOW(LEDM01A);LOW(LEDM01K);}
+
+#define LEDM02A A,2
+#define LEDM02K B,1
+#define LEDM02(STAN) if (STAN==0) HIGH(LEDM02A); else {LOW(LEDM02A);LOW(LEDM02K);}
+
+#define LEDM03A C,2
+#define LEDM03K B,1
+#define LEDM03(STAN) if (STAN==0) HIGH(LEDM03A); else {LOW(LEDM03A);LOW(LEDM03K);}
+
+#define LEDM04A C,3
+#define LEDM04K B,1
+#define LEDM04(STAN) if (STAN==0) HIGH(LEDM04A); else {LOW(LEDM04A);LOW(LEDM04K);}
+
+#define LEDM05A C,7
+#define LEDM05K B,1
+#define LEDM05(STAN) if (STAN==0) HIGH(LEDM05A); else {LOW(LEDM05A);LOW(LEDM05K);}
+
+#define LEDM06A D,6
+#define LEDM06K B,2
+#define LEDM06(STAN) if (STAN==0) HIGH(LEDM06A); else {LOW(LEDM06A);LOW(LEDM06K);}
+
+#define LEDM07A D,4
+#define LEDM07K B,2
+#define LEDM07(STAN) if (STAN==0) HIGH(LEDM07A); else {LOW(LEDM07A);LOW(LEDM07K);}
+
+#define LEDM08A C,6
+#define LEDM08K B,2
+#define LEDM08(STAN) if (STAN==0) HIGH(LEDM08A); else {LOW(LEDM08A);LOW(LEDM08K);}
+
+
+#define LEDE01A D,2
+#define LEDE01K C,6
+#define LEDE01(STAN) if (STAN==0) HIGH(LEDE01A); else {LOW(LEDE01A);LOW(LEDE01K);}
+
+#define LEDE02A D,2
+#define LEDE02K C,5
+#define LEDE02(STAN) if (STAN==0) HIGH(LEDE02A); else {LOW(LEDE02A);LOW(LEDE02K);}
+
+#define LEDE03A B,3
+#define LEDE03K C,6
+#define LEDE03(STAN) if (STAN==0) HIGH(LEDE03A); else {LOW(LEDE03A);LOW(LEDE03K);}
+
+#define LEDE04A B,3
+#define LEDE04K C,5
+#define LEDE04(STAN) if (STAN==0) HIGH(LEDE04A); else {LOW(LEDE04A);LOW(LEDE04K);}
+
+#define LEDE05A B,1
+#define LEDE05K C,5
+#define LEDE05(STAN) if (STAN==0) HIGH(LEDE05A); else {LOW(LEDE05A);LOW(LEDE05K);}
+
+#define LEDE06A B,1
+#define LEDE06K C,6
+#define LEDE06(STAN) if (STAN==0) HIGH(LEDE06A); else {LOW(LEDE06A);LOW(LEDE06K);}
+
+#define LEDE07A B,3
+#define LEDE07K D,2
+#define LEDE07(STAN) if (STAN==0) HIGH(LEDE07A); else {LOW(LEDE07A);LOW(LEDE07K);}
+
+#define LEDE08A B,0
+#define LEDE08K B,2
+#define LEDE08(STAN) if (STAN==0) HIGH(LEDE08A); else {LOW(LEDE08A);LOW(LEDE08K);}
+
+#define LEDE09A B,0
+#define LEDE09K B,1
+#define LEDE09(STAN) if (STAN==0) HIGH(LEDE09A); else {LOW(LEDE09A);LOW(LEDE09K);}
+
+#define LEDE10A B,4
+#define LEDE10K B,1
+#define LEDE10(STAN) if (STAN==0) HIGH(LEDE10A); else {LOW(LEDE10A);LOW(LEDE10K);}
+
+#define LEDE11A B,0
+#define LEDE11K D,2
+#define LEDE11(STAN) if (STAN==0) HIGH(LEDE11A); else {LOW(LEDE11A);LOW(LEDE11K);}
+
+
+
+
+
+
+
+
+
+#define kwadrat(liczba) liczba*liczba
+
+int main(void) { //rozpoczynamy
+//	 OUTPUT(pin1);
+//	 LOW(pin1);
+//	 OUTPUT(pin2);
+//	 HIGH(pin2);
+//uint8_t a=kwadrat(2);
+	 DDRA=0xFF;
+	 DDRB=0xFF;
+	 DDRC=0xFF;
+	 DDRD=0xFF;
+//
+	 PORTA=0b11111111;
+	 PORTB=0b11111111; //cyfry i diody red
+	 PORTC=0b11111111;
+	 PORTD=0b11111111; //segmenty wyœwietlacza i diody
+
+_delay_ms(100);
+	while(1){ //pêtla nieskoñczona
+//	TOGGLE(pin1);
+//	TOGGLE(pin2);
+//
+
+
+
+
+
+		for (uint8_t a=0;a<8;a++){
+			for (uint8_t t=0;t<8;t++){
+				LEDE01(1);_delay_ms(1000);LEDE01(0);_delay_ms(1000);
+				LEDE02(1);_delay_ms(1000);LEDE02(0);_delay_ms(1000);
+				LEDE03(1);_delay_ms(1000);LEDE03(0);_delay_ms(1000);
+				LEDE04(1);_delay_ms(1000);LEDE04(0);_delay_ms(1000);
+				LEDE05(1);_delay_ms(1000);LEDE05(0);_delay_ms(1000);
+				LEDE06(1);_delay_ms(1000);LEDE06(0);_delay_ms(1000);
+				LEDE07(1);_delay_ms(1000);LEDE07(0);_delay_ms(1000);
+				LEDE08(1);_delay_ms(1000);LEDE08(0);_delay_ms(1000);
+				LEDE09(1);_delay_ms(1000);LEDE09(0);_delay_ms(1000);
+				LEDE10(1);_delay_ms(1000);LEDE10(0);_delay_ms(1000);
+				LEDE11(1);_delay_ms(1000);LEDE11(0);_delay_ms(1000);
+
+
+				//LEDE01(1-t%3);
+//LEDE03(1-t%2);
+//LEDE04(t%5);
+//LEDE05(t%4);
+//LEDE02(t%6);
+//LEDE06(t%7);
+//
+				//PORTB=~_BV(t);
+				_delay_ms(300);
+			}
+
+		}
+
+//		PORTA=~PORTA;
+//		PORTB=~PORTB;
+////		PORTC=~PORTC;
+//		PORTD=~PORTD;
+
+
+
+
+
+	}
+}

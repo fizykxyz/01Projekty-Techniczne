@@ -1,0 +1,22 @@
+include <avr/io.h>
+#include "T6963C.h"
+#include "graphic.h"
+
+int main(void)
+{
+GLCD_Initalize(); // Initalize LCD
+GLCD_ClearText(); // Clear text area
+GLCD_ClearCG(); // Clear character generator area
+GLCD_ClearGraphic(); // Clear graphic area
+
+GLCD_TextGoTo(0,0);// set text coordinates
+GLCD_WriteString("http://en.radzio.dxp.pl/t6963/"); // write text
+
+GLCD_Circle(32,32,20); // draw circle
+GLCD_Circle(208,32,20); // draw circle
+
+GLCD_Rectangle(8,8,224, 48); // draw rectangle
+
+while(1);
+return 0;
+}

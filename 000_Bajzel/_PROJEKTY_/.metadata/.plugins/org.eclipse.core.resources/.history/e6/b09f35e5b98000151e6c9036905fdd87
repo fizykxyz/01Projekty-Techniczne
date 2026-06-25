@@ -1,0 +1,504 @@
+/*
+ * ATMEGA32L_LCD onewire.c
+ *
+ *  Stworzono: 2014 13-10-2014
+ *      Autor: D¹browski Tomasz
+ *     Edycja: 06:55:32
+ */
+
+
+
+#include <util\atomic.h>
+#include <util\delay.h>
+
+#include "../ADDS/tools.h"
+#include "onewire_cfg.h"
+#include "onewire.h"
+
+
+
+
+
+//onewire basic
+#define GLUE(a, b)     a##b
+
+/* single-bit macros, used for control bits */
+#define SET_(what, p, m) GLUE(what, p) |= (1 << (m))
+#define CLR_(what, p, m) GLUE(what, p) &= ~(1 << (m))
+#define GET_(/* PIN, */ p, m) GLUE(PIN, p) & (1 << (m))
+#define SET(what, x) SET_(what, x)
+#define CLR(what, x) CLR_(what, x)
+#define GET(x) (GET_(x))
+
+uint8_t Error;
+
+void OW_INIT()
+{
+ //CLR(DDR, OW_PIN);
+INPUT(OW_PIN);
+// CLR(PORT, OW_PIN);
+LOW(OW_PIN);
+}
+
+//void ONEWIRE_INIT(void)
+//{
+//	CLR(DDR,ONEWIRE_PIN);
+//	ONEWIRE_RESETSEARCH();
+//}
+//
+//void ONEWIRE_RESETSEARCH()
+//{
+//  // reset the search state
+//  LastDiscrepancy = 0;
+//  LastDeviceFlag = 0;
+//  LastFamilyDiscrepancy = 0;
+//  for(int i = 7; ; i--) {
+//    ROM_NO[i] = 0;
+//    if ( i == 0) break;
+//  }
+//}
+
+
+
+
+void OW_WRITEBIT(bool bit)
+{
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+	{
+		//SET(DDR, OW_PIN);
+		OUTPUT(OW_PIN);
+ 		_delay_us(3);
+ 		if(bit) INPUT(OW_PIN);//CLR(DDR, OW_PIN);
+ 		_delay_us(60);
+ 		INPUT(OW_PIN);//CLR(DDR, OW_PIN);
+	}
+}
+
+//void ONEWIRE_WRITEBIT(uint8_t v)
+//{
+//	if (v & 1) {
+//		cli();
+//		CLR(PORT,ONEWIRE_PIN);
+//		SET(DDR,ONEWIRE_PIN);	// drive output low
+//		_delay_us(10);
+//		SET(PORT,ONEWIRE_PIN);	// drive output high
+//		sei();
+//		_delay_us(55);
+//	} else {
+//		cli();
+//		CLR(PORT,ONEWIRE_PIN);
+//		SET(DDR,ONEWIRE_PIN);	// drive output low
+//		_delay_us(65);
+//		SET(PORT,ONEWIRE_PIN);	// drive output high
+//		sei();
+//		_delay_us(5);
+//	}
+//}
+
+
+bool OW_READBIT()
+{
+	unsigned char tmp;
+	uint8_t counter=0;
+
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+	{
+ 		//SET(DDR, OW_PIN);
+ 		OUTPUT(OW_PIN);
+		_delay_us(3);
+		INPUT(OW_PIN);//CLR(DDR, OW_PIN);
+ 		_delay_us(15);
+ 		tmp=READ(OW_PIN);//GET(OW_PIN);
+	}
+ 	while((counter<0xFF) && (READ(OW_PIN)==0)) //(GET(OW_PIN)==0))
+  	 {
+   		_delay_us(2);
+   		counter++;
+  	 }
+	if(counter==0xFF) Error=OW_BusShorted;
+ 	return tmp;
+}
+
+//uint8_t ONEWIRE_READBIT(void)
+//{
+//	uint8_t r;
+//	cli();
+//	SET(DDR,ONEWIRE_PIN);
+//	CLR(PORT,ONEWIRE_PIN);
+//	_delay_us(3);
+//	CLR(DDR,ONEWIRE_PIN);	// let pin float, pull up will raise
+//	_delay_us(10);
+//	r = GETONEWIRE;
+//	sei();
+//	_delay_us(53);
+//	return r;
+//}
+
+void OW_RESETPULSE()
+{
+	//SET(DDR, OW_PIN);
+	OUTPUT(OW_PIN);
+	_delay_us(480);
+
+	//CLR(DDR, OW_PIN);
+	INPUT(OW_PIN);
+}
+
+//uint8_t ONEWIRE_RESET(void)
+//{
+//	uint8_t r;
+//	uint8_t retries = 125;
+//	cli();
+//	CLR(DDR,ONEWIRE_PIN);
+//	sei();
+//	 //wait until the wire is high... just in case
+//	do {
+//		if (--retries == 0) return 0;
+//		_delay_us(2);
+//	} while (!GETONEWIRE);
+//
+//	cli();
+//	CLR(PORT,ONEWIRE_PIN);
+//	SET(DDR,ONEWIRE_PIN);	// drive output low
+//	sei();
+//	_delay_us(480);
+//	cli();
+//	CLR(DDR,ONEWIRE_PIN);	// allow it to float
+//	_delay_us(70);
+//	r=(!GETONEWIRE);
+//	sei();
+//	_delay_us(410);
+//	cli();
+//	r=(!GETONEWIRE);
+//	sei();
+//	return r;
+//}
+
+
+
+bool OW_WAITFORPRESENCEPULSE()
+{
+ ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+  {
+	OW_RESETPULSE();
+	_delay_us(30);
+	unsigned char counter=0;
+	while((counter<0xFF) && (READ(OW_PIN)))//(GET(OW_PIN)))
+  	 {
+   		_delay_us(1);
+   		counter++;
+  	 }
+ 	if(counter==0xFF)
+	 {
+	 	Error=OW_NoPresencePulse;
+	 	return false;
+	 }
+ 	counter=0;
+ 	while((counter<0xFF) && (READ(OW_PIN)==0))//(GET(OW_PIN)==0))
+  	 {
+   		_delay_us(2);
+   		counter++;
+  	 }
+ 	if(counter==0xFF)
+	 {
+		Error=OW_BusShorted;
+	 	return false;
+	 }
+	Error=OW_OK;
+ 	return true;
+  }
+ return true;
+}
+
+
+//Onewire basic end
+//ONEWIRE EXT
+void OW_WRITE(uint8_t byte)
+{
+	unsigned char loop;
+	for(loop=0; loop<8; loop++)
+	{
+		OW_WRITEBIT(byte & 0x01);
+		byte>>=1;
+   		_delay_us(130);
+    }
+}
+
+//void ONEWIRE_WRITE(uint8_t v, uint8_t power /* = 0 */)
+//{
+//    uint8_t bitMask;
+//    for (bitMask = 0x01; bitMask; bitMask <<= 1) {
+//	ONEWIRE_WRITEBIT( (bitMask & v)?1:0);
+//    }
+//    if ( !power) {
+//	cli();
+//	CLR(DDR,OW_PIN);
+//	CLR(PORT,OW_PIN);
+//	sei();
+//    }
+//}
+
+
+uint8_t OW_READ()
+{
+	unsigned char loop;
+	unsigned char result=0;
+
+	for(loop=0; loop<8; loop++)
+	{
+		result>>=1;
+		if(OW_READBIT()) result|=0x80;
+   		_delay_us(150);
+  	}
+ 	return result;
+}
+//
+//uint8_t ONEWIRE_READ()
+//{
+//    uint8_t bitMask;
+//    uint8_t r = 0;
+//    for (bitMask = 0x01; bitMask; bitMask <<= 1) {
+//	if ( ONEWIRE_READBIT()) r |= bitMask;
+//    }
+//    return r;
+//}
+
+
+void OW_SELECTDEVICE(const uint8_t *aID)
+{
+	if(OW_WAITFORPRESENCEPULSE()==false) return;
+	OW_WRITE(OW_MatchROM);
+	uint8_t crc=0;
+	for(uint8_t a=0;a<7;a++)
+	{
+	 crc=_crc_ibutton_update(crc, aID[a]);
+	 OW_Write(aID[a]);
+	}
+	OW_Write(crc);
+}
+
+
+//void ONEWIRE_SELECT(const uint8_t rom[8])
+//{
+//    uint8_t i;
+//
+//    ONEWIRE_WRITE(0x55,0);           // Choose ROM
+//
+//    for (i = 0; i < 8; i++) ONEWIRE_WRITE(rom[i],0);
+//}
+
+
+
+uint8_t OW_SEARCH(uint8_t cmd, uint8_t *aID, uint8_t deviationpos)
+{
+ uint8_t newPos=0;
+ uint8_t bitMask=0x01;
+ uint8_t bitA, bitB;
+
+ OW_WAITFORPRESENCEPULSE();	//Inicjalizacja magistrali
+ OW_WRITE(cmd);     //Wyœlij polecenie SearchROM
+
+ for(uint8_t currentBit=1; currentBit<=64;currentBit++)
+  {
+   _delay_us(60);
+   bitA=OW_READBIT();    //Odczyt bitu
+   _delay_us(60);
+   bitB=OW_READBIT();    //i jego dope³nenia
+   _delay_us(60);
+
+   if(bitA && bitB)
+    {
+     Error=OW_SearchNoResponse; //B³¹d - oba bity równe 1
+     return 0; //Zwróæ cokolwiek dla unikniêcia ostrze¿enia kompilatora
+    }
+
+   if(bitA ^ bitB)
+    { //Na tej pozycji wszystkie urz¹dzenia maj¹ bity o tej samej wartoœci
+     if(bitA) (*aID)|=bitMask; //Ustaw odpowiedni bit ID
+      else (*aID)&=~bitMask;
+    }
+     else // oba bity równe 0
+      {
+       if(currentBit==deviationpos) (*aID)|=bitMask; //Tu ostatnio wybrano 0, teraz bêdzie 1
+
+	   if(currentBit>deviationpos)
+        {
+         (*aID)&=~bitMask;
+         newPos=currentBit;
+        }
+         else if(!(*aID & bitMask)) newPos=currentBit;
+      }
+
+   OW_WRITEBIT((*aID) & bitMask); //Wyœlij wartoœæ wybranego bitu
+   bitMask<<=1;
+   if (!bitMask)
+    {
+     bitMask=0x01;
+     aID++;
+    }
+  }
+ return newPos;
+}
+
+//
+//uint8_t ONEWIRE_SEARCH(uint8_t *newAddr)
+//{
+//   uint8_t id_bit_number;
+//   uint8_t last_zero, rom_byte_number, search_result;
+//   uint8_t id_bit, cmp_id_bit;
+//
+//   unsigned char rom_byte_mask, search_direction;
+//
+//   // initialize for search
+//   id_bit_number = 1;
+//   last_zero = 0;
+//   rom_byte_number = 0;
+//   rom_byte_mask = 1;
+//   search_result = 0;
+//
+//   // if the last call was not the last one
+//   if (!LastDeviceFlag)
+//   {
+//      // 1-Wire reset
+//      if (!ONEWIRE_RESET())
+//      {
+//         // reset the search
+//         LastDiscrepancy = 0;
+//         LastDeviceFlag = 0;
+//         LastFamilyDiscrepancy = 0;
+//         return 0;
+//      }
+//
+//      // issue the search command
+//      ONEWIRE_WRITE(0xF0,0);
+//
+//      // loop to do the search
+//      do
+//      {
+//         // read a bit and its complement
+//         id_bit = ONEWIRE_READBIT();
+//         cmp_id_bit = ONEWIRE_READBIT();
+//
+//         // check for no devices on 1-wire
+//         if ((id_bit == 1) && (cmp_id_bit == 1))
+//            break;
+//         else
+//         {
+//            // all devices coupled have 0 or 1
+//            if (id_bit != cmp_id_bit)
+//               search_direction = id_bit;  // bit write value for search
+//            else
+//            {
+//               // if this discrepancy if before the Last Discrepancy
+//               // on a previous next then pick the same as last time
+//               if (id_bit_number < LastDiscrepancy)
+//                  search_direction = ((ROM_NO[rom_byte_number] & rom_byte_mask) > 0);
+//               else
+//                  // if equal to last pick 1, if not then pick 0
+//                  search_direction = (id_bit_number == LastDiscrepancy);
+//
+//               // if 0 was picked then record its position in LastZero
+//               if (search_direction == 0)
+//               {
+//                  last_zero = id_bit_number;
+//
+//                  // check for Last discrepancy in family
+//                  if (last_zero < 9)
+//                     LastFamilyDiscrepancy = last_zero;
+//               }
+//            }
+//
+//            // set or clear the bit in the ROM byte rom_byte_number
+//            // with mask rom_byte_mask
+//            if (search_direction == 1)
+//              ROM_NO[rom_byte_number] |= rom_byte_mask;
+//            else
+//              ROM_NO[rom_byte_number] &= ~rom_byte_mask;
+//
+//            // serial number search direction write bit
+//            ONEWIRE_WRITEBIT(search_direction);
+//
+//            // increment the byte counter id_bit_number
+//            // and shift the mask rom_byte_mask
+//            id_bit_number++;
+//            rom_byte_mask <<= 1;
+//
+//            // if the mask is 0 then go to new SerialNum byte rom_byte_number and reset mask
+//            if (rom_byte_mask == 0)
+//            {
+//                rom_byte_number++;
+//                rom_byte_mask = 1;
+//            }
+//         }
+//      }
+//      while(rom_byte_number < 8);  // loop until through all ROM bytes 0-7
+//
+//      // if the search was successful then
+//      if (!(id_bit_number < 65))
+//      {
+//         // search successful so set LastDiscrepancy,LastDeviceFlag,search_result
+//         LastDiscrepancy = last_zero;
+//
+//         // check for last device
+//         if (LastDiscrepancy == 0)
+//            LastDeviceFlag = 1;
+//
+//         search_result = 1;
+//      }
+//   }
+//
+//   // if no device found then reset counters so next 'search' will be like a first
+//   if (!search_result || !ROM_NO[0])
+//   {
+//      LastDiscrepancy = 0;
+//      LastDeviceFlag = 0;
+//      LastFamilyDiscrepancy = 0;
+//      search_result = 0;
+//   }
+//   for (int i = 0; i < 8; i++) newAddr[i] = ROM_NO[i];
+//   return search_result;
+//  }
+
+
+
+void OW_SKIP()
+{
+   OW_WRITE(OW_SkipROM);           // Skip ROM
+}
+
+
+
+// Perform a search. If this function returns a '1' then it has
+// enumerated the next device and you may retrieve the ROM from the
+// OneWire::address variable. If there are no devices, no further
+// devices, or something horrible happens in the middle of the
+// enumeration then a 0 is returned.  If a new device is found then
+// its address is copied to newAddr.  Use OneWire::reset_search() to
+// start over.
+//
+// --- Replaced by the one from the Dallas Semiconductor web site ---
+//--------------------------------------------------------------------------
+// Perform the 1-Wire Search Algorithm on the 1-Wire bus using the existing
+// search state.
+// Return TRUE  : device found, ROM number in ROM_NO buffer
+//        FALSE : device not found, end of search
+//
+// Compute a Dallas Semiconductor 8 bit CRC directly.
+// this is much slower, but much smaller, than the lookup table.
+//
+uint8_t ONEWIRE_CRC8(const uint8_t *addr, uint8_t len)
+{
+	uint8_t crc = 0;
+
+	while (len--) {
+		uint8_t inbyte = *addr++;
+		for (uint8_t i = 8; i; i--) {
+			uint8_t mix = (crc ^ inbyte) & 0x01;
+			crc >>= 1;
+			if (mix) crc ^= 0x8C;
+			inbyte >>= 1;
+		}
+	}
+	return crc;
+}
+

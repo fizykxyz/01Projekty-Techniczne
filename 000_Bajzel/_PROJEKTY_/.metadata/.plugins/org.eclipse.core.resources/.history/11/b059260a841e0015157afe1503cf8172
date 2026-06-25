@@ -1,0 +1,160 @@
+/*
+ * 09_ATMEGA163L main.c
+ *
+ *  Stworzono: 2015 14 cze 2015
+ *      Autor: D¹browski Tomasz
+ *     Edycja: 19:39:04
+ */
+
+/*
+ *
+ *
+ */
+
+#include <inttypes.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <avr/sleep.h>
+#include <util/delay.h>
+#include <stdio.h>
+#include <avr/pgmspace.h>
+
+//#include "HD44780.h"
+//#include "SPI.h"
+
+
+/* inne - lepsze definicje */
+// MACROS FOR EASY PIN HANDLING FOR ATMEL GCC-AVR
+//these macros are used indirectly by other macros , mainly for string concatination
+#define _SET(type,name,bit)            type ## name  |= _BV(bit)
+#define _CLEAR(type,name,bit)        type ## name  &= ~ _BV(bit)
+#define _TOGGLE(type,name,bit)        type ## name  ^= _BV(bit)
+#define _GET(type,name,bit)            ((type ## name >> bit) &  1)
+#define _PUT(type,name,bit,value)    type ## name = ( type ## name & ( ~ _BV(bit)) ) | ( ( 1 & (unsigned char)value ) << bit )
+
+//these macros are used by end user
+#define OUTPUT(pin)            _SET(DDR,pin)
+#define INPUT(pin)            _CLEAR(DDR,pin)
+#define HIGH(pin)            _SET(PORT,pin)
+#define LOW(pin)            _CLEAR(PORT,pin)
+#define TOGGLE(pin)            _TOGGLE(PORT,pin)
+#define READ(pin)            _GET(PIN,pin)
+
+
+/*
+    BASIC STAMPS STYLE COMMANDS FOR ATMEL GCC-AVR
+
+    Usage Example:
+    ———————————————–
+    #define pinLed B,5  //define pins like this
+
+    OUTPUT(pinLED);     //compiles as DDRB |= (1<<5);
+    HIGH(pinLed);         //compiles as PORTB |= (1<<5);
+    ———————————————–
+
+*/
+
+#include "ADDS/LEDS_MAIN.h"
+
+#include "ADDS/LEDS_EXT.h"
+
+#include "ADDS/LEDS_7SEG.h"
+
+
+
+
+
+
+
+
+
+#define kwadrat(liczba) liczba*liczba
+
+int main(void) { //rozpoczynamy
+//	 OUTPUT(pin1);
+//	 LOW(pin1);
+//	 OUTPUT(pin2);
+//	 HIGH(pin2);
+//uint8_t a=kwadrat(2);
+	 DDRA=0xFF;
+	 DDRB=0xFF;
+	 DDRC=0xFF;
+	 DDRD=0xFF;
+//
+	 PORTA=0b11111111;
+	 PORTB=0b11111111; //cyfry i diody red
+	 PORTC=0b11111111;
+	 PORTD=0b11111111; //segmenty wyœwietlacza i diody
+
+_delay_ms(100);
+
+uint8_t pozc=1;
+while(1){ //pêtla nieskoñczona
+//	TOGGLE(pin1);
+//	TOGGLE(pin2);
+//
+
+
+
+
+
+		for (uint8_t a=0;a<8;a++){
+			for (uint8_t t=0;t<10;t++){
+//				SegA(1);_delay_ms(1000);SegA(0);_delay_ms(1000);
+//				SegB(1);_delay_ms(1000);SegB(0);_delay_ms(1000);
+//				SegC(1);_delay_ms(1000);SegC(0);_delay_ms(1000);
+//				SegD(1);_delay_ms(1000);SegD(0);_delay_ms(1000);
+//				SegE(1);_delay_ms(1000);SegE(0);_delay_ms(1000);
+//				SegF(1);_delay_ms(1000);SegF(0);_delay_ms(1000);
+//				SegG(1);_delay_ms(1000);SegG(0);_delay_ms(1000);
+
+
+				//DiG;
+				//PORTD=(~pgm_read_byte(&ZNAK_7SEG[t]))&251;
+//                pozc++;
+//                if (pozc>3) pozc=1;
+//                switch(pozc)
+//                {
+//                  case 1:
+//                  { Dig_1(0);Dig_2(1);Dig_3(1);
+//                  break;}
+//
+//                  case 2:
+//                  { Dig_1(1);Dig_2(0);Dig_3(1);
+//                  break;}
+//
+//                  case 3:
+//                  {  Dig_1(1);Dig_2(1);Dig_3(0);
+//                  break;}
+//                  default:
+//                  {/* Instrukcje - jeœli ¿aden z wczeœniejszych wariantów */}
+//                }
+
+				Dig_3(1);
+				Dig_2(1);
+                PORTD=(~pgm_read_byte(&ZNAK_7SEG[t]))&251;
+                _delay_ms(500);
+				//LEDE01(1-t%3);
+//LEDE03(1-t%2);
+//LEDE04(t%5);
+//LEDE05(t%4);
+//LEDE02(t%6);
+//LEDE06(t%7);
+//
+				//PORTB=~_BV(t);
+
+			}
+
+		}
+
+//		PORTA=~PORTA;
+//		PORTB=~PORTB;
+////		PORTC=~PORTC;
+//		PORTD=~PORTD;
+
+
+
+
+
+	}
+}

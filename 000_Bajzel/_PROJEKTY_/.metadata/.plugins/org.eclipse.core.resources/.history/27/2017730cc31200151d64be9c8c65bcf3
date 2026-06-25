@@ -1,0 +1,52 @@
+/*
+ * 09_ATMEGA163L main.c
+ *
+ *  Stworzono: 2015 14 cze 2015
+ *      Autor: D¹browski Tomasz
+ *     Edycja: 19:39:04
+ */
+
+
+
+#include <inttypes.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <avr/sleep.h>
+#include <util/delay.h>
+#include <stdio.h>
+//#include "HD44780.h"
+//#include "SPI.h"
+#define P_ON(prt,pin) (PORT##prt) |= (1<<(P##prt##pin))
+#define P_OFF(prt,pin) (PORT##prt) &= ~(1<<(P##prt##pin))
+#define P_SW(prt,pin) (PORT##prt) ^= (1<<(P##prt##pin))
+#define P_ST(prt,pin) (PORT##prt) & (1<<(P##prt##pin))
+
+//#define F_CPU 8000000 //ustawienie oscylatora na 8MHz
+
+
+int main(void) { //rozpoczynamy
+
+//DDRA=255;
+//DDRB=255; //3diody srodkowe prawe panel boczny
+//DDRC=255;
+DDRD=255;
+
+//PORTA=255;
+//PORTB=255;
+//PORTC=255;
+PORTD=0xF0;
+
+
+
+	while(1){ //pêtla nieskoñczona
+//	PORTA=~PORTA;
+//	PORTB=~PORTB;
+//	PORTC=~PORTC;
+    PORTD=~PORTD;
+
+	_delay_ms(200);
+
+
+
+	}
+}

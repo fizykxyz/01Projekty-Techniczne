@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move &apos;multids.c&apos; to &apos;02_ATMEGA32L_LCD&apos;" description="Move &apos;multids.c&apos; to &apos;02_ATMEGA32L_LCD&apos;" destination="/02_ATMEGA32L_LCD" element1="CRC8/multids.c" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1417043785417" updateReferences="true"/>
+</session>

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;08_M32_WIRE1/ADDS&apos;" deleteContents="false" description="Delete resource &apos;08_M32_WIRE1/ADDS&apos;" element1="/08_M32_WIRE1/ADDS" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1442771217361"/>&#x0A;<refactoring comment="Delete resource &apos;08_M32_WIRE1/PCD8544&apos;" deleteContents="false" description="Delete resource &apos;08_M32_WIRE1/PCD8544&apos;" element1="/08_M32_WIRE1/PCD8544" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1442771221432"/>
+</session>

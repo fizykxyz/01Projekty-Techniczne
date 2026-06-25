@@ -1,0 +1,23 @@
+
+
+
+#include <avr/io.h>
+#include <util/delay.h>
+
+#define kw(n) (n*n)
+
+uint8_t nr=5;
+uint8_t wyn=0;
+
+int main()
+{
+	DDRB=0xFF;
+	while(1){
+
+    wyn=kw(nr);
+
+	PORTB^=0xF0;
+	_delay_ms(500);
+
+	}
+}

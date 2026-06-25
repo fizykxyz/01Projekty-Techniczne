@@ -1,0 +1,80 @@
+/*
+ * main.c
+ *
+ *  Created on: 26 lis 2014
+ *      Author: Tomek
+ */
+
+#include <avr/io.h>
+#include <util/delay.h>
+#include <util/atomic.h>
+#include <stdbool.h>
+
+#define GLUE(a, b) a##b
+#define SET_(what, p, m) GLUE(what, p) |= (1 << (m))
+#define CLR_(what, p, m) GLUE(what, p) &= ~(1 << (m))
+#define GET_(/* PIN, */ p, m) GLUE(PIN, p) & (1 << (m))
+#define SET(what, x) SET_(what, x)
+#define CLR(what, x) CLR_(what, x)
+#define GET(/* PIN, */ x) ((GET_(x)==1) ? 1:0)
+
+/*makra operuj¹ce na bajtach*/
+#define DATA(what, b) GLUE(what, b)
+
+#define OW_PIN A, 1
+
+void OW_init()
+{
+CLR(DDR, OW_PIN);
+CLR(PORT, OW_PIN);
+}
+
+void OW_ResetPulse()
+{
+SET(DDR, OW_PIN);
+_delay_us(480);
+CLR(DDR, OW_PIN);
+}
+
+bool OW_WaitForPresencePulse()
+{
+ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+{
+OW_ResetPulse();
+_delay_us(30);
+unsigned char counter=0;
+while((counter<0xFF) && ((GET(OW_PIN)))
+{
+_delay_us(1);
+counter++;
+}
+if(counter==0xFF)
+{
+Error=OW_NoPresencePulse;
+return false;
+}
+counter=0;
+while((counter<0xFF) && (GET(OW_PIN)==0))
+{
+_delay_us(2);
+counter++;
+}
+if(counter==0xFF)
+{
+Error=OW_BusShorted;
+return false;
+}
+Error=OW_OK;
+return true;
+}
+}
+
+
+int main(void){
+
+
+	while(1){
+
+	}
+
+}

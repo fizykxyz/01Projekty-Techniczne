@@ -1,0 +1,15 @@
+
+
+
+#include <avr/io.h>
+#include <util/delay.h>
+
+
+DDRB=0xFF;
+
+int main()
+{
+	PORTB^=0xF0;
+	_delay_ms(500);
+
+	}

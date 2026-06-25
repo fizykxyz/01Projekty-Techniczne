@@ -1,0 +1,105 @@
+/*
+ * 00_XYZ_AVRLIBS t6963.h
+ *
+ *	    Autor: D¹browski Tomasz 
+ *  Stworzono: 2016-09-06   
+ *     Edycja: 12:37:53
+ */
+
+#ifndef T6963_T6963_H_
+#define T6963_T6963_H_
+
+#include "../ADDS/pins.h"
+#include "../ADDS/tools.h"
+#include "t6963cfg.h"
+
+// display properties
+#define GLCD_NUMBER_OF_LINES				128
+#define GLCD_PIXELS_PER_LINE				240
+#define GLCD_FONT_WIDTH						8
+//
+#define GLCD_GRAPHIC_AREA					(GLCD_PIXELS_PER_LINE / GLCD_FONT_WIDTH)
+#define GLCD_TEXT_AREA						(GLCD_PIXELS_PER_LINE / GLCD_FONT_WIDTH)
+#define GLCD_GRAPHIC_SIZE					(GLCD_GRAPHIC_AREA * GLCD_NUMBER_OF_LINES)
+#define GLCD_TEXT_SIZE						(GLCD_TEXT_AREA * (GLCD_NUMBER_OF_LINES/8))
+
+
+#define GLCD_TEXT_HOME						0
+#define GLCD_GRAPHIC_HOME					(GLCD_TEXT_HOME + GLCD_TEXT_SIZE)
+#define GLCD_OFFSET_REGISTER				2
+#define GLCD_EXTERNAL_CG_HOME				(GLCD_OFFSET_REGISTER << 11)
+
+
+#define T6963_SET_CURSOR_POINTER			0x21
+#define T6963_SET_OFFSET_REGISTER			0x22
+#define T6963_SET_ADDRESS_POINTER			0x24
+
+#define T6963_SET_TEXT_HOME_ADDRESS			0x40
+#define T6963_SET_TEXT_AREA					0x41
+#define T6963_SET_GRAPHIC_HOME_ADDRESS		0x42
+#define T6963_SET_GRAPHIC_AREA				0x43
+
+#define T6963_MODE_SET						0x80
+
+
+#define T6963_DISPLAY_MODE					0x90
+	#define T6963_CURSOR_BLINK_ON			0x01
+	#define T6963_CURSOR_DISPLAY_ON			0x02
+	#define T6963_TEXT_DISPLAY_ON			0x04
+	#define T6963_GRAPHIC_DISPLAY_ON		0x08
+
+
+#define T6963_CURSOR_PATTERN_SELECT			0xA0
+	#define T6963_CURSOR_1_LINE				0x00
+	#define T6963_CURSOR_2_LINE				0x01
+	#define T6963_CURSOR_3_LINE				0x02
+	#define T6963_CURSOR_4_LINE				0x03
+	#define T6963_CURSOR_5_LINE				0x04
+	#define T6963_CURSOR_6_LINE				0x05
+	#define T6963_CURSOR_7_LINE				0x06
+	#define T6963_CURSOR_8_LINE				0x07
+
+#define T6963_SET_DATA_AUTO_WRITE			0xB0
+#define T6963_SET_DATA_AUTO_READ			0xB1
+#define T6963_AUTO_RESET					0xB2
+
+#define T6963_DATA_WRITE_AND_INCREMENT		0xC0
+#define T6963_DATA_READ_AND_INCREMENT		0xC1
+#define T6963_DATA_WRITE_AND_DECREMENT		0xC2
+#define T6963_DATA_READ_AND_DECREMENT		0xC3
+#define T6963_DATA_WRITE_AND_NONVARIALBE	0xC4
+#define T6963_DATA_READ_AND_NONVARIABLE		0xC5
+
+#define T6963_SCREEN_PEEK					0xE0
+#define T6963_SCREEN_COPY					0xE8
+
+#define T6963_COM 0 //komendy
+#define T6963_DAT 1 //dane
+
+
+
+void T6963_NR(uint8_t NR, TT6963 *LCD );
+void T6963_DELAY(void);
+void _T6963_BUSOUTPUT();
+void _T6963_BUSINPUT();
+void _T6963_INITALIZEINTERFACE(void);
+void T6963_INIT();
+uint8_t _T6963_READ();
+uint8_t T6963_CHCECKSTATUS(void);
+void _T6963_W8BIT(uint8_t DC, uint8_t OCTET);
+uint8_t _T6963_R8BIT();
+void T6963_WRITEDISPLAY(uint8_t OCTET);
+void _T6963_SETADDRESS (uint16_t ADDRESS);
+void T6963_CLR();
+void T6963_CLRGEN();
+void T6963_CHAR(uint8_t CHAR);
+void T6963_TEXT(char *TEXT);
+void T6963_XY8(uint8_t PX, uint8_t PY8);
+
+void T6963_GFXCLR();
+void T6963_GFXPXY(uint8_t x, uint8_t y);
+void T6963_GFX2LCD(uint8_t IMG[], uint8_t X, uint8_t Y, uint8_t WIDTH, uint8_t HEIGHT);
+void T6963_CUSTOMCHAR(uint8_t charCode, uint8_t * defChar);
+void T6963_GFXPIXEL(uint8_t x, uint8_t y, uint8_t color);
+
+#endif /* T6963_T6963_H_ */

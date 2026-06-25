@@ -1,0 +1,4 @@
+#Sun Nov 23 23:25:50 CET 2014
+__DEFAULT__=false
+org.eclipse.help.ui.localSearch.master=true
+expression=enable folding

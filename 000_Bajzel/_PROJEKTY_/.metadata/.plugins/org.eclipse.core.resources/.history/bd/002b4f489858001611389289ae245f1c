@@ -1,0 +1,93 @@
+/*
+ * 01_ARRAY_PINS main.c
+ *
+ *	    Autor: D¹browski Tomasz
+ *  Stworzono: 2016-08-01
+ *     Edycja: 08:28:46
+ */
+
+
+
+#include <avr/io.h>
+#include <util/delay.h>
+
+
+
+// *********************** PRZYGOTOWANIE TABLICOWEGO DOSTÊPU DO PINÓW *********************
+
+//definicje portów umo¿liwiaj¹ce dzia³anie w formie numerycznej np.PORT(0)=PORT(PD)=PORTD
+#define PORTS 4
+#define PA 0
+#define PB 1
+#define PC 2
+#define PD 3
+
+volatile uint8_t *myports[] = { &PORTA, &PORTB, &PORTC, &PORTD };
+
+
+#define _DDR(x) _SFR_IO8(_SFR_IO_ADDR(*(myports[x]))-1) // adr. r. kier. DDRx
+#define _PORT(x) _SFR_IO8(_SFR_IO_ADDR(*(myports[x]))) // adr. r. wyj. PORTx
+#define _PIN(x) _SFR_IO8(_SFR_IO_ADDR(*(myports[x]))-2) // adr. r. wej. PINx
+#define DDR(p) _DDR(p)
+#define PORT(p) _PORT(p)
+#define PIN(p) _PIN(p)
+
+
+//makro zmiany opisu Px,y np PD,5 na BAJT w formacie xxxxxyyy czyli port 0-31, pin 0-7 i vice-versa
+#define W2B(port,pin) (((port)<<3)|((pin)&0x07))
+#define B2P(bajt) ((bajt)>>3) //bajt to port
+#define B2B(bajt) ((bajt)&(0x07)) //bajt to bity
+
+//makra obs³ugi pinów w formacie LOW_A(W2B(PA,3))
+#define OUTPUT_A(pin)            (DDR(B2P(pin))  |= (1 << (B2B(pin))))
+#define INPUT_A(pin)            (DDR(B2P(pin))  &= ~ (1 << (B2B(pin))))
+#define HIGH_A(pin)            (PORT(B2P(pin))  |= (1 << (B2B(pin))))
+#define LOW_A(pin)            (PORT(B2P(pin))  &= ~ (1 << (B2B(pin))))
+#define TOGGLE_A(pin)          (PORT(B2P(pin)) ^= (1 << (B2B(pin))))
+#define READ_A(pin)            ((PIN(B2P(pin)) >> (B2B(pin))) &  1)
+
+//*************************** MO¯NA WYODRÊBNIÆ DO PLIKU NAG£ÓWKOWEGO ************
+
+
+//************************** PROGRAM W£AŒCIWY - WYKORZYSTANIE ******************
+
+//definicja przez tablicê
+uint8_t diody[] = { W2B(PA,0), W2B(PA,1), W2B(PA,2),  W2B(PA,3), W2B(PA,4), W2B(PA,5),  W2B(PA,6), W2B(PA,7),
+					W2B(PB,0), W2B(PB,1), W2B(PB,2),  W2B(PB,3), W2B(PB,4), W2B(PB,5),  W2B(PB,6), W2B(PB,7),
+					W2B(PC,0), W2B(PC,1), W2B(PC,2),  W2B(PC,3), W2B(PC,4), W2B(PC,5),  W2B(PC,6), W2B(PC,7),
+					W2B(PD,0), W2B(PD,1), W2B(PD,2),  W2B(PD,3), W2B(PD,4), W2B(PD,5),  W2B(PD,6), W2B(PD,7)};
+
+
+uint8_t nrLed;
+#define T_LEDON 200
+#define T_LEDOFF 5
+//zwyk³a definicja pinu
+#define blinkLed W2B(PD,7)
+
+
+int main(void)  //rozpoczynamy
+{
+
+	for(nrLed=0;nrLed<sizeof(diody);nrLed++) //ustawiamy nó¿nki AVR na wyjœcia
+	{
+		OUTPUT_A(diody[nrLed]);
+
+	}
+
+	while(1) //pêtla nieskoñczona
+	{
+
+		for(nrLed=0;nrLed<sizeof(diody);nrLed++)  //zapalamy i gasimy kolejne diody od w tablicy
+			{
+				HIGH_A(diody[nrLed]);
+				_delay_ms(T_LEDON);
+				LOW_A(diody[nrLed]);
+				_delay_ms(T_LEDOFF);
+				 TOGGLE_A(blinkLed); //migaj¹ca podstawa litery L
+			}
+
+
+	}
+}
+
+
