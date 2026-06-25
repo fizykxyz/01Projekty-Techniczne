@@ -1,0 +1,9 @@
+/000_Bajzel/
+.vscode/
+Thumbs.db
+*.log
+.pio/
+.piolibdeps/
+build/
+__pycache__/
+*.pyc
